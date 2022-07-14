@@ -1,0 +1,341 @@
+
+/* Metis Menu */
+
+.metismenu {
+
+	li.disabled {
+		opacity: .3;
+		pointer-events: none;
+	}
+
+	> li {
+		position: relative;
+
+		a {
+			color: #dcdcdc;
+			padding: 11px 30px;
+		}
+
+		a:hover, a:focus, a:active {
+			color: var(--color-asemar-cyan);
+		}
+
+		&.header {
+			color: #a9a9a9;
+			font-size: 12px;
+			font-weight: 500;
+			letter-spacing: 0.5px;
+			padding: 11px 30px;
+		}
+
+		&:not(.header) {
+			border-bottom: .05rem solid #4f4d4d;
+		}
+
+		i {
+			right: inherit;
+		}
+
+		span {
+			font-size: 16px;
+			font-weight: 500;
+			padding-left: 2.3rem;
+		}
+	}
+
+	ul {
+
+		a::before {
+			top: 20px;
+			background-color: var(--color-asemar-white);
+		}
+
+		.active a::before {
+			background-color: var(--color-asemar-cyan);
+		}
+	}
+
+	li.active {
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0.25rem;
+			height: 100%;
+			background-color: var(--color-asemar-cyan);
+		}
+
+		i, span {
+			color: var(--color-asemar-cyan);
+		}
+	}
+}
+
+/* DataTables */
+
+.dataTables_wrapper {
+	margin-bottom: 1rem;
+}
+
+table.dataTable {
+
+	& tbody td {
+		padding: 10px;
+	}
+
+	& thead {
+
+		& .sorting {
+			background-image: url('/assets/images/dt/sort_both.png');
+		}
+
+		& .sorting_asc {
+			background-image: url('/assets/images/dt/sort_asc.png') !important;
+		}
+
+		& .sorting_desc {
+			background-image: url('/assets/images/dt/sort_desc.png') !important;
+		}
+	}
+
+	&.no-footer {
+		border-bottom: 1px solid var(--color-asemar-navy);
+	}
+
+	& thead th,
+	& thead td {
+		color: var(--color-asemar-navy);
+		border-bottom: 1px solid var(--color-asemar-navy);
+	}
+
+	& tbody tr:not(:last-child) td {
+		border-bottom: 1px solid var(--color-asemar-formgray);
+	}
+
+	& tbody tr.highlight {
+		background-color: var(--color-asemar-cyan-40)!important;
+	}
+}
+
+.dataTables_wrapper .dataTables_filters {
+
+}
+
+.dataTables_wrapper .dataTables_search,
+.dataTables_wrapper .dataTables_filter_select {
+	position: relative;
+
+	.icon {
+		position: absolute;
+		top: .6rem;
+		left: .5rem;
+	}
+}
+
+.dataTables_wrapper .dataTables_filter_input {
+
+	input {
+		height: 2.33rem;
+		background-color: var(--color-asemar-white);
+		padding: 0 .6rem;
+		border: 1px solid var(--color-asemar-formgray);
+		border-radius: 5px;
+		margin-left: 0;
+
+		&:hover, &:focus, &:active {
+			outline: none;
+			box-shadow: none;
+		}
+
+		&:focus, &:active {
+			border-color: var(--color-asemar-navy);
+		}
+	}
+}
+
+.dataTables_wrapper .dataTables_filter {
+
+	input {
+		width: 18rem;
+		height: 2.33rem;
+		background-color: var(--color-asemar-white);
+		padding-left: 1.9rem;
+		border: 1px solid var(--color-asemar-formgray);
+		border-radius: 5px;
+		margin-left: 0;
+
+		&:hover, &:focus, &:active {
+			outline: none;
+			box-shadow: none;
+		}
+
+		&:focus, &:active {
+			border-color: var(--color-asemar-navy);
+		}
+	}
+}
+
+.dataTables_wrapper .dataTables_filter_select {
+	color: var(--color-asemar-gray);
+
+	select {
+		height: 2.33rem;
+		background-color: var(--color-asemar-white);
+		padding-left: 1.9rem;
+		border: 1px solid var(--color-asemar-formgray);
+		border-radius: 5px;
+		margin-right: 0.5rem;
+		margin-left: 0.5rem;
+
+		&:hover, &:focus, &:active {
+			outline: none;
+			box-shadow: none;
+		}
+
+		&:focus, &:active {
+			border-color: var(--color-asemar-navy);
+		}
+	}
+}
+
+.dataTables_wrapper .dataTables_length {
+	color: var(--color-asemar-gray);
+
+	select {
+		height: 2.33rem;
+		background-color: var(--color-asemar-white);
+		border: 1px solid var(--color-asemar-formgray);
+		border-radius: 5px;
+		margin-right: 0.5rem;
+		margin-left: 0.5rem;
+
+		&:hover, &:focus, &:active {
+			outline: none;
+			box-shadow: none;
+		}
+
+		&:focus, &:active {
+			border-color: var(--color-asemar-navy);
+		}
+	}
+}
+
+.dataTables_wrapper .dataTables_filter_tabs {
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid var(--color-asemar-formgray);
+	margin-bottom: 1rem;
+
+	& .dataTables_filterButton {
+		color: var(--color-asemar-gray);
+		padding: 11px 13px 9px 13px;
+		border-bottom: 3px solid transparent;
+		margin-right: 13px;
+		cursor: pointer;
+		-webkit-transition: all 200ms ease-in-out;
+		-moz-transition: all 200ms ease-in-out;
+		-ms-transition: all 200ms ease-in-out;
+		-o-transition: all 200ms ease-in-out;
+		transition: all 200ms ease-in-out;
+
+		&:hover, &:focus, &:active {
+			color: var(--color-asemar-navy);
+		}
+
+		&.active {
+			color: var(--color-asemar-navy);
+			border-bottom-color: var(--color-asemar-cyan);
+		}
+	}
+}
+
+.dataTables_wrapper .dataTables_info {
+	color: var(--color-asemar-gray);
+	padding-top: 1.5rem;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+	padding-top: 1.1rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	width: 36px;
+	height: 36px;
+	font-size: 16px;
+	text-align: center;
+	color: var(--color-asemar-cyan) !important;
+	background: transparent;
+	background-color: transparent;
+	padding: 6px;
+	border: 1px solid var(--color-asemar-cyan);
+	border-radius: 5px;
+	box-shadow: none;
+	margin-left: 2px;
+	cursor: pointer;
+
+	&:hover, &:focus, &:active {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	color: var(--color-asemar-white) !important;
+	background: var(--color-asemar-cyan);
+	background-color: var(--color-asemar-cyan);
+	border: 1px solid var(--color-asemar-cyan);
+}
+
+.dataTable thead.filters {
+
+	th {
+		padding: 10px 8px;
+
+		& input {
+			height: 2.33rem;
+			background-color: var(--color-asemar-white);
+			padding: 0 .6rem;
+			border: 1px solid var(--color-asemar-formgray);
+			border-radius: 5px;
+			margin-left: 0;
+
+			&:hover, &:focus, &:active {
+				outline: none;
+				box-shadow: none;
+			}
+
+			&:focus, &:active {
+				border-color: var(--color-asemar-navy);
+			}
+		}
+	}
+}
+
+/* ngx-toastr */
+
+#toast-container {
+	& .toast-success { background-color: var(--color-asemar-green); }
+	& .toast-info { background-color: var(--color-asemar-cyan); }
+	& .toast-warning {  }
+	& .toast-error { background-color: var(--color-asemar-red); }
+
+	& .toast-close-button {
+		position: absolute;
+		top: calc(50% - 1.1rem);
+		right: 1rem;
+		color: var(--color-asemar-darkgray)!important;
+		font-size: 1.5rem;
+		opacity: .5;
+	}
+}
+
+.toast-container .ngx-toastr {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	border-radius: 8px;
+}

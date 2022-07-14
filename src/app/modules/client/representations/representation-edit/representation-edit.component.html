@@ -1,0 +1,221 @@
+
+<div class="modal-header">
+	<h5 class="modal-title text-black">{{ modalTitle }}</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+		(click)="close.emit()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div class="modal-body">
+	<form [formGroup]="form" *ngIf="form">
+
+		<input type="hidden" formControlName="id">
+
+		<div *ngIf="!userId" class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Usuario de la representación *</label>
+				<div class="input-group">
+					<select class="form-control"
+						formControlName="user_id"
+						[ngClass]="{ 'invalid': errors('user_id') }"
+						placeholder="Usuario de la representación">
+						<option *ngFor="let user of users" value="{{ user.id }}">
+							{{ user.firstname }} {{ user.lastname }}
+						</option>
+					</select>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('user_id', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+
+		<h6 class="form-title text-uppercase">Datos Personales</h6>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Alias *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="alias"
+						[ngClass]="{ 'invalid': errors('alias') }"
+						placeholder="Alias">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('alias', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Tipo de representación *</label>
+				<div class="input-group">
+					<select class="form-control"
+						formControlName="representation_type_id"
+						[ngClass]="{ 'invalid': errors('representation_type_id') }"
+						placeholder="Tipo de representación">
+						<option *ngFor="let type of types" value="{{ type.id }}">
+							{{ type.name }}
+						</option>
+					</select>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('representation_type_id', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Nombre *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="firstname"
+						[ngClass]="{ 'invalid': errors('firstname') }"
+						placeholder="Nombre">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('firstname', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Apellidos *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="lastname"
+						[ngClass]="{ 'invalid': errors('lastname') }"
+						placeholder="Apellidos">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('lastname', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>NIF / CIF *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="document_number"
+						[ngClass]="{ 'invalid': errors('document_number') }"
+						placeholder="NIF / CIF">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('document_number', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Documento NIF / CIF</label>
+				<div class="input-group">
+					<input type="file" class="form-control"
+						[ngClass]="{ 'invalid': errors('file') }"
+						accept=".jpg, .jpeg, .png, .pdf"
+						(change)="uploadDocumentFile($event)">
+					<br>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('file', 'required')">Requerido</div>
+				</div>
+				<a *ngIf="representation?.document?.path" class="form-control-upper-right text-cyan small pointer"
+					[href]="representation?.document?.path" target="_blank">
+					<i class="fa fa-id-card mr-2"></i>
+					<span>Ver documento actual</span>
+				</a>
+			</div>
+		</div>
+
+		<h6 class="form-title text-uppercase">Dirección</h6>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<div class="form-checkbox">
+					<input type="checkbox"
+						formControlName="use_user_address"
+						id="use_user_address">
+					<label for="use_user_address">Usar la misma dirección del usuario</label>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="!form.get('use_user_address').value" class="row vivify fadeIn">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Dirección completa *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="address"
+						[ngClass]="{ 'invalid': errors('address') }"
+						placeholder="Dirección completa">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('address', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="!form.get('use_user_address').value" class="row vivify fadeIn">
+			<div class="form-group c_form_group mb-3 col-lg-3">
+				<label>Código Postal *</label>
+				<div class="input-group">
+					<input type="text" class="form-control" maxlength="10"
+						formControlName="cp"
+						[ngClass]="{ 'invalid': errors('cp') }"
+						placeholder="Código Postal">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('cp', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-3">
+				<label>Localidad *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="city"
+						[ngClass]="{ 'invalid': errors('city') }"
+						placeholder="Localidad">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('city', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-3">
+				<label>Provincia *</label>
+				<div class="input-group">
+					<select class="form-control"
+						formControlName="province_id"
+						[ngClass]="{ 'invalid': errors('province_id') }">
+						<option *ngFor="let province of provinces" value="{{ province.id }}">
+							{{ province.name }}
+						</option>
+					</select>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('province_id', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-3">
+				<label>País *</label>
+				<div class="input-group">
+					<select class="form-control"
+						formControlName="country_id"
+						[ngClass]="{ 'invalid': errors('country_id') }">
+						<option *ngFor="let country of countries" value="{{ country.id }}">
+							{{ country.name }}
+						</option>
+					</select>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('country_id', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3" data-dismiss="modal"
+		(click)="close.emit()">Cancelar</button>
+	<button type="button" class="btn btn-submit btn-rounded btn-cyan"
+		(click)="saveRepresentation()">Guardar</button>
+</div>

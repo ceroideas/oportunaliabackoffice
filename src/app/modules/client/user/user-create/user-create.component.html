@@ -1,0 +1,276 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header">
+		<div>
+			<a [routerLink]="['/users']">
+				<span>Usuarios</span>
+			</a>
+			<span class="mx-2">/</span>
+			<span>Nuevo</span>
+		</div>
+		<h1 class="main-content-title">Nuevo Usuario</h1>
+	</div>
+
+	<!-- Form -->
+
+	<div class="container-fluid">
+		<div class="block-content">
+			<form [formGroup]="form" *ngIf="form" autocomplete="false">
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Nombre de usuario *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="username"
+								[ngClass]="{ 'invalid': errors('username') }"
+								placeholder="Nombre de usuario">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('username', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Rol de usuario *</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="role_id"
+								[ngClass]="{ 'invalid': errors('role_id') }"
+								placeholder="Rol de usuario">
+								<option *ngFor="let role of roles" value="{{ role.id }}">
+									{{ role.description }}
+								</option>
+							</select>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('role_id', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Nombre *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="firstname"
+								[ngClass]="{ 'invalid': errors('firstname') }"
+								placeholder="Nombre">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('firstname', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Apellidos *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="lastname"
+								[ngClass]="{ 'invalid': errors('lastname') }"
+								placeholder="Apellidos">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('lastname', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>NIF / CIF *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="document_number"
+								[ngClass]="{ 'invalid': errors('document_number') }"
+								placeholder="NIF / CIF">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('document_number', 'required')">Requerido</div>
+							<div *ngIf="errors('document_number', 'format')">El formato no es correcto</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Documento NIF / CIF</label>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".jpg, .jpeg, .png, .pdf"
+								formControlName="document"
+								(change)="uploadDocumentFile($event)">
+							<br>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Email</label>
+						<div class="input-group">
+							<input type="text" class="form-control" email
+								formControlName="email"
+								[ngClass]="{ 'invalid': errors('email') }"
+								placeholder="Email">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('email', 'email')">Tiene que tener formato de email</div>
+							<div *ngIf="errors('email', 'required')">Requerido</div>
+							<div *ngIf="errors('email', 'unique')">Ese email ya está en uso</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Nº de teléfono *</label>
+						<div class="input-group">
+							<input type="text" class="form-control" maxlength="20"
+								formControlName="phone"
+								[ngClass]="{ 'invalid': errors('phone') }"
+								placeholder="Nº de teléfono">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('phone', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Fecha de nacimiento *</label>
+						<div class="input-group">
+							<input type="date" class="form-control"
+								formControlName="birthdate"
+								[ngClass]="{ 'invalid': errors('birthdate') }"
+								placeholder="Fecha de nacimiento">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('birthdate', 'required')">Requerido</div>
+							<div *ngIf="errors('birthdate', 'before')">El usuario debe ser mayor de edad</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Contraseña *</label>
+						<div class="input-group">
+							<input type="password" class="form-control"
+								formControlName="password"
+								[ngClass]="{ 'invalid': errors('password') }"
+								id="new-password" name="new-password" autocomplete="new-password"
+								placeholder="Contraseña">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('password', 'required')">Requerido</div>
+							<div *ngIf="errors('password', 'min')">Tiene que tener como mínimo 8 caracteres</div>
+							<div *ngIf="errors('password', 'case')">Debe contener una letra minúscula y una letra mayúscula</div>
+							<div *ngIf="errors('password', 'letter')">Debe contener una letra</div>
+							<div *ngIf="errors('password', 'symbol')">Debe contener un símbolo</div>
+							<div *ngIf="errors('password', 'number')">Debe contener un número</div>
+							<div *ngIf="errors('password', 'confirmed')">La repetición de contraseña no coincide</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Repetir contraseña *</label>
+						<div class="input-group">
+							<input type="password" class="form-control"
+								formControlName="password_confirmation"
+								[ngClass]="{ 'invalid': errors('password_confirmation') }"
+								id="confirm-password" name="confirm-password" autocomplete="confirm-password"
+								placeholder="Repetir contraseña">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('password_confirmation', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+
+				<h6 class="form-title text-uppercase">Dirección</h6>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Dirección completa *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="address"
+								[ngClass]="{ 'invalid': errors('address') }"
+								placeholder="Dirección completa">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('address', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Código Postal *</label>
+						<div class="input-group">
+							<input type="text" class="form-control" maxlength="10"
+								formControlName="cp"
+								[ngClass]="{ 'invalid': errors('cp') }"
+								placeholder="Código Postal">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('cp', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Localidad *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="city"
+								[ngClass]="{ 'invalid': errors('city') }"
+								placeholder="Localidad">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('city', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Provincia *</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="province_id"
+								[ngClass]="{ 'invalid': errors('province_id') }">
+								<option *ngFor="let province of provinces" value="{{ province.id }}">
+									{{ province.name }}
+								</option>
+							</select>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('province_id', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>País *</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="country_id"
+								[ngClass]="{ 'invalid': errors('country_id') }">
+								<option *ngFor="let country of countries" value="{{ country.id }}">
+									{{ country.name }}
+								</option>
+							</select>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('country_id', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="block-footer">
+			<div class="row">
+				<div class="col-lg-6 d-flex flex-row justify-content-start">
+
+				</div>
+				<div class="col-lg-6 d-flex flex-row justify-content-end">
+					<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3"
+						[routerLink]="['/users']">Cancelar</button>
+					<button type="button" class="btn btn-submit btn-rounded btn-cyan"
+						(click)="saveUser()">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

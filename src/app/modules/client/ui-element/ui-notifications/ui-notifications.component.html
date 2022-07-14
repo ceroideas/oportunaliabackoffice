@@ -1,0 +1,88 @@
+<app-header></app-header>
+
+<div id="main-content">
+    <div class="container-fluid">
+        <!-- Page header section  -->
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <h1>Hi, Welcomeback!</h1>
+                    <span>JustDo Notifications Ui,</span>
+                </div>
+                <div class="col-lg-8 col-md-12 col-sm-12 text-lg-right">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row clealfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Popup Positions</h2>
+                    </div>
+                    <div class="body">
+                        <button type="button" (click)="showInfoToasterPosotion()"
+                            class="btn btn-sm btn-default btn-toastr mr-1">Bottom
+                            Right</button>
+                        <button type="button" class="btn btn-sm btn-default btn-toastr mr-1"
+                            (click)="showInfoToasterPosotion1()">Bottom Left</button>
+                        <button type="button" class="btn btn-sm btn-default btn-toastr mr-1"
+                            (click)="showInfoToasterPosotion2()">Top Left</button>
+                        <button type="button" class="btn btn-sm btn-default btn-toastr mr-1"
+                            (click)="showInfoToasterPosotion3()">Top Right</button>
+                        <button type="button" class="btn btn-sm btn-default btn-toastr mr-1"
+                            (click)="showInfoToasterPosotion4()">Top Full Width</button>
+                        <button type="button" class="btn btn-sm btn-default btn-toastr mr-1"
+                            (click)="showInfoToasterPosotion5()">Bottom Full Width</button>
+                        <button type="button" class="btn btn-sm btn-default btn-toastr mr-1"
+                            (click)="showInfoToasterPosotion6()">Top Center</button>
+                        <button type="button" class="btn btn-sm btn-default btn-toastr"
+                            (click)="showInfoToasterPosotion7()">Bottom Center</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clealfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Message Context</h2>
+                    </div>
+                    <div class="body">
+                        <button type="button" class="btn btn-primary theme-bg gradient btn-toastr mr-1"
+                            (click)="showMessageContext()">General Info</button>
+                        <button type="button" class="btn btn-success btn-toastr mr-1"
+                            (click)="showMessageContext1()">Success
+                            Info</button>
+                        <button type="button" class="btn btn-warning btn-toastr mr-1"
+                            (click)="showMessageContext2()">Warning
+                            Info</button>
+                        <button type="button" class="btn btn-danger btn-toastr" (click)="showMessageContext3()">Error
+                            Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row clealfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Callback Events</h2>
+                    </div>
+                    <div class="body">
+                        <button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback1"
+                            data-context="info" data-message="onShown and onHidden callback demo">onShown and
+                            onHidden</button>
+                        <button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback2"
+                            data-context="info" data-message="Please click me">onclick</button>
+                        <button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback3"
+                            data-context="info" data-message="Please click close button">onCloseClick</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

@@ -1,0 +1,151 @@
+
+<!-- Main left sidebar menu -->
+
+<div id="left-sidebar" class="sidebar">
+	<!-- <a href="javascript:void(0)" (click)="toggleMenu()" class="menu_toggle">
+		<i class="fa fa-angle-left"></i>
+	</a> -->
+
+	<div class="navbar-brand">
+		<a href="/"><img src="assets/images/asemar-logo.png" alt="Asemar"
+			class="img-fluid logo"></a>
+		<button type="button" (click)="cToggoleMenu()" class="btn-toggle-offcanvas btn btn-sm float-right"><i
+			class="fa fa-close"></i></button>
+	</div>
+
+	<div class="sidebar-scroll">
+
+		<!-- <div class="user-account">
+			<div class="user_div">
+				<img src="assets/images/user.png" class="user-photo" alt="User Profile Picture">
+			</div>
+			<div class="dropdown">
+				<span>Usuario</span>
+				<a href="javascript:void(0)" class="dropdown-toggle user-name" (click)="showDropDown()"
+				data-toggle="dropdown"></a>
+				<ul class="dropdown-menu dropdown-menu-right account vivify flipInY" id="drp">
+					&lt;!&ndash;
+					<li>
+						<a [routerLink]="['/pages/profile']" href="javascript:void(0)">
+							<i class="fa fa-user"></i>
+							<span>My Profile</span>
+						</a>
+					</li>
+					<li>
+						<a [routerLink]="['/app-inbox']" href="javascript:void(0)">
+							<i class="fa fa-envelope"></i>
+							<span>Messages</span>
+						</a>
+					</li>
+					<li>
+						<a [routerLink]="['/settings']" href="javascript:void(0)">
+							<i class="fa fa-gear"></i>
+							<span>Settings</span>
+						</a>
+					</li>
+					<li class="divider"></li>&ndash;&gt;
+					<li>
+						<a href="javascript:void(0)" (click)="logout()">
+							<i class="fa fa-power-off"></i>
+							<span>Logout</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div> -->
+
+		<nav id="left-sidebar-nav" class="sidebar-nav">
+			<ul id="main-menu" class="metismenu animation-li-delay">
+
+				<li class="header">Usuarios</li>
+
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/users']" href="javascript:void(0)">
+						<i class="fa fa-users"></i>
+						<span>Usuarios</span>
+					</a>
+				</li>
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/deposits']" href="javascript:void(0)">
+						<i class="fa fa-shopping-cart"></i>
+						<span>Depósitos</span>
+					</a>
+				</li>
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/representations']" href="javascript:void(0)">
+						<i class="fa fa-address-card"></i>
+						<span>Representaciones</span>
+					</a>
+				</li>
+
+				<li class="header">Activos</li>
+
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/assets']" href="javascript:void(0)">
+						<i class="fa fa-building"></i>
+						<span>Activos</span>
+					</a>
+				</li>
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/asset-categories']" href="javascript:void(0)">
+						<i class="fa fa-tag"></i>
+						<span>Categorías de Activos</span>
+					</a>
+				</li>
+
+				<li class="header">Subastas y ventas directas</li>
+
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/auctions']" href="javascript:void(0)">
+						<i class="fa fa-gavel"></i>
+						<span>Subastas</span>
+					</a>
+				</li>
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/direct-sellings']" href="javascript:void(0)">
+						<i class="fa fa-money-bill-wave-alt"></i>
+						<span>Venta directa</span>
+					</a>
+				</li>
+
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/membresia']" href="javascript:void(0)">
+						<i class="fa fa-users"></i>
+						<span>Membresía</span>
+					</a>
+				</li>
+
+				<li class="header">Comunicaciones</li>
+
+				<li>
+					<a (click)="isCollapsedCommunications = !isCollapsedCommunications"
+						[attr.aria-expanded]="!isCollapsedCommunications" aria-controls="collapseBasic" class="has-arrow">
+						<i class="fa fa-envelope"></i>
+						<span>Newsletter</span>
+					</a>
+
+					<ul id="collapseCommunication" [collapse]="isCollapsedCommunications" [isAnimated]="true">
+						<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+							<a [routerLink]="['/newsletters']" href="javascript:void(0)">
+								<span>Listado de newsletters</span>
+							</a>
+						</li>
+						<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+							<a [routerLink]="['/newsletter-templates']" href="javascript:void(0)">
+								<span>Plantillas</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/blog']" href="javascript:void(0)">
+						<i class="fa fa-rss"></i>
+						<span>Blog</span>
+					</a>
+				</li>
+
+			</ul>
+		</nav>
+	</div>
+</div>

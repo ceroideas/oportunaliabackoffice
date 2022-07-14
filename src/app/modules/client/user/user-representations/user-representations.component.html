@@ -1,0 +1,109 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header row">
+		<div class="col-lg-6 d-flex flex-row justify-content-start">
+			<div>
+				<div>
+					<a [routerLink]="['/users']"><span>Usuarios</span></a>
+					<span class="mx-2">/</span>
+					<span *ngIf="user">{{ user.firstname }}</span>
+				</div>
+				<h1 class="main-content-title"><span *ngIf="user">{{ user.firstname }} - </span>Representaciones</h1>
+			</div>
+		</div>
+		<div class="col-lg-6 d-flex flex-row justify-content-end">
+			<div *ngIf="user" style="font-size:.8rem">
+				<div>
+					<span class="text-black mr-2">Fecha de registro:</span>
+					<span>{{ createdAt }}</span>
+				</div>
+				<div [ngClass]="userStatusColor">
+					<i class="fa fa-circle small mr-2"></i>
+					<span>{{ userStatus }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Direct accesses -->
+
+	<div class="tab-box">
+		<a [routerLink]="['/users', userId, 'edit']" class="tab-button">Datos</a>
+		<a [routerLink]="['/users', userId, 'auctions']" class="tab-button">Subastas</a>
+		<a [routerLink]="['/users', userId, 'deposits']" class="tab-button">Depósitos</a>
+		<a [routerLink]="['/users', userId, 'direct-sellings']" class="tab-button">Venta Directa</a>
+		<a class="tab-button active">Representaciones</a>
+	</div>
+
+	<!-- DataTable -->
+
+	<div class="container-fluid">
+		<div class="block-content">
+			<div class="table-responsive">
+				<table id="usuario-representaciones" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Edition modal -->
+
+<ng-template #representationModal>
+	<app-representation-edit [representationId]="representationId" [userId]="userId" (close)="modalRef.hide()" (success)="modalRef.hide();reloadTable()">
+	</app-representation-edit>
+</ng-template>
+
+<!-- Validation modal -->
+
+<ng-template #confirmValidateModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Validar Poderes</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+			(click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Qué desea hacer con los poderes de esta representación de usuario?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="validateRepresentation(2)">No validar</button>
+		<button type="button" class="btn btn-rounded btn-green"
+			(click)="validateRepresentation(1)">Validar</button>
+	</div>
+</ng-template>
+
+<!-- Delete confirmation modal -->
+
+<ng-template #confirmModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Eliminar Representación de Usuario</h5>
+		<button type="button" (click)="modalRef.hide()" class="close" data-dismiss="modal"
+				aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Está seguro de querer eliminar permanentemente esta representación de usuario?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="deleteRepresentation()">Eliminar</button>
+	</div>
+</ng-template>

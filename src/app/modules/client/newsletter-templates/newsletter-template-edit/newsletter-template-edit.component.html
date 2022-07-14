@@ -1,0 +1,94 @@
+
+<div class="modal-header">
+	<h5 class="modal-title text-black">{{ modalTitle }}</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+		(click)="close.emit()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div class="modal-body">
+	<form [formGroup]="form" *ngIf="form">
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Nombre plantilla *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="name"
+						[ngClass]="{ 'invalid': errors('name') }"
+						placeholder="Título de la entrada">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('name', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-12">
+				<label>Asunto *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="subject"
+						[ngClass]="{ 'invalid': errors('subject') }"
+						placeholder="Asunto">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('subject', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Nombre remitente *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="sender"
+						[ngClass]="{ 'invalid': errors('sender') }"
+						placeholder="Nombre remitente">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('sender', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Email remitente *</label>
+				<div class="input-group">
+					<input type="text" class="form-control" email
+						formControlName="email"
+						[ngClass]="{ 'invalid': errors('email') }"
+						placeholder="Email remitente">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('email', 'email')">Tiene que tener formato de email</div>
+					<div *ngIf="errors('email', 'required')">Requerido</div>
+					<div *ngIf="errors('email', 'email')">Debe tener formato de email</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-12">
+				<label>Contenido *</label>
+				<div class="input-group">
+					<ckeditor [editor]="editor" [config]="ckOptions" class="w-100 text-black"
+						formControlName="content">
+					</ckeditor>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('content', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3" data-dismiss="modal"
+		(click)="close.emit()">Cancelar</button>
+	<button type="button" class="btn btn-submit btn-rounded btn-cyan"
+		(click)="saveNewsletterTemplate()">Guardar</button>
+</div>
+

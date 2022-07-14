@@ -1,0 +1,57 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header row">
+		<div class="col-lg-6 d-flex flex-row justify-content-start">
+			<div>
+				<div>
+					<a [routerLink]="['/auctions']"><span>Subastas</span></a>
+					<span class="mx-2">/</span>
+					<span *ngIf="auction">{{ auction.title }}</span>
+				</div>
+				<h1 class="main-content-title"><span *ngIf="auction">{{ auction.title }} - </span>Datos</h1>
+			</div>
+		</div>
+		<div class="col-lg-6 d-flex flex-row justify-content-end">
+			<button class="btn-table btn-navy"
+				title="Refrescar estado de subasta"
+				(click)="getAuction()">
+				<i class="fa fa-history"></i>
+			</button>
+			<div *ngIf="auction" style="font-size:.8rem">
+				<div>
+					<span class="text-black mr-2">Fecha de creación:</span>
+					<span>{{ createdAt }}</span>
+				</div>
+				<div [ngClass]="auctionStatusColor">
+					<i class="fa fa-circle small mr-2"></i>
+					<span>{{ auctionStatus }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Direct accesses -->
+
+	<div class="tab-box">
+		<a [routerLink]="['/auctions', auctionId, 'edit']" class="tab-button">Datos</a>
+		<a class="tab-button active">Usuarios</a>
+		<a [routerLink]="['/auctions', auctionId, 'deposits']" class="tab-button">Depósitos pendientes</a>
+	</div>
+
+	<!-- DataTable -->
+
+	<div class="container-fluid">
+		<div class="block-content">
+			<div class="table-responsive">
+				<table id="subasta-usuarios" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

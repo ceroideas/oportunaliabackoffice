@@ -1,0 +1,20 @@
+.progress {
+    overflow: hidden;
+    height: 20px;
+    margin-bottom: 20px;
+}
+::ng-deep .bg-warning{
+    background-color: #ff7321 !important;
+}
+::ng-deep .bg-success{
+    background-color: #82b440 !important;
+}
+::ng-deep .bg-danger{
+    background-color: #E15858 !important;
+}
+::ng-deep .progress.vertical {
+    width: 20px;
+    height: 100%;
+    float: left;
+    margin-right: 20px;
+}

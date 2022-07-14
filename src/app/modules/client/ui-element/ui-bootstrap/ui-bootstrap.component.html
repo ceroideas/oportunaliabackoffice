@@ -1,0 +1,510 @@
+<app-header></app-header>
+
+<div id="main-content">
+    <div class="container-fluid">
+
+        <!-- Page header section  -->
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <h1>Hi, Welcomeback!</h1>
+                    <span>JustDo Bootstrap Ui,</span>
+                </div>
+                <div class="col-lg-8 col-md-12 col-sm-12 text-lg-right">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Toggle Switch</h2>
+                    </div>
+                    <div class="body marginRight">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Labels</h2>
+                    </div>
+                    <div class="body">
+                        <p>We restyled the default options for labels and we added the filled class, that can be used in
+                            any combination.</p>
+                        <span class="badge badge-default">Default</span>
+                        <span class="badge badge-primary">Primary</span>
+                        <span class="badge badge-success">Success</span>
+                        <span class="badge badge-info">Info</span>
+                        <span class="badge badge-warning">Warning</span>
+                        <span class="badge badge-danger">Danger</span>
+                        <hr>
+                        <figure class="highlight">
+                            <pre><span class="tag">&lt;span</span><span class="pln"></span> <span class="atn">class</span><span class="pun">=</span><span class="atv">"badge badge-default"</span><span class="tag">&gt;</span><span class="pln">Default</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+</span><span class="tag">&lt;span</span><span class="pln"></span> <span class="atn">class</span><span class="pun">=</span><span class="atv">"badge badge-primary"</span><span class="tag">&gt;</span><span class="pln">Primary</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+</span><span class="tag">&lt;span</span><span class="pln"></span> <span class="atn">class</span><span class="pun">=</span><span class="atv">"badge badge-success"</span><span class="tag">&gt;</span><span class="pln">Success</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+</span><span class="tag">&lt;span</span><span class="pln"></span> <span class="atn">class</span><span class="pun">=</span><span class="atv">"badge badge-info"</span><span class="tag">&gt;</span><span class="pln">Info</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+</span><span class="tag">&lt;span</span><span class="pln"></span> <span class="atn">class</span><span class="pun">=</span><span class="atv">"badge badge-warning"</span><span class="tag">&gt;</span><span class="pln">Warning</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+</span><span class="tag">&lt;span</span><span class="pln"></span> <span class="atn">class</span><span class="pun">=</span><span class="atv">"badge badge-danger"</span><span class="tag">&gt;</span><span class="pln">Danger</span><span class="tag">&lt;/span&gt;</span></pre>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Accordion</h2>
+                    </div>
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12">
+
+                                <accordion [isAnimated]="true">
+                                    <accordion-group heading="Collapsible Group Item #1">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                        single-origin coffee nulla assumenda shoreditch et.
+                                    </accordion-group>
+                                    <accordion-group heading="Collapsible Group Item #2">
+                                        <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                            terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                                            skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                            single-origin coffee nulla assumenda shoreditch et.</p>
+                                    </accordion-group>
+                                    <accordion-group heading="Collapsible Group Item #3">
+                                        <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                            terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                                            skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                            single-origin coffee nulla assumenda shoreditch et.</p>
+                                    </accordion-group>
+
+                                </accordion>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body">
+                        <h6>Accordion Link</h6>
+                        <p>
+                            <a class="btn btn-primary theme-bg gradient btn-round text-white mr-1"
+                                (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                                aria-controls="collapseBasic">
+                                Link with href
+                            </a>
+                            <button type="button" class="btn btn-primary theme-bg gradient btn-round"
+                                (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                                aria-controls="collapseBasic"> Button with data-target
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+                            <div class="well well-lg card card-block card-header"> Anim pariatur cliche reprehenderit,
+                                enim eiusmod high life accusamus terry richardson ad
+                                squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                                sapiente
+                                ea proident.</div>
+                        </div>
+
+                    </div>
+
+                    <div class="body">
+                        <div>
+                            <h6>Multiple targets Accordion</h6>
+                            <p>
+                                <a class="btn btn-primary theme-bg gradient text-white mr-1"
+                                    (click)="ToggleFirstCollapsed = !ToggleFirstCollapsed"
+                                    [attr.aria-expanded]="!ToggleFirstCollapsed"
+                                    aria-controls="ToggleFirstCollapsed">Toggle first element</a>
+
+                                <button class="btn btn-primary theme-bg gradient mr-1"
+                                    (click)="ToggleSecondCollapsed = !ToggleSecondCollapsed"
+                                    [attr.aria-expanded]="!ToggleSecondCollapsed"
+                                    aria-controls="ToggleSecondCollapsed">Toggle second element</button>
+                                <button class="btn btn-primary theme-bg gradient" type="button"
+                                    (click)="ToggleBothCollapsed  = !ToggleBothCollapsed"
+                                    [attr.aria-expanded]="!ToggleBothCollapsed"
+                                    aria-controls="ToggleBothCollapsed">Toggle both
+                                    elements</button>
+                            </p>
+                            <div class="row clearfix">
+                                <div class="col">
+                                    <div class="collapse multi-collapse" id="ToggleFirstCollapsed"
+                                        [collapse]="ToggleFirstCollapsed" [isAnimated]="true">
+                                        <div class="card card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
+                                            anderson cred nesciunt sapiente ea proident.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="collapse multi-collapse" id="ToggleSecondCollapsed"
+                                        [collapse]="ToggleSecondCollapsed" [isAnimated]="true">
+                                        <div class="card card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
+                                            anderson cred nesciunt sapiente ea proident.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col">
+                                    <div class="collapse multi-collapse" id="ToggleBothCollapsed"
+                                        [collapse]="ToggleBothCollapsed" [isAnimated]="true">
+                                        <div class="card card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
+                                            anderson cred nesciunt sapiente ea proident.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="collapse multi-collapse" id="ToggleBothCollapsed"
+                                        [collapse]="ToggleBothCollapsed" [isAnimated]="true">
+                                        <div class="card card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
+                                            anderson cred nesciunt sapiente ea proident.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Accordion style two with backgorund</h2>
+                    </div>
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-12">
+                                <ul class="accordion2">
+                                    <li class="accordion-item"
+                                        (click)="accordionitemcollapse1  = !accordionitemcollapse1"
+                                        [attr.aria-expanded]="!accordionitemcollapse1"
+                                        aria-controls="accordionitemcollapse1"
+                                        [ngClass]="{'is-active': !accordionitemcollapse1, '': accordionitemcollapse1}">
+                                        <h3 class="accordion-thumb"><span>Lorem ipsum</span></h3>
+                                        <p class="accordion-panel" id="accordionitemcollapse1"
+                                            [collapse]="accordionitemcollapse1" [isAnimated]="true">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Placeat, quibusdam! Voluptate nobis, beatae
+                                            tempora praesentium, illum quis illo, maiores quod
+                                            similique placeat, saepe mollitia dolor officiis
+                                            aspernatur deleniti debitis commodi!
+                                        </p>
+                                    </li>
+
+                                    <li class="accordion-item"
+                                        (click)="accordionitemcollapse2  = !accordionitemcollapse2"
+                                        [attr.aria-expanded]="!accordionitemcollapse2"
+                                        aria-controls="accordionitemcollapse2"
+                                        [ngClass]="{'is-active': !accordionitemcollapse2, '': accordionitemcollapse2}">
+                                        <h3 class="accordion-thumb"><span>Dolor sit amet</span></h3>
+                                        <p class="accordion-panel" id="accordionitemcollapse2"
+                                            [collapse]="accordionitemcollapse2" [isAnimated]="true">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Placeat, quibusdam! Voluptate nobis, beatae
+                                            tempora praesentium, illum quis illo, maiores quod
+                                            similique placeat, saepe mollitia dolor officiis
+                                            aspernatur deleniti debitis commodi!
+                                        </p>
+                                    </li>
+                                    <li class="accordion-item"
+                                        (click)="accordionitemcollapse3  = !accordionitemcollapse3"
+                                        [attr.aria-expanded]="!accordionitemcollapse3"
+                                        aria-controls="accordionitemcollapse3"
+                                        [ngClass]="{'is-active': !accordionitemcollapse3, '': accordionitemcollapse3}">
+                                        <h3 class="accordion-thumb"><span>Consectetur adipisicing elit</span></h3>
+                                        <p class="accordion-panel" id="accordionitemcollapse3"
+                                            [collapse]="accordionitemcollapse3" [isAnimated]="true">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Reprehenderit quos, accusamus! Enim labore
+                                            totam dicta quibusdam? Eveniet quis asperiores
+                                            reprehenderit eaque atque in iure voluptate,
+                                            explicabo, placeat, id earum architecto!
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <ul class="accordion2">
+
+                                    <li class="accordion-item bg-blue text-light"
+                                        (click)="accordionitemcollapse4  = !accordionitemcollapse4"
+                                        [attr.aria-expanded]="!accordionitemcollapse4"
+                                        aria-controls="accordionitemcollapse4"
+                                        [ngClass]="{'is-active': !accordionitemcollapse4, '': accordionitemcollapse4}">
+                                        <h3 class="accordion-thumb"><span>Lorem ipsum</span></h3>
+                                        <p class="accordion-panel" id="accordionitemcollapse4"
+                                            [collapse]="accordionitemcollapse4" [isAnimated]="true">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Placeat, quibusdam! Voluptate nobis, beatae
+                                            tempora praesentium, illum quis illo, maiores quod
+                                            similique placeat, saepe mollitia dolor officiis
+                                            aspernatur deleniti debitis commodi!
+                                        </p>
+                                    </li>
+
+                                    <li class="accordion-item bg-pink text-light"
+                                        (click)="accordionitemcollapse5  = !accordionitemcollapse5"
+                                        [attr.aria-expanded]="!accordionitemcollapse5"
+                                        aria-controls="accordionitemcollapse5"
+                                        [ngClass]="{'is-active': !accordionitemcollapse5, '': accordionitemcollapse5}">
+                                        <h3 class="accordion-thumb"><span>Dolor sit amet</span></h3>
+                                        <p class="accordion-panel" id="accordionitemcollapse5"
+                                            [collapse]="accordionitemcollapse5" [isAnimated]="true">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Reprehenderit quos, accusamus! Enim labore totam
+                                            dicta quibusdam? Eveniet quis asperiores reprehenderit
+                                            eaque atque in iure voluptate, explicabo, placeat, id
+                                            earum architecto!
+                                        </p>
+                                    </li>
+
+                                    <li class="accordion-item bg-indigo text-light"
+                                        (click)="accordionitemcollapse6  = !accordionitemcollapse6"
+                                        [attr.aria-expanded]="!accordionitemcollapse6"
+                                        aria-controls="accordionitemcollapse6"
+                                        [ngClass]="{'is-active': !accordionitemcollapse6, '': accordionitemcollapse6}">
+                                        <h3 class="accordion-thumb"><span>Consectetur adipisicing elitt</span></h3>
+                                        <p class="accordion-panel" id="accordionitemcollapse6"
+                                            [collapse]="accordionitemcollapse6" [isAnimated]="true">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Reprehenderit quos, accusamus! Enim labore
+                                            totam dicta quibusdam? Eveniet quis asperiores
+                                            reprehenderit eaque atque in iure voluptate,
+                                            explicabo, placeat, id earum architecto!
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Pagination</h2>
+                    </div>
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-12">
+                                <h6>Default</h6>
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link"
+                                                href="javascript:void(0);">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                <h6>Working with icons</h6>
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:void(0);" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:void(0);" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                <h6>Disabled and active states</h6>
+                                <nav aria-label="...">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="javascript:void(0);" tabindex="-1">Previous</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+                                        <li class="page-item active">
+                                            <a class="page-link" href="javascript:void(0);">2 <span
+                                                    class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:void(0);">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Tooltips</h2>
+                    </div>
+                    <div class="body">
+                        <div class="demo-button">
+                            <button type="button" class="btn btn-default mr-1" data-toggle="tooltip" placement="right"
+                                tooltip="Tooltip on the right">Tooltip on the right</button>
+                            <button type="button" class="btn btn-default mr-1" data-toggle="tooltip" placement="left"
+                                tooltip="Tooltip on the left">Tooltip on the left</button>
+                            <button type="button" class="btn btn-default mr-1" data-toggle="tooltip" placement="top"
+                                tooltip="Tooltip on the top">Tooltip on the top</button>
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" placement="bottom"
+                                tooltip="Tooltip on the bottom">Tooltip on the bottom</button>
+                        </div>
+                        <hr>
+                        <h6>Popovers</h6>
+                        <div class="demo-button">
+                            <button type="button" class="btn btn-sm btn-default mr-1" popoverTitle="Popover title"
+                                popover="And here's some amazing content. It's very engaging. Right?"
+                                placement="right">Popover on
+                                Click</button>
+                            <button type="button" class="btn btn-sm btn-default mr-1" triggers="mouseenter:mouseleave"
+                                popoverTitle="Popover title"
+                                popover="And here's some amazing content. It's very engaging. Right?"
+                                placement="right">Popover on
+                                Hover</button>
+                            <button type="button" class="btn btn-default btn-sm mr-1" triggers="mouseenter:mouseleave"
+                                placement="left" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                popoverTitle="">Popover on left</button>
+                            <button type="button" class="btn btn-default btn-sm" triggers="mouseenter:mouseleave"
+                                placement="right" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                popoverTitle="">Popover on right</button>
+                            <button type="button" class="btn btn-default btn-sm mr-1" triggers="mouseenter:mouseleave"
+                                placement="top" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                popoverTitle="">Popover on top</button>
+                            <button type="button" class="btn btn-default btn-sm" triggers="mouseenter:mouseleave"
+                                placement="bottom" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                popoverTitle="">Popover on bottom</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Alert Messages with Link</h2>
+                    </div>
+                    <div class="body">
+                        <div class="alert alert-primary" role="alert">A simple primary alert—check it out!</div>
+                        <div class="alert alert-secondary" role="alert">A simple secondary alert—check it out!</div>
+                        <div class="alert alert-success" role="alert">A simple success alert—check it out!</div>
+                        <div class="alert alert-danger" role="alert">A simple danger alert—check it out!</div>
+
+                        <div class="alert alert-warning" role="alert">
+                            A simple warning alert with <a href="javascript:void(0);" class="alert-link">an example
+                                link</a>. Give it a click if you like.
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            A simple info alert with <a href="javascript:void(0);" class="alert-link">an example
+                                link</a>. Give it a click if you like.
+                        </div>
+                        <div class="alert alert-light" role="alert">
+                            A simple light alert with <a href="javascript:void(0);" class="alert-link">an example
+                                link</a>. Give it a click if you like.
+                        </div>
+                        <div class="alert alert-dark" role="alert">
+                            A simple dark alert with <a href="javascript:void(0);" class="alert-link">an example
+                                link</a>. Give it a click if you like.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Alert Messages With Icon</h2>
+                    </div>
+                    <div class="body">
+
+                        <div class="alert alert-dismissible">
+                            <div *ngFor="let alert of alerts">
+                                <alert [type]="alert.type" [dismissible]="dismissible" (onClosed)="onClosed(alert)">
+                                    <!-- <i class="fa fa-info-circle"></i>
+                                    <i class="fa fa-check-circle"></i>
+                                    <i class="fa fa-warning"></i>
+                                    <i class="fa fa-times-circle"></i> -->
+                                    {{ alert.msg }}</alert>
+                            </div>
+                        </div>
+
+                        <!-- <div class="alert alert-info alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <i class="fa fa-info-circle"></i> The system is running well
+                        </div>
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <i class="fa fa-check-circle"></i> Your settings have been succesfully saved
+                        </div>
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <i class="fa fa-warning"></i> Warning, check your permission settings
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <i class="fa fa-times-circle"></i> Your account has been suspended
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

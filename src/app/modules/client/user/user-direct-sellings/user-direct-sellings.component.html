@@ -1,0 +1,84 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header row">
+		<div class="col-lg-6 d-flex flex-row justify-content-start">
+			<div>
+				<div>
+					<a [routerLink]="['/users']"><span>Usuarios</span></a>
+					<span class="mx-2">/</span>
+					<span *ngIf="user">{{ user.firstname }}</span>
+				</div>
+				<h1 class="main-content-title"><span *ngIf="user">{{ user.firstname }} - </span>Venta Directa</h1>
+			</div>
+		</div>
+		<div class="col-lg-6 d-flex flex-row justify-content-end">
+			<div *ngIf="user" style="font-size:.8rem">
+				<div>
+					<span class="text-black mr-2">Fecha de registro:</span>
+					<span>{{ createdAt }}</span>
+				</div>
+				<div [ngClass]="userStatusColor">
+					<i class="fa fa-circle mr-2" style="font-size:.55rem"></i>
+					<span>{{ userStatus }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Direct accesses -->
+
+	<div class="tab-box">
+		<a [routerLink]="['/users', userId, 'edit']" class="tab-button">Datos</a>
+		<a [routerLink]="['/users', userId, 'auctions']" class="tab-button">Subastas</a>
+		<a [routerLink]="['/users', userId, 'deposits']" class="tab-button">Depósitos</a>
+		<a class="tab-button active">Venta Directa</a>
+		<a [routerLink]="['/users', userId, 'representations']" class="tab-button">Representaciones</a>
+	</div>
+
+	<!-- DataTable -->
+
+	<div class="container-fluid">
+		<div class="block-content">
+			<div class="table-responsive">
+				<table id="usuario-ventas-directas" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Auction history modal -->
+
+<ng-template #historyModal>
+	<app-direct-selling-history [directSellingId]="directSellingId" (close)="modalRef.hide()">
+	</app-direct-selling-history>
+</ng-template>
+
+<!-- Delete confirmation modal -->
+
+<!-- <ng-template #confirmModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Eliminar Venta Directa</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+				(click)="modalRef.hide()">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Está seguro de querer eliminar permanentemente esta venta directa?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="deleteDirectSelling()">Eliminar</button>
+	</div>
+</ng-template> -->

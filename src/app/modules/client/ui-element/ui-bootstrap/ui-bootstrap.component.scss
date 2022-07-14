@@ -1,0 +1,23 @@
+::ng-deep accordion-group .btn{
+    color: var(--font-777);
+    padding: 10px 20px;
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+}
+::ng-deep accordion-group .btn:hover{
+-webkit-box-shadow: 0 0px 0px 0 var(--box-shadow);
+box-shadow: 0 0px 0px 0 var(--box-shadow);
+}
+
+::ng-deep accordion-group .btn-link:hover{
+    color:  var(--font-777);
+    text-decoration: none;
+}
+
+::ng-deep accordion-group .btn:focus{
+    box-shadow:none !important;
+}
+.marginRight .switch {
+    margin-right: 5px !important;
+}

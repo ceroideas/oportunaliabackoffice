@@ -1,0 +1,206 @@
+
+<div class="modal-header">
+	<h5 class="modal-title text-black">{{ modalTitle }}</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+		(click)="close.emit()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div class="modal-body">
+	<form [formGroup]="form" *ngIf="form">
+
+		<input type="hidden" formControlName="id">
+
+		<span *ngIf="disabled" class="pill pill-red mb-3">No se puede editar porque tiene una subasta o venta directa en curso o finalizada</span>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Nombre del activo *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="name"
+						[attr.disabled]="disabled ? '' : null"
+						[ngClass]="{ 'invalid': errors('name') }"
+						placeholder="Nombre del activo">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('name', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Categoría del activo *</label>
+				<div class="input-group">
+					<select class="form-control"
+						formControlName="active_category_id"
+						[attr.disabled]="disabled ? '' : null"
+						[ngClass]="{ 'invalid': errors('active_category_id') }"
+						placeholder="Categoría del activo">
+						<option *ngFor="let category of categories" value="{{ category.id }}">
+							{{ category.name }}
+						</option>
+					</select>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('active_category_id', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+
+		<h6 class="form-title text-uppercase">Dirección</h6>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-12">
+				<label>Dirección completa *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="address"
+						[attr.disabled]="disabled ? '' : null"
+						[ngClass]="{ 'invalid': errors('address') }"
+						placeholder="Dirección completa">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('address', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Localidad *</label>
+				<div class="input-group">
+					<input type="text" class="form-control"
+						formControlName="city"
+						[attr.disabled]="disabled ? '' : null"
+						[ngClass]="{ 'invalid': errors('city') }"
+						placeholder="Localidad">
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('city', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Provincia *</label>
+				<div class="input-group">
+					<select class="form-control"
+						formControlName="province_id"
+						[attr.disabled]="disabled ? '' : null"
+						[ngClass]="{ 'invalid': errors('province_id') }">
+						<option *ngFor="let province of provinces" value="{{ province.id }}">
+							{{ province.name }}
+						</option>
+					</select>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('province_id', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center mb-4">
+			<a class="text-cyan pointer"
+				(click)="openMaps()">
+				<i class="fa fa-map-marker-alt mr-2"></i>
+				<span>Comprobar dirección en Google Maps</span>
+			</a>
+		</div>
+
+		<h6 class="form-title text-uppercase">Características</h6>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-4">
+				<div class="form-checkbox">
+					<input type="checkbox"
+						formControlName="refund"
+						[attr.disabled]="disabled ? '' : null"
+						id="refund">
+					<label for="refund">Reembolso</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Condición *</label>
+				<div class="input-group">
+					<select class="form-control"
+						formControlName="active_condition_id"
+						[attr.disabled]="disabled ? '' : null"
+						[ngClass]="{ 'invalid': errors('active_condition_id') }"
+						placeholder="Condición">
+						<option *ngFor="let condition of conditions" value="{{ condition.id }}">
+							{{ condition.name }}
+						</option>
+					</select>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('active_condition_id', 'required')">Requerido</div>
+				</div>
+			</div>
+
+			<div class="form-group c_form_group mb-3 col-lg-6">
+				<label>Superficie *</label>
+				<div class="input-group">
+					<input type="number" step="0.01" class="form-control"
+						formControlName="area"
+						[attr.disabled]="disabled ? '' : null"
+						[ngClass]="{ 'invalid': errors('area') }"
+						placeholder="Superficie">
+					<span class="form-unit">m²</span>
+				</div>
+				<div class="form-errors">
+					<div *ngIf="errors('area', 'required')">Requerido</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group c_form_group mb-3 col-lg-12">
+				<div class="form-control form-file-zone"
+					[ngClass]="{ 'invalid': errors('images') }">
+					<div class="d-flex flex-column mb-3">
+						<span class="font-weight-bold form-title">Imágenes del activo</span>
+						<small class="text-gray">Formatos admitidos: PNG, JPG, GIF y BMP. Tamaño máx. 2MB</small>
+					</div>
+
+					<div class="position-relative mb-3">
+						<input type="file" multiple class="form-file-multiple"
+							accept=".jpg, .jpeg, .png, .gif, .bmp"
+							formArrayName="images"
+							[attr.disabled]="disabled ? '' : null"
+							(change)="uploadImages($event)"
+							title="Haz click o arrastra para subir tu archivo">
+						<div class="form-file-dropzone">
+							<i class="fa fa-paperclip mr-3"></i>
+							<span>Haz click o arrastra para subir tu archivo</span>
+						</div>
+					</div>
+
+					<div class="d-flex flex-row flex-wrap">
+						<div *ngFor="let file of imagesArray.value; let i = index"
+							class="position-relative my-3 mr-3">
+							<img class="preview-image" [src]="file.url" [title]="file.name">
+							<button *ngIf="!disabled" class="btn btn-red preview-delete" title="Quitar"
+								(click)="removeImage(i)">
+								<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-errors">
+					<div *ngIf="errors('images', 'min_length_array')">Requerido</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3" data-dismiss="modal"
+		(click)="close.emit()">Cancelar</button>
+	<button *ngIf="asset && (!asset.auction_id || [1,2,7].includes(asset.auction_type_id))"
+		type="button" class="btn btn-submit btn-rounded btn-cyan"
+		(click)="saveAsset()">Guardar</button>
+</div>

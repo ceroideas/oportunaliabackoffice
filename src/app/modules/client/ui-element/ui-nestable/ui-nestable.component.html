@@ -1,0 +1,57 @@
+<app-header></app-header>
+
+<div id="main-content">
+    <div class="container-fluid">
+        <!-- Page header section  -->
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <h1>Hi, Welcomeback!</h1>
+                    <span>JustDo Sortable Nestable,</span>
+                </div>
+                <div class="col-lg-8 col-md-12 col-sm-12 text-lg-right">
+
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card" [ngClass]="{'fullscreen': isFull}">
+                    <div class="header">
+                        <h2>Nestable Handle</h2>
+                        <ul class="header-dropdown dropdown">
+                            <li><a href="javascript:void(0);" (click)="fullScreenSection(1)" class="full-screen"><i
+                                        class="fa fa-expand"></i></a></li>
+                            <li class="dropdown" dropdown>
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false" id="button-basic"
+                                    dropdownToggle aria-controls="dropdown-basic"></a>
+                                <ul class="dropdown-menu theme-bg gradient dropdown-menu-right" id="dropdown-basic"
+                                    *dropdownMenu role="menu" aria-labelledby="button-basic">
+                                    <li><a href="javascript:void(0);"><i class="dropdown-icon fa fa-eye"></i> View
+                                            Details</a></li>
+                                    <li><a href="javascript:void(0);"><i class="dropdown-icon fa fa-share-alt"></i>
+                                            Share</a></li>
+                                    <li><a href="javascript:void(0);"><i class="dropdown-icon fa fa-copy"></i> Copy
+                                            to</a></li>
+                                    <li><a href="javascript:void(0);"><i class="dropdown-icon fa fa-folder"></i> Move
+                                            to</a></li>
+                                    <li><a href="javascript:void(0);"><i class="dropdown-icon fa fa-edit"></i>
+                                            Rename</a></li>
+                                    <li><a href="javascript:void(0);"><i class="dropdown-icon fa fa-trash"></i>
+                                            Delete</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                            <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

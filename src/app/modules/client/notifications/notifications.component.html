@@ -1,0 +1,191 @@
+
+<div class="notifications">
+
+	<!-- Header  -->
+
+	<div class="notifications-header">
+		<div class="row">
+			<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row justify-content-start">
+				<div class="d-flex flex-row">
+					<i class="notifications-icon fa fa-bell text-navy mr-2"></i>
+					<h1 class="notifications-title text-black">Notificaciones</h1>
+				</div>
+			</div>
+			<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row justify-content-end">
+				<!-- <a class="text-navy pointer"
+					(click)="markAllAsSeen()">
+					<i class="fa fa-eraser mr-2"></i>
+					<span class="text-underline">Marcar como vistas</span>
+				</a> -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Tabs -->
+
+	<div class="tab-box">
+		<div class="tab-button d-flex" (click)="changeTab($event)" data-tab="registers">
+			<span class="mr-1">Registros</span>
+			<div *ngIf="numberNotSeen('registers')" class="notification-badge">
+				{{ numberNotSeen('registers') }}
+			</div>
+		</div>
+		<div class="tab-button d-flex" (click)="changeTab($event)" data-tab="documents">
+			<span class="mr-1">Documentación</span>
+			<div *ngIf="numberNotSeen('documents')" class="notification-badge">
+				{{ numberNotSeen('documents') }}
+			</div>
+		</div>
+		<div class="tab-button d-flex" (click)="changeTab($event)" data-tab="auctions">
+			<span class="mr-1">Subastas</span>
+			<div *ngIf="numberNotSeen('auctions')" class="notification-badge">
+				{{ numberNotSeen('auctions') }}
+			</div>
+		</div>
+	</div>
+
+	<!-- Content -->
+
+	<div class="container-fluid">
+
+		<div class="tab" data-tab="registers">
+			<div class="notifications-list">
+				<div *ngFor="let reg of registers"
+					class="notifications-list-item d-flex flex-row justify-content-between pointer"
+					(click)="goto(reg)">
+					<div class="d-flex flex-row align-items-center">
+						<i class="seen-indicator fa fa-circle mr-2"
+							[ngClass]="{ 'active': reg.status == 0 }"></i>
+						<i class="circle-pill pill-navy fa fa-user mr-3"></i>
+						<a class="d-flex flex-column text-gray">
+							<span [ngClass]="{ 'text-black': reg.status == 0 }">{{ reg.title }}</span>
+							<span>{{ reg.subtitle }}</span>
+						</a>
+					</div>
+					<div>
+						<span>{{ convertDate(reg.created_at) }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab" data-tab="documents">
+			<div class="notifications-list">
+				<div *ngFor="let doc of documentation"
+					class="notifications-list-item d-flex flex-row justify-content-between pointer"
+					(click)="goto(doc)">
+					<div class="d-flex flex-row align-items-center">
+						<i class="seen-indicator fa fa-circle mr-2"
+							[ngClass]="{ 'active': doc.status == 0 }"></i>
+						<i class="circle-pill pill-cyan mr-3" [class]="docIcon(doc)"></i>
+						<a class="d-flex flex-column text-gray pointer">
+							<span [ngClass]="{ 'text-black': doc.status == 0 }">{{ doc.title }}</span>
+							<span>{{ doc.subtitle }}</span>
+						</a>
+					</div>
+					<div class="d-flex flex-row">
+						<div class="notification-actions d-flex flex-row align-items-center">
+							<button class="documento btn btn-table btn-navy mr-3"
+								(click)="openDocument(doc, $event)">
+								<i class="fa fa-file-download"></i>
+							</button>
+
+							<!-- <div *ngIf="doc.validated" class="d-flex">
+								<div class="flag-check checked mr-1"></div>
+								<span class="text-green">Verificado</span>
+							</div>
+							<div *ngIf="!doc.validated" class="d-flex">
+								<div class="flag-check mr-1"></div>
+								<span>Sin verificar</span>
+							</div> -->
+						</div>
+						<span>{{ convertDate(doc.created_at) }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab" data-tab="auctions">
+			<div class="notifications-grid">
+				<div *ngFor="let atn of auctions; index as i"
+					class="notifications-grid-item">
+					<div class="d-flex flex-row mb-3">
+						<img *ngIf="atn.images.length" class="notifications-grid-image mr-3" [src]="atn.images[0].path">
+						<img *ngIf="!atn.images.length" class="notifications-grid-no-image mr-3"
+							src="/assets/images/image-gray.png">
+						<div>
+							<div class="notifications-grid-title text-black mb-1 pointer"
+								(click)="goto(atn)">
+								{{ atn.auction_title }}
+							</div>
+							<div class="d-flex flex-row">
+								<div class="mr-4">
+									<div class="notifications-grid-label">{{ auctionsInfo[i]?.bidLabel }}</div>
+									<div class="notifications-grid-data text-black">{{ atn.max_bid }} €</div>
+								</div>
+								<div>
+									<div class="notifications-grid-label">{{ auctionsInfo[i]?.timeLeftLabel }}</div>
+									<div class="notifications-grid-data text-black">{{ auctionsInfo[i]?.timeLeft }}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="notifications-grid-activity d-flex flex-row justify-content-between mb-2">
+						<div class="d-flex flew-row">
+							<span class="text-uppercase mr-1">Actividad</span>
+							<div *ngIf="atn.new_bids > 0"
+								class="notification-badge">{{ atn.new_bids }}</div>
+						</div>
+						<a class="text-navy pointer"
+							(click)="openBids(atn)">
+							<span class="mr-1">Ver</span>
+							<i class="fa fa-chevron-right"></i>
+						</a>
+					</div>
+					<div class="notifications-grid-lastbid d-flex flex-row justify-content-between">
+						<div class="d-flex flex-row align-items-center">
+							<i class="seen-indicator fa fa-circle mr-2"
+								[ngClass]="{ 'active': atn.status == 0 }"></i>
+							<i class="circle-pill fa mr-2"
+								[class]="auctionsInfo[i]?.icon"></i>
+
+							<div class="d-flex flex-column text-gray">
+								<span [ngClass]="{ 'text-black': atn.status == 0 }">
+									{{ atn.title }}
+								</span>
+								<span *ngIf="atn.subtitle">
+									{{ atn.subtitle }}
+								</span>
+							</div>
+						</div>
+						<div class="ml-2">
+							<span class="whitespace-nowrap">{{ convertDate(atn.created_at) }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Bids side menu backdrop -->
+
+<div class="bids-sidemenu-backdrop"
+	[ngClass]="{ 'show': bidsMenu }"
+	(click)="closeBids()"></div>
+
+<!-- Bids side menu -->
+
+<div class="bids-sidemenu"
+	[ngClass]="{ 'show': bidsMenu }">
+	<app-notification-bids [auctionId]="auctionId" [sideMenu]="sideMenu" (close)="closeBids()">
+	</app-notification-bids>
+</div>
+
+<!-- Bids modal -->
+
+<ng-template #bidsModal>
+    <app-notification-bids [auctionId]="auctionId" [sideMenu]="sideMenu" (close)="closeBids()">
+	</app-notification-bids>
+</ng-template>

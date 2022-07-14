@@ -1,0 +1,792 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header row">
+		<div class="col-lg-6 d-flex flex-row justify-content-start">
+			<div>
+				<div>
+					<a [routerLink]="['/direct-sellings']"><span>Ventas Directas</span></a>
+					<span class="mx-2">/</span>
+					<span *ngIf="directSelling">{{ directSelling.title }}</span>
+				</div>
+				<h1 class="main-content-title"><span *ngIf="directSelling">{{ directSelling.title }} - </span>Datos</h1>
+			</div>
+		</div>
+		<div class="col-lg-6 d-flex flex-row justify-content-end">
+			<button *ngIf="directSelling && directSelling.auction_status_id != 2"
+				class="btn-table btn-navy mr-2"
+				title="Ver vista pública"
+				(click)="gotoPublic()">
+				<i class="fa fa-external-link-alt"></i>
+			</button>
+			<button class="btn-table btn-navy"
+				title="Refrescar estado de venta directa"
+				(click)="getAuction()">
+				<i class="fa fa-history"></i>
+			</button>
+			<div *ngIf="directSelling" style="font-size:.8rem">
+				<div>
+					<span class="text-black mr-2">Fecha de creación:</span>
+					<span>{{ createdAt }}</span>
+				</div>
+				<div [ngClass]="directSellingStatusColor">
+					<i class="fa fa-circle small mr-2"></i>
+					<span>{{ directSellingStatus }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Direct accesses -->
+
+	<div class="tab-box">
+		<div class="tab-button active">Datos</div>
+		<a [routerLink]="['/direct-sellings', directSellingId, 'users']" class="tab-button">Usuarios</a>
+	</div>
+
+	<!-- Form -->
+
+	<form [formGroup]="form" *ngIf="form" autocomplete="false">
+		<div class="container-fluid mb-3">
+			<div class="block-content">
+				<div class="row mt-3">
+					<div class="form-group c_form_group mb-3 col-lg-3 d-flex flex-row">
+						<i class="circle-pill pill-navy fa fa-eye mr-3"></i>
+						<div>
+							<label class="mb-0">Nº de visitas</label>
+							<h5 class="text-dark">{{ directSelling.views }}</h5>
+						</div>
+					</div>
+					<div class="form-group c_form_group mb-3 col-lg-3 d-flex flex-row">
+						<i class="circle-pill pill-navy fa fa-star mr-3"></i>
+						<div>
+							<label class="mb-0">Veces marcado como favorito</label>
+							<h5 class="text-dark">{{ directSelling.favorites }}</h5>
+						</div>
+					</div>
+					<div class="form-group c_form_group mb-3 col-lg-3 d-flex flex-row">
+						<i class="circle-pill pill-navy fa fa-money-bill-wave-alt mr-3"></i>
+						<div>
+							<label class="mb-0">Nº de ofertas</label>
+							<h5 class="text-dark">{{ directSelling.bids }}</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Título de venta directa *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="title"
+								[ngClass]="{ 'invalid': errors('title') }"
+								placeholder="Título de venta directa">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('title', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Activo asociado *</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="active_id"
+								[ngClass]="{ 'invalid': errors('active_id') }"
+								placeholder="Activo asociado">
+								<option *ngFor="let asset of assets" value="{{ asset.id }}">
+									{{ asset.name }}
+								</option>
+							</select>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('active_id', 'required')">Requerido</div>
+							<div *ngIf="errors('active_id', 'used')">Este activo ya está siendo utilizado en una venta en curso o vendida</div>
+						</div>
+						<a class="form-control-upper-right text-cyan small pointer"
+							(click)="openAssetModal()">
+							<i class="fa fa-plus mr-2"></i>
+							<span>Nuevo activo</span>
+						</a>
+					</div>
+				</div>
+
+				<h6 class="form-title text-uppercase">Inicio y Fin</h6>
+
+				<div class="row mb-3">
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Fecha de Inicio *</label>
+						<div class="input-group">
+							<input type="date" class="form-control"
+								formControlName="start_date"
+								[ngClass]="{ 'invalid': errors('start_date') }"
+								placeholder="Fecha de Inicio">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('start_date', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Hora de Inicio *</label>
+						<div class="input-group">
+							<input type="time" class="form-control"
+								formControlName="start_time"
+								[ngClass]="{ 'invalid': errors('start_time') }"
+								placeholder="Hora de Inicio">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('start_time', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Fecha de Fin *</label>
+						<div class="input-group">
+							<input type="date" class="form-control"
+								formControlName="end_date"
+								[ngClass]="{ 'invalid': errors('end_date') }"
+								placeholder="Fecha de Fin">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('end_date', 'required')">Requerido</div>
+							<div *ngIf="errors('end_date', 'after')">La fecha y hora de fin deben ser posteriores a las actuales</div>
+							<div *ngIf="errors('end_date', 'coherence')">La fecha y hora de fin deben ser posteriores a la de inicio</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Hora de Fin *</label>
+						<div class="input-group">
+							<input type="time" class="form-control"
+								formControlName="end_time"
+								[ngClass]="{ 'invalid': errors('end_time') }"
+								placeholder="Hora de Fin">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('end_time', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+
+				<h6 class="form-title text-uppercase">Condiciones Venta Directa</h6>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Valor de tasación *</label>
+						<div class="input-group">
+							<input type="number" step="0.01" class="form-control"
+								formControlName="appraisal_value"
+								[ngClass]="{ 'invalid': errors('appraisal_value') }"
+								placeholder="Valor de tasación">
+							<span class="form-unit">€</span>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('appraisal_value', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Precio de venta *</label>
+						<div class="input-group">
+							<input type="number" step="0.01" class="form-control"
+								formControlName="start_price"
+								[ngClass]="{ 'invalid': errors('start_price') }"
+								placeholder="Precio de venta">
+							<span class="form-unit">€</span>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('start_price', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Porcentaje de comisión *</label>
+						<div class="input-group">
+							<input type="number" step="0.01" max="100" class="form-control"
+								formControlName="commission"
+								[ngClass]="{ 'invalid': errors('commission') }"
+								placeholder="Porcentaje de comisión">
+							<span class="form-unit">%</span>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('commission', 'required')">Requerido</div>
+							<div *ngIf="errors('commission', 'lt')">No puede ser mayor que 100</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Oferta mínima</label>
+						<div class="input-group">
+							<input type="number" step="0.01" class="form-control"
+								formControlName="minimum_bid"
+								placeholder="Oferta mínima">
+							<span class="form-unit">€</span>
+						</div>
+					</div>
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Depósito</label>
+						<div class="input-group">
+							<input type="number" step="0.01" class="form-control"
+								formControlName="deposit"
+								placeholder="Depósito">
+							<span class="form-unit">€</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<div class="form-checkbox">
+							<input type="checkbox"
+								formControlName="featured"
+								id="featured">
+							<label for="featured">Destacado</label>
+						</div>
+					</div>
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<div class="form-checkbox">
+							<input type="checkbox"
+								formControlName="dontshowtimer"
+								id="dontshowtimer">
+							<label for="dontshowtimer">No mostrar contador</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-3">
+			<div class="block-content pb-3">
+				<div class="font-weight-bold form-title mb-1">Video</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Lo que va a continuación de https://www.youtube.com/watch?v=</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="video"
+								placeholder="ID del vídeo de youtube">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Almacenado en httpdocs/public/assets/videos</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="video_file"
+								placeholder="Nombre del video local">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-3">
+			<div class="block-content pb-3">
+				<div class="font-weight-bold form-title mb-1">Campos adicionales</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>Idealista</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="idealista"
+								placeholder="Idealista">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>Creatividad RRSS</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="rrss"
+								placeholder="Creatividad RRSS">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>Repercusión</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="repercusion"
+								placeholder="Repercusión">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>Mailing</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="mailing"
+								placeholder="Mailing">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>Auto</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="auto"
+								placeholder="Auto">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>Juzgado</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="juzgado"
+								placeholder="Juzgado">
+						</div>
+						<div class="form-errors">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-3">
+			<div class="block-content pb-3">
+				<div class="font-weight-bold form-title mb-1">SEO <a (click)="titleChange()" style="cursor: pointer;">Generar URL</a></div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Texto de la URL</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="link_rewrite"
+								placeholder="Texto de la URL"
+								[ngClass]="{ 'invalid': errors('link_rewrite') }">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('link_rewrite', 'required')">Requerido</div>
+							<div *ngIf="urlUsed">Esa URL ya existe para otra subasta o venta directa</div>
+						</div>
+					</div>
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>META TITLE</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="meta_title"
+								placeholder="Meta title">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>META DESCRIPTION</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="meta_description"
+								placeholder="Meta description">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>META KEYWORDS</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="meta_keywords"
+								placeholder="Meta keywords">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-3">
+			<div class="block-content pb-3">
+
+				<div class="font-weight-bold form-title mb-1">Descripción</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<label>Texto descripción</label> <a style="cursor: pointer;" (click)="editAsHtml1()">Editar como HTML</a>
+						<div class="input-group" *ngIf="!editHtml1">
+							<ckeditor [editor]="editor" [config]="ckOptions" class="w-100 text-black"
+								formControlName="description">
+							</ckeditor>
+						</div>
+						<div class="input-group" *ngIf="editHtml1">
+							<textarea  rows="10" formControlName="description" class="w-100 form-control">
+							</textarea>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('description', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<div class="d-flex flex-column mb-3">
+							<label>Documento</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('description_document') }"
+								(change)="uploadFile($event, 'description_document')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('description_document', 'required')">Requerido</div>
+						</div>
+						<a *ngIf="directSelling?.description_archive?.path" class="form-control-upper-right text-cyan small pointer"
+							[href]="directSelling.description_archive.path" target="_blank"
+							[title]="directSelling.description_archive.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual</span>
+						</a>
+						<a *ngIf="directSelling?.description_archive?.path" class="form-control-upper-left text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocument('description_one')"
+							[title]="auction.description_archive.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual</span>
+						</a>
+
+
+
+						<a *ngIf="directSelling?.description_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
+							href="../documents/{{directSelling.description_archive_two.path}}" target="_blank"
+							[title]="directSelling.description_archive_two.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual (2)</span>
+						</a>
+						<a *ngIf="directSelling?.description_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocument('description_two')"
+							[title]="auction.description_archive_two.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual (2)</span>
+						</a>
+
+
+						<div class="d-flex flex-column mb-3">
+							<label>Documento 2</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('description_document_two') }"
+								(change)="uploadFile($event, 'description_document_two')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('description_document_two', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-3">
+			<div class="block-content pb-3">
+
+				<div class="font-weight-bold form-title mb-1">Especificaciones técnicas</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<label>Texto especificaciones</label> <a style="cursor: pointer;" (click)="editAsHtml2()">Editar como HTML</a>
+						<div class="input-group" *ngIf="!editHtml2">
+							<ckeditor [editor]="editor" [config]="ckOptions" class="w-100 text-black"
+								formControlName="technical_specifications">
+							</ckeditor>
+						</div>
+						<div class="input-group" *ngIf="editHtml2">
+							<textarea  rows="10" formControlName="technical_specifications" class="w-100 form-control">
+							</textarea>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('technical_specifications', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<div class="d-flex flex-column mb-3">
+							<label>Documento</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('technical_document') }"
+								(change)="uploadFile($event, 'technical_document')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('technical_document', 'required')">Requerido</div>
+						</div>
+						<a *ngIf="directSelling?.technical_archive?.path" class="form-control-upper-right text-cyan small pointer"
+							[href]="directSelling.technical_archive.path" target="_blank"
+							[title]="directSelling.technical_archive.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual</span>
+						</a>
+						<a *ngIf="directSelling?.technical_archive?.path" class="form-control-upper-left text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocument('technical_one')"
+							[title]="auction.technical_archive.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual</span>
+						</a>
+
+
+						<a *ngIf="directSelling?.technical_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
+							href="../documents/{{directSelling.technical_archive_two.path}}" target="_blank"
+							[title]="directSelling.technical_archive_two.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual (2)</span>
+						</a>
+						<a *ngIf="directSelling?.technical_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocument('technical_two')"
+							[title]="auction.technical_archive_two.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual (2)</span>
+						</a>
+
+
+
+						<div class="d-flex flex-column mb-3">
+							<label>Documento 2</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('technical_document_two') }"
+								(change)="uploadFile($event, 'technical_document_two')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('technical_document_two', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-3">
+			<div class="block-content pb-3">
+
+				<div class="font-weight-bold form-title mb-1">Documentación</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<label>Texto documentación</label> <a style="cursor: pointer;" (click)="editAsHtml3()">Editar como HTML</a>
+						<div class="input-group" *ngIf="!editHtml3">
+							<ckeditor [editor]="editor" [config]="ckOptions" class="w-100 text-black"
+								formControlName="land_registry">
+							</ckeditor>
+						</div>
+						<div class="input-group" *ngIf="editHtml3">
+							<textarea  rows="10" formControlName="land_registry" class="w-100 form-control">
+							</textarea>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('land_registry', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<div class="d-flex flex-column mb-3">
+							<label>Documento</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('land_registry_document') }"
+								(change)="uploadFile($event, 'land_registry_document')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('land_registry_document', 'required')">Requerido</div>
+						</div>
+						<a *ngIf="directSelling?.land_registry_archive?.path" class="form-control-upper-right text-cyan small pointer"
+							[href]="directSelling.land_registry_archive.path" target="_blank"
+							[title]="directSelling.land_registry_archive.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual</span>
+						</a>
+						<a *ngIf="directSelling?.land_registry_archive?.path" class="form-control-upper-left text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocument('land_registry_one')"
+							[title]="auction.land_registry_archive.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual</span>
+						</a>
+
+
+						<a *ngIf="directSelling?.land_registry_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
+						href="../documents/{{directSelling.land_registry_archive_two.path}}" target="_blank"
+						[title]="directSelling.land_registry_archive_two.name">
+						<i class="fa fa-id-card mr-2"></i>
+						<span>Ver documento actual (2)</span>
+						</a>
+						<a *ngIf="directSelling?.land_registry_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
+						style="color:red;"
+						(click)="deleteDocument('land_registry_two')"
+							[title]="auction.land_registry_archive_two.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual (2)</span>
+						</a>
+
+
+						<div class="d-flex flex-column mb-3">
+							<label>Documento 2</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('land_registry_document_two') }"
+								(change)="uploadFile($event, 'land_registry_document_two')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('land_registry_document_two', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-3">
+			<div class="block-content pb-3">
+
+				<div class="font-weight-bold form-title mb-1">Condiciones específicas</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<label>Texto condiciones *</label> <a style="cursor: pointer;" (click)="editAsHtml4()">Editar como HTML</a>
+						<div class="input-group" *ngIf="!editHtml4">
+							<ckeditor [editor]="editor" [config]="ckOptions" class="w-100 text-black"
+								formControlName="conditions">
+							</ckeditor>
+						</div>
+						<div class="input-group" *ngIf="editHtml4">
+							<textarea  rows="10" formControlName="conditions" class="w-100 form-control">
+							</textarea>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('conditions', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-0 col-lg-6">
+						<div class="d-flex flex-column mb-3">
+							<label>Documento</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('conditions_document') }"
+								(change)="uploadFile($event, 'conditions_document')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('conditions_document', 'required')">Requerido</div>
+						</div>
+						<a *ngIf="directSelling?.conditions_archive?.path" class="form-control-upper-right text-cyan small pointer"
+							[href]="directSelling.conditions_archive.path" target="_blank"
+							[title]="directSelling.conditions_archive.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual</span>
+						</a>
+						<a *ngIf="directSelling?.conditions_archive?.path" class="form-control-upper-left text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocument('conditions_one')"
+							[title]="auction.conditions_archive.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual</span>
+						</a>
+
+
+						<a *ngIf="directSelling?.conditions_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
+							href="../documents/{{directSelling.conditions_archive_two.path}}" target="_blank"
+							[title]="directSelling.conditions_archive_two.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual (2)</span>
+						</a>
+						<a *ngIf="directSelling?.conditions_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocument('conditions_two')"
+							[title]="auction.conditions_archive_two.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Borrar documento actual (2)</span>
+						</a>
+
+
+
+						<div class="d-flex flex-column mb-3">
+							<label>Documento 2</label>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+						</div>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".pdf"
+								[ngClass]="{ 'invalid': errors('conditions_document_two') }"
+								(change)="uploadFile($event, 'conditions_document_two')"
+								title="Haz click o arrastra para subir tu archivo">
+						</div>
+						<div class="form-errors mb-3">
+							<div *ngIf="errors('conditions_document_two', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="row">
+		<div class="col-lg-12 d-flex flex-row justify-content-end align-items-center">
+			<a *ngIf="directSelling?.auction_status_id == 1" class="text-gray pointer ml-3"
+				(click)="saveDirectSelling('2')">
+				<i class="fa fa-file mr-2"></i>
+				<span>Cambiar a borrador</span>
+			</a>
+			<a *ngIf="directSelling?.auction_status_id == 2" class="text-gray pointer ml-3"
+				(click)="saveDirectSelling('1')">
+				<i class="fa fa-file mr-2"></i>
+				<span>Publicar</span>
+			</a>
+			<button type="button" class="btn btn-submit btn-rounded btn-border-cyan ml-3"
+				[routerLink]="['/auctions']">Cancelar</button>
+			<button type="button" class="btn btn-submit btn-rounded btn-cyan ml-3"
+				(click)="saveDirectSelling()">Guardar</button>
+		</div>
+	</div>
+</div>
+
+<!-- Creation / edition modal -->
+
+<ng-template #assetModal>
+	<app-asset-edit [assetId]="assetId" (close)="modalRef.hide()" (success)="modalRef.hide();getAssets()">
+	</app-asset-edit>
+</ng-template>

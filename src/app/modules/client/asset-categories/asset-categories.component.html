@@ -1,0 +1,142 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-tag text-navy mr-2"></i>
+					<div>
+						<h1>Categorías de Activos</h1>
+						<span>Gestion de categorías de activos de subastas de Asemar</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button class="btn btn-cyan btn-rounded float-right"
+						(click)="openModal()">
+						<i class="fa fa-plus mr-2"></i>
+						<span>Nueva Categoría</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Exports -->
+
+		<div class="block-exports">
+			<button (click)="download('xlsx')" class="btn btn-border-navy btn-rounded mr-3" title="Exportar en .xlsx">
+				<i class="fa fa-file-excel mr-2"></i>
+				<span>XLSX</span>
+			</button>
+		</div>
+
+		<!-- DataTable -->
+
+		<div class="block-content">
+			<div class="table-responsive">
+				<table id="categorias-activo" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Creation / edition modal -->
+
+<ng-template #assetCategoryModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">{{ modalTitle }}</h5>
+		<button type="button" (click)="modalRef.hide()" class="close" data-dismiss="modal"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body">
+		<form [formGroup]="form" *ngIf="form">
+
+			<input type="hidden" formControlName="id">
+
+			<div class="row">
+				<div class="form-group c_form_group mb-3 col-lg-12">
+					<label>Nombre de la categoría *</label>
+					<div class="input-group">
+						<input type="text" class="form-control"
+							formControlName="name"
+							[ngClass]="{ 'invalid': errors('name') }"
+							placeholder="Nombre de la categoría">
+					</div>
+					<div class="form-errors">
+						<div *ngIf="errors('name', 'required')">Requerido</div>
+					</div>
+				</div>
+
+				<div class="form-group c_form_group mb-3 col-lg-12">
+					<label>Descripción de la categoría *</label>
+					<div class="input-group">
+						<textarea type="text" class="form-control"
+							formControlName="description"
+							[ngClass]="{ 'invalid': errors('description') }"
+							placeholder="Descripción de la categoría">
+						</textarea>
+					</div>
+					<div class="form-errors">
+						<div *ngIf="errors('description', 'required')">Requerido</div>
+					</div>
+				</div>
+
+				<div class="form-group c_form_group mb-3 col-lg-12">
+					<label>Imagen descriptiva *</label>
+					<div class="input-group">
+						<input type="file" class="form-control"
+							[ngClass]="{ 'invalid': errors('image') }"
+							accept=".jpg, .jpeg, .png, .gif, .bmp"
+							(change)=	"uploadImage($event)">
+						<br>
+					</div>
+					<div class="form-errors">
+						<div *ngIf="errors('image', 'required')">Requerido</div>
+					</div>
+					<div *ngIf="imagePath" class="form-group c_form_group mb-3 col-lg-12">
+						<img class="preview-image" [src]="imagePath">
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-submit btn-rounded btn-cyan"
+			(click)="saveAssetCategory()">Guardar</button>
+	</div>
+</ng-template>
+
+<!-- Delete confirmation modal -->
+
+<ng-template #confirmModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Eliminar Categoría de Activo</h5>
+		<button type="button" (click)="modalRef.hide()" class="close" data-dismiss="modal"
+				aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Está seguro de querer eliminar permanentemente esta categoría de activo?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="deleteAssetCategory()">Eliminar</button>
+	</div>
+</ng-template>

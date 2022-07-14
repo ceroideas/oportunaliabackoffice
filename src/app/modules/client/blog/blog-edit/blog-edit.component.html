@@ -1,0 +1,133 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header">
+		<div>
+			<a [routerLink]="['/blog']">
+				<span>Blog</span>
+			</a>
+			<span class="mx-2">/</span>
+			<span>Nueva</span>
+		</div>
+		<h1 class="main-content-title">Nueva Entrada</h1>
+	</div>
+
+	<!-- Form -->
+
+	<div class="container-fluid">
+		<div class="block-content">
+			<form [formGroup]="form" *ngIf="form" autocomplete="false">
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Título de la entrada *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="title"
+								[ngClass]="{ 'invalid': errors('title') }"
+								placeholder="Título de la entrada">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('title', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+
+				<div *ngIf="blog?.status_id != blogStatus.PUBLISHED" class="row">
+
+					<div class="form-group c_form_group mb-3 col-lg-2">
+						<div class="text-navy h-100 d-flex flex-row align-items-center">
+							<div class="d-flex flex-row mt-4">
+								<i class="fa fa-stopwatch mr-2"></i>
+								<label class="text-underline mb-0">Programar publicación</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Fecha</label>
+						<div class="input-group">
+							<input type="date" class="form-control"
+								formControlName="show_date"
+								[ngClass]="{ 'invalid': errors('show_date') }"
+								placeholder="Fecha">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('show_date', 'after')">La fecha y hora tienen que ser posteriores a las actuales</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Hora</label>
+						<div class="input-group">
+							<input type="time" class="form-control"
+								formControlName="show_time"
+								placeholder="Hora">
+						</div>
+					</div>
+				</div>
+
+				<div *ngIf="blog?.status_id == blogStatus.PUBLISHED" class="row">
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Fecha y hora de publicación</label>
+						<div class="input-group">
+							<input class="form-control"
+								readonly="true"
+								placeholder="Fecha"
+								[value]="blog?.publish_date">
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-12">
+						<label>Contenido *</label> <a style="cursor: pointer;" (click)="editAsHtml()">Editar como HTML</a>
+						<div class="input-group" *ngIf="!editHtml">
+							<ckeditor [editor]="editor" [config]="ckOptions" class="w-100 text-black"
+								formControlName="content">
+							</ckeditor>
+						</div>
+						<div class="input-group" *ngIf="editHtml">
+							<textarea  rows="20" formControlName="content" class="w-100 form-control">
+
+							</textarea>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('content', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="block-footer">
+
+			<div *ngIf="blog?.status_id != blogStatus.PUBLISHED" class="row">
+				<div class="col-lg-12 d-flex flex-row justify-content-end align-items-center">
+					<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3"
+						[routerLink]="['/users']">Cancelar</button>
+					<button type="button" class="btn btn-submit btn-rounded btn-border-gray mr-3"
+						(click)="saveBlog('2')">Guardar como borrador</button>
+					<button type="button" class="btn btn-submit btn-rounded btn-cyan"
+						(click)="saveBlog('1')">Guardar y publicar</button>
+				</div>
+			</div>
+
+			<div *ngIf="blog?.status_id == blogStatus.PUBLISHED" class="row">
+				<div class="col-lg-12 d-flex flex-row justify-content-end align-items-center">
+					<a class="text-gray pointer mr-3"
+						(click)="saveBlog('2')">
+						<i class="fa fa-file mr-2"></i>
+						<span>Cambiar a borrador</span>
+					</a>
+					<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3"
+						[routerLink]="['/users']">Cancelar</button>
+					<button type="button" class="btn btn-submit btn-rounded btn-cyan"
+						(click)="saveBlog()">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

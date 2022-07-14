@@ -1,0 +1,99 @@
+<app-header></app-header>
+
+<div id="main-content">
+    <div class="container-fluid">
+        <!-- Page header section  -->
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <h1>Hi, Welcomeback!</h1>
+                    <span>JustDo SweetAlert Ui,</span>
+                </div>
+                <div class="col-lg-8 col-md-12 col-sm-12 text-lg-right">
+
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>A basic message</p>
+                        <button (click)="sweettalert1()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="basic">Click
+                            Me</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>A title with a text under</p>
+                        <button (click)="sweettalert2()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="with-title">Click
+                            Me</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>A success message!</p>
+                        <button (click)="sweettalert3()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="success">Click
+                            Me</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>An HTML message</p>
+                        <button (click)="sweettalert4()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="html-message">Click
+                            Me</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>A message with a custom icon</p>
+                        <button (click)="sweettalert5()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="with-custom-icon">Click Me</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>A message with auto close timer</p>
+                        <button (click)="sweettalert6()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="autoclose-timer">Click Me</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>A warning message, with a function attached to the <b>Confirm</b> button...</p>
+                        <button (click)="sweettalert7()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="confirm">Click
+                            Me</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <p>... and by passing a parameter, you can execute something else for <b>Cancel</b>.</p>
+                        <button (click)="sweettalert7()" class="btn btn-primary theme-bg gradient js-sweetalert"
+                            data-type="cancel">Click
+                            Me</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

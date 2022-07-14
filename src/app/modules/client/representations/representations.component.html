@@ -1,0 +1,102 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-address-card text-navy mr-2"></i>
+					<div>
+						<h1>Representaciones</h1>
+						<span>Gestion de representaciones de los usuarios de Asemar</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button class="btn btn-cyan btn-rounded float-right"
+						(click)="openModal()">
+						<i class="fa fa-plus mr-2"></i>
+						<span>Nueva Representación</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Exports -->
+
+		<div class="block-exports">
+			<button (click)="download('xlsx')" class="btn btn-border-navy btn-rounded mr-3" title="Exportar en .xlsx">
+				<i class="fa fa-file-excel mr-2"></i>
+				<span>XLSX</span>
+			</button>
+		</div>
+
+		<!-- DataTable -->
+
+		<div class="block-content">
+			<div class="table-responsive">
+				<table id="representaciones" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Creation / edition modal -->
+
+<ng-template #representationModal>
+	<app-representation-edit [representationId]="representationId" (close)="modalRef.hide()" (success)="modalRef.hide();reloadTable()">
+	</app-representation-edit>
+</ng-template>
+
+<!-- Validation modal -->
+
+<ng-template #confirmValidateModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Validar Poderes</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+			(click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Qué desea hacer con los poderes de esta representación de usuario?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="validateRepresentation(2)">No validar</button>
+		<button type="button" class="btn btn-rounded btn-green"
+			(click)="validateRepresentation(1)">Validar</button>
+	</div>
+</ng-template>
+
+<!-- Delete confirmation modal -->
+
+<ng-template #confirmModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Eliminar Representación de Usuario</h5>
+		<button type="button" (click)="modalRef.hide()" class="close" data-dismiss="modal"
+				aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Está seguro de querer eliminar permanentemente esta representación de usuario?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="deleteRepresentation()">Eliminar</button>
+	</div>
+</ng-template>

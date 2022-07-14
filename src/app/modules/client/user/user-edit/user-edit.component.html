@@ -1,0 +1,473 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header row">
+		<div class="col-lg-6 d-flex flex-row justify-content-start">
+			<div>
+				<div>
+					<a [routerLink]="['/users']"><span>Usuarios</span></a>
+					<span class="mx-2">/</span>
+					<span *ngIf="user">{{ user.firstname }}</span>
+				</div>
+				<h1 class="main-content-title"><span *ngIf="user">{{ user.firstname }} - </span>Datos</h1>
+			</div>
+		</div>
+		<div class="col-lg-6 d-flex flex-row justify-content-end">
+			<div *ngIf="user" style="font-size:.8rem">
+				<div>
+					<span class="text-black mr-2">Fecha de registro:</span>
+					<span>{{ createdAt }}</span>
+				</div>
+				<div [ngClass]="userStatusColor">
+					<i class="fa fa-circle small mr-2"></i>
+					<span>{{ userStatus }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Direct accesses -->
+
+	<div class="tab-box">
+		<div class="tab-button active">Datos</div>
+		<a [routerLink]="['/users', userId, 'auctions']" class="tab-button">Subastas</a>
+		<a [routerLink]="['/users', userId, 'deposits']" class="tab-button">Depósitos</a>
+		<a [routerLink]="['/users', userId, 'direct-sellings']" class="tab-button">Venta Directa</a>
+		<a [routerLink]="['/users', userId, 'representations']" class="tab-button">Representaciones</a>
+	</div>
+
+	<!-- Form -->
+
+	<div class="container-fluid">
+		<div class="block-content">
+			<form [formGroup]="form" *ngIf="form" autocomplete="false">
+
+				<div class="row mt-3">
+					<div class="form-group c_form_group mb-3 col-lg-3 d-flex flex-row">
+						<i class="circle-pill pill-navy fa fa-gavel mr-3"></i>
+						<div>
+							<label class="mb-0">Nº de pujas</label>
+							<h5 class="text-dark">{{ user.number_bids }}</h5>
+						</div>
+					</div>
+					<div class="form-group c_form_group mb-3 col-lg-3 d-flex flex-row">
+						<i class="circle-pill pill-navy fa fa-user-circle mr-3"></i>
+						<div>
+							<label class="mb-0">Nº de logins</label>
+							<h5 class="text-dark">{{ user.number_login }}</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Nombre de usuario *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="username"
+								[ngClass]="{ 'invalid': errors('username') }"
+								placeholder="Nombre de usuario">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('username', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Rol de usuario *</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="role_id"
+								[ngClass]="{ 'invalid': errors('role_id') }"
+								placeholder="Rol de usuario">
+								<option *ngFor="let role of roles" value="{{ role.id }}">
+									{{ role.description }}
+								</option>
+							</select>
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('role_id', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Nombre *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="firstname"
+								[ngClass]="{ 'invalid': errors('firstname') }"
+								placeholder="Nombre">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('firstname', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Apellidos *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="lastname"
+								[ngClass]="{ 'invalid': errors('lastname') }"
+								placeholder="Apellidos">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('lastname', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>NIF / CIF *</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="document_number"
+								[ngClass]="{ 'invalid': errors('document_number') }"
+								placeholder="NIF / CIF">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('document_number', 'required')">Requerido</div>
+							<div *ngIf="errors('document_number', 'format')">El formato no es correcto</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Documento NIF / CIF</label>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".jpg, .jpeg, .png, .pdf"
+								(change)="uploadDocument($event)">
+							<br>
+						</div>
+						<a *ngIf="user?.document?.path" class="form-control-upper-left text-cyan small pointer"
+							style="color:red;"
+							(click)="deleteDocumentOne()"
+							[title]="user.document.name">
+							<i class="fa fa-trash mr-2"></i>
+							<span>Eliminar documento actual</span>
+						</a>
+						<a *ngIf="user?.document?.path" class="form-control-upper-right text-cyan small pointer"
+							[href]="user.document.path" target="_blank"
+							[title]="user.document.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual</span>
+						</a>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Documento NIF / CIF (2)</label>
+						<div class="input-group">
+							<input type="file" class="form-control"
+								accept=".jpg, .jpeg, .png, .pdf"
+								(change)="uploadDocumentTwo($event)">
+							<br>
+						</div>
+						<a *ngIf="user?.document_two?.path" class="form-control-upper-left text-cyan small pointer"
+						style="color:red;"
+						(click)="deleteDocumentTwo()"
+						[title]="user.document_two.name">
+						<i class="fa fa-trash mr-2"></i>
+						<span>Eliminar documento actual</span>
+					</a>
+						<a *ngIf="user?.document_two?.path" class="form-control-upper-right text-cyan small pointer"
+							href="../documents/{{user.document_two.path}}" target="_blank"
+							[title]="user.document_two.name">
+							<i class="fa fa-id-card mr-2"></i>
+							<span>Ver documento actual</span>
+						</a>
+					</div>
+				</div>
+
+				<div *ngIf="user.document_path == ''" class="pill pill-red mb-3">
+					<i class="fa fa-exclamation-circle mr-2"></i>
+					<span>Pendiente de subir documento de identidad</span>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Email *</label>
+						<div class="input-group">
+							<input type="text" class="form-control" email
+								formControlName="email"
+								[ngClass]="{ 'invalid': errors('email') }"
+								placeholder="Email">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('email', 'email')">Tiene que tener formato de email</div>
+							<div *ngIf="errors('email', 'required')">Requerido</div>
+							<div *ngIf="errors('email', 'unique')">Ese email ya está en uso</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Nº de teléfono *</label>
+						<div class="input-group">
+							<input type="text" class="form-control" maxlength="20"
+								formControlName="phone"
+								[ngClass]="{ 'invalid': errors('phone') }"
+								placeholder="Nº de teléfono">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('phone', 'required')">Requerido</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-4">
+						<label>Fecha de nacimiento *</label>
+						<div class="input-group">
+							<input type="date" class="form-control"
+								formControlName="birthdate"
+								[ngClass]="{ 'invalid': errors('birthdate') }"
+								placeholder="Fecha de nacimiento">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('birthdate', 'required')">Requerido</div>
+							<div *ngIf="errors('birthdate', 'before')">El usuario debe ser mayor de edad</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Contraseña</label>
+						<div class="input-group">
+							<input type="password" class="form-control"
+								formControlName="password"
+								[ngClass]="{ 'invalid': errors('password') }"
+								id="new-password" name="new-password" autocomplete="new-password"
+								placeholder="Contraseña">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('password', 'required')">Requerido</div>
+							<div *ngIf="errors('password', 'min')">Tiene que tener como mínimo 8 caracteres</div>
+							<div *ngIf="errors('password', 'case')">Debe contener una letra minúscula y una letra mayúscula</div>
+							<div *ngIf="errors('password', 'letter')">Debe contener una letra</div>
+							<div *ngIf="errors('password', 'symbol')">Debe contener un símbolo</div>
+							<div *ngIf="errors('password', 'number')">Debe contener un número</div>
+							<div *ngIf="errors('password', 'confirmed')">La repetición de contraseña no coincide</div>
+						</div>
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Repetir contraseña</label>
+						<div class="input-group">
+							<input type="password" class="form-control"
+								formControlName="password_confirmation"
+								[ngClass]="{ 'invalid': errors('password_confirmation') }"
+								id="confirm-password" name="confirm-password" autocomplete="confirm-password"
+								placeholder="Repetir contraseña">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('password_confirmation', 'required')">Requerido</div>
+						</div>
+					</div>
+				</div>
+
+				<h6 class="form-title text-uppercase">Dirección</h6>
+
+				<div *ngIf="checkAddress()" class="pill pill-red mb-3">
+					<i class="fa fa-exclamation-circle mr-2"></i>
+					<span>Se recomienta completar dirección</span>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Dirección completa</label>
+            <!-- Quitamos la restriccion de requerido -->
+            <!--
+            <div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="address"
+								[ngClass]="{ 'invalid': errors('address') }"
+								placeholder="Dirección completa">
+						</div>
+						<div class="form-errors">
+							<div *ngIf="errors('address', 'required')">Requerido</div>
+						</div>
+          -->
+          <div class="input-group">
+            <input type="text" class="form-control"
+              formControlName="address"
+              placeholder="Dirección completa">
+          </div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Código Postal</label>
+						<div class="input-group">
+							<input type="text" class="form-control" maxlength="10"
+								formControlName="cp"
+
+								placeholder="Código Postal">
+						</div>
+						<!--
+            <div class="form-errors">
+							<div *ngIf="errors('cp', 'required')">Requerido</div>
+						</div>
+            -->
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Localidad</label>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								formControlName="city"
+								placeholder="Localidad">
+						</div>
+            <!--
+            <div class="form-errors">
+							<div *ngIf="errors('city', 'required')">Requerido</div>
+						</div>
+            -->
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>Provincia</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="province_id">
+								<option *ngFor="let province of provinces" value="{{ province.id }}">
+									{{ province.name }}
+								</option>
+							</select>
+						</div>
+						<!--
+            <div class="form-errors">
+							<div *ngIf="errors('province_id', 'required')">Requerido</div>
+						</div>
+          -->
+					</div>
+
+					<div class="form-group c_form_group mb-3 col-lg-3">
+						<label>País</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="country_id">
+								<option *ngFor="let country of countries" value="{{ country.id }}">
+									{{ country.name }}
+								</option>
+							</select>
+						</div>
+            <!--
+						<div class="form-errors">
+							<div *ngIf="errors('country_id', 'required')">Requerido</div>
+						</div>
+            -->
+					</div>
+				</div>
+
+				<h6 class="form-title text-uppercase">Cuenta del Usuario</h6>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-5 d-flex flex-row justify-content-between">
+						<span class="text-navy">Confirmar usuario</span>
+						<div class="flag-check pointer" [ngClass]="{ 'checked': user.confirmed }"
+							(click)="confirmConfirmUser()"></div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-5 d-flex flex-row justify-content-between">
+						<span class="text-navy">Validar usuario</span>
+						<div class="flag-check pointer" [ngClass]="{ 'checked': user.status == 1, 'error': user.status == 2 }"
+							(click)="confirmValidateUser()"></div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+		<div class="block-footer">
+			<div class="row">
+				<div class="col-lg-6 d-flex flex-row justify-content-start">
+					<a class="text-gray pointer"
+						(click)="confirmDelete()">
+						<i class="fa fa-trash mr-2"></i>
+						<span>Dar de baja a este usuario</span>
+					</a>
+				</div>
+				<div class="col-lg-6 d-flex flex-row justify-content-end">
+					<button type="button" class="btn btn-submit btn-rounded btn-border-cyan mr-3"
+						[routerLink]="['/users']">Cancelar</button>
+					<button type="button" class="btn btn-submit btn-rounded btn-cyan"
+						(click)="editUser()">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Confirmation modal -->
+
+<ng-template #confirmConfirmModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Confirmar Usuario</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+			(click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Está seguro de que quiere confirmar a este usuario?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-green"
+			(click)="confirmUser()">Confirmar</button>
+	</div>
+</ng-template>
+
+<!-- Validation modal -->
+
+<ng-template #confirmValidateModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Validar Usuario</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+			(click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Qué desea hacer con la documentación de este usuario?</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="validateUser(2)">No validar</button>
+		<button type="button" class="btn btn-rounded btn-green"
+			(click)="validateUser(1)">Validar</button>
+	</div>
+</ng-template>
+
+<!-- Delete confirmation modal -->
+
+<ng-template #confirmModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Eliminar Usuario</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+				(click)="modalRef.hide()">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Está seguro de querer eliminar permanentemente a este usuario?</p>
+		<p>Cualquier referencia a dicho usuario quedará irreconocible</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="deleteUser()">Eliminar</button>
+	</div>
+</ng-template>
