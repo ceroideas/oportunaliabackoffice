@@ -4,7 +4,7 @@ import { endpoints, external } from './common';
 export const environment = {
 	appName: 'Asemar',
 	production: true,
-	url: 'https://www.asemargc.com/api',
+	url: 'https://www.oportunalia.com/api',
 	defaultRoute: '/users',
 	...external,
 };

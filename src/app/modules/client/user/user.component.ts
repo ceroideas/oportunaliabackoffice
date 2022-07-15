@@ -234,7 +234,7 @@ export class UserComponent implements OnInit {
 
 				$('button.documento2', row).unbind('click');
 				$('button.documento2', row).bind('click', () => {
-					window.open("https://asemargc.com/documents/"+data['document_two']['path'], '_blank').focus();
+					window.open("https://oportunalia.com/documents/"+data['document_two']['path'], '_blank').focus();
 				});
 
 				$('button.editar', row).unbind('click');
