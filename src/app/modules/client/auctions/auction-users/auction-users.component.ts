@@ -77,7 +77,10 @@ export class AuctionUsersComponent implements OnInit {
 			if (data.code == 200) {
 				this.auction = data.response;
 
-				this.createdAt = formatDate(this.auction.created_at, 'dd/MM/yyyy HH:mm:ss', 'es');
+        let tmp_date = new Date(this.auction.created_at);
+				tmp_date.setHours(tmp_date.getHours() + 1)
+				this.createdAt = formatDate(tmp_date, 'dd/MM/yyyy HH:mm:ss', 'es');
+				//this.createdAt = formatDate(this.auction.created_at, 'dd/MM/yyyy HH:mm:ss', 'es');
 
 				let styles = this.auctionsService.auctionStatus(this.auction);
 				this.auctionStatus = styles.text;
