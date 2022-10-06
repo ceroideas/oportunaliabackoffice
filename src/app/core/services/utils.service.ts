@@ -324,9 +324,11 @@ export class UtilsService {
 	/**
 	 * Converts a date to a format used in notifications.
 	 */
-	convertDate(value: string): string {
+   convertDate(value: string): string {
+
 		let date = new Date(formatDate(value, 'yyyy-MM-dd', 'es'));
-		let today = new Date();
+
+    let today = new Date();
 
 		if (date.getFullYear() == today.getFullYear() &&
 			date.getMonth() == today.getMonth() &&
