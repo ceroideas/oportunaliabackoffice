@@ -5,7 +5,7 @@
 import { endpoints, external } from './common';
 
 export const environment = {
-	appName: 'Asemar',
+	appName: 'Local_Oportunalia',
 	production: false,
 	url: 'http://asemar.local/api',
 	defaultRoute: '/users',
