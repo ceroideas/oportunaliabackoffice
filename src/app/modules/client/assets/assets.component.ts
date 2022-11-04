@@ -125,12 +125,16 @@ export class AssetsComponent implements OnInit {
 									<i class="fa fa-gavel"></i>
 								</button>`;
 
-							} else {
+							} else if (row.auction_type_id == 2){
 
 								render += `<button class="ir-venta btn btn-table btn-navy" title="Ver venta directa">
 									<i class="fa fa-money-bill-wave-alt"></i>
 								</button>`;
-							}
+							} else {
+                render += `<button class="ir-cesion btn btn-table btn-navy" title="Ver cesion de remate">
+                <i class="fa fa-share"></i>
+              </button>`;
+              }
 						}
 						else
 						{
@@ -141,6 +145,10 @@ export class AssetsComponent implements OnInit {
 							render += `<button class="venta btn btn-table btn-green" title="Crear venta directa">
 								<i class="fa fa-money-bill-wave-alt"></i>
 							</button>`;
+
+              render += `<button class="cesion btn btn-table btn-green" title="Crear cesion de remate">
+              <i class="fa fa-share"></i>
+            </button>`;
 						}
 
 						return render;
@@ -162,7 +170,7 @@ export class AssetsComponent implements OnInit {
 				$('button.borrar', row).bind('click', () => {
 					this.confirmDelete(data['id']);
 				});
-				
+
 				$('button.duplicar', row).unbind('click');
 				$('button.duplicar', row).bind('click', () => {
 					this.duplicateAsset(data['id']);
@@ -182,6 +190,13 @@ export class AssetsComponent implements OnInit {
 					);
 				});
 
+				$('button.cesion', row).unbind('click');
+				$('button.cesion', row).bind('click', () => {
+					that.router.navigate(['/cesions', 'create'],
+						{ queryParams: { active_id: data['id'] }}
+					);
+				});
+
 				$('button.ir-subasta', row).unbind('click');
 				$('button.ir-subasta', row).bind('click', () => {
 					that.router.navigate(['/auctions', data.auction_id, 'edit']);
@@ -190,6 +205,11 @@ export class AssetsComponent implements OnInit {
 				$('button.ir-venta', row).unbind('click');
 				$('button.ir-venta', row).bind('click', () => {
 					that.router.navigate(['/direct-sellings', data.auction_id, 'edit']);
+				});
+
+        $('button.ir-cesion', row).unbind('click');
+				$('button.ir-cesion', row).bind('click', () => {
+					that.router.navigate(['/cesions', data.auction_id, 'edit']);
 				});
 
 				return row;
