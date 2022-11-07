@@ -65,6 +65,11 @@ export class AuctionsService {
 		return this.http.get(url, { headers: this.headers });
 	}
 
+  duplicateCesion(id: number) {
+		let url = endpoint('cesion_duplicate', { id });
+		return this.http.get(url, { headers: this.headers });
+	}
+
 	deleteAuction(id: number) {
 		let url = endpoint('auctions_get', { id });
 		return this.http.delete(url, { headers: this.headers });
@@ -80,6 +85,10 @@ export class AuctionsService {
 		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
 	}
 
+  cesionFinalReport(id: number) {
+		let url = endpoint('cesion_final_report', { id });
+		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
+	}
 	auctionStatus(auction: Auction) {
 
 		let color, text;
@@ -140,11 +149,49 @@ export class AuctionsService {
 		let url = endpoint('direct_selling_asignado', { id });
 		return this.http.put(url, null, { headers: this.headers });
 	}
-	
+
 	deleteDirectSelling(id: number) {
 		let url = endpoint('direct_sellings_get', { id });
 		return this.http.delete(url, { headers: this.headers });
 	}
+
+	// Cesions
+
+	cesionsExport(type: string) {
+		let url = endpoint('cesions_export', { type });
+		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
+	}
+
+	getCesion(id: number) {
+		let url = endpoint('cesions_get', { id });
+		return this.http.get(url, { headers: this.headers });
+	}
+
+	saveCesion(data: any) {
+		let url = endpoint('cesions_create');
+		return this.http.post(url, data, { headers: this.headers });
+	}
+
+	editCesion(data: any, id: number) {
+		let url = endpoint('cesions_get', { id });
+		return this.http.post(url, data, { headers: this.headers });
+	}
+
+	featureCesion(id: number) {
+		let url = endpoint('cesion_featured', { id });
+		return this.http.put(url, null, { headers: this.headers });
+	}
+
+	asignarCesion(id: number) {
+		let url = endpoint('cesion_asignado', { id });
+		return this.http.put(url, null, { headers: this.headers });
+	}
+
+	deleteCesion(id: number) {
+		let url = endpoint('cesions_get', { id });
+		return this.http.delete(url, { headers: this.headers });
+	}
+
 
 	// Direct Selling Offers
 
