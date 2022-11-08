@@ -112,6 +112,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DataTablesModule } from 'angular-datatables';
 import { CesionsComponent } from './cesions/cesions.component';
 import { CesionCreateComponent } from './cesions/cesion-create/cesion-create.component';
+import { CesionEditComponent } from './cesions/cesion-edit/cesion-edit.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // UI showcase
@@ -231,6 +232,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 		CesionsComponent,
 		
 		CesionCreateComponent,
+		
+		CesionEditComponent,
 
 		// Not used
 
