@@ -113,6 +113,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { CesionsComponent } from './cesions/cesions.component';
 import { CesionCreateComponent } from './cesions/cesion-create/cesion-create.component';
 import { CesionEditComponent } from './cesions/cesion-edit/cesion-edit.component';
+import { CesionHistoryComponent } from './cesions/cesion-history/cesion-history.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // UI showcase
@@ -234,6 +235,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 		CesionCreateComponent,
 		
 		CesionEditComponent,
+		
+		CesionHistoryComponent,
 
 		// Not used
 
