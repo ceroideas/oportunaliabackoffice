@@ -114,6 +114,7 @@ import { CesionsComponent } from './cesions/cesions.component';
 import { CesionCreateComponent } from './cesions/cesion-create/cesion-create.component';
 import { CesionEditComponent } from './cesions/cesion-edit/cesion-edit.component';
 import { CesionHistoryComponent } from './cesions/cesion-history/cesion-history.component';
+import { CesionUsersComponent } from './cesions/cesion-users/cesion-users.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // UI showcase
@@ -237,6 +238,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 		CesionEditComponent,
 		
 		CesionHistoryComponent,
+		
+		CesionUsersComponent,
 
 		// Not used
 
