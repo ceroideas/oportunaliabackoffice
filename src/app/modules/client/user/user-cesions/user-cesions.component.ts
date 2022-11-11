@@ -203,7 +203,7 @@ export class UserCesionsComponent implements OnInit {
 
 				$('button.editar', row).unbind('click');
 				$('button.editar', row).bind('click', () => {
-					that.router.navigate(['/direct-sellings', data['reference'], 'edit']);
+					that.router.navigate(['/cesions', data['reference'], 'edit']);
 				});
 
 				$('button.historial', row).unbind('click');
