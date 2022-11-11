@@ -14,10 +14,17 @@ import { AuctionUsersComponent } from '../modules/client/auctions/auction-users/
 import { BlogComponent } from '../modules/client/blog/blog.component';
 import { BlogEditComponent } from '../modules/client/blog/blog-edit/blog-edit.component';
 import { DepositsComponent } from '../modules/client/deposits/deposits.component';
+
 import { DirectSellingCreateComponent } from '../modules/client/direct-sellings/direct-selling-create/direct-selling-create.component';
 import { DirectSellingsComponent } from '../modules/client/direct-sellings/direct-sellings.component';
 import { DirectSellingEditComponent } from '../modules/client/direct-sellings/direct-selling-edit/direct-selling-edit.component';
 import { DirectSellingUsersComponent } from '../modules/client/direct-sellings/direct-selling-users/direct-selling-users.component';
+
+import { CesionCreateComponent } from '../modules/client/cesions/cesion-create/cesion-create.component';
+import { CesionsComponent } from '../modules/client/cesions/cesions.component';
+import { CesionEditComponent } from '../modules/client/cesions/cesion-edit/cesion-edit.component';
+import { CesionUsersComponent } from '../modules/client/cesions/cesion-users/cesion-users.component';
+
 import { NewsletterEditComponent } from '../modules/client/newsletters/newsletter-edit/newsletter-edit.component';
 import { NewslettersComponent } from '../modules/client/newsletters/newsletters.component';
 import { NewsletterTemplatesComponent } from '../modules/client/newsletter-templates/newsletter-templates.component';
@@ -27,7 +34,10 @@ import { UserComponent } from '../modules/client/user/user.component';
 import { UserAuctionsComponent } from '../modules/client/user/user-auctions/user-auctions.component';
 import { UserCreateComponent } from '../modules/client/user/user-create/user-create.component';
 import { UserDepositsComponent } from '../modules/client/user/user-deposits/user-deposits.component';
+
 import { UserDirectSellingsComponent } from '../modules/client/user/user-direct-sellings/user-direct-sellings.component';
+import { UserCesionsComponent } from '../modules/client/user/user-cesions/user-cesions.component';
+
 import { UserEditComponent } from '../modules/client/user/user-edit/user-edit.component';
 import { UserRepresentationsComponent } from '../modules/client/user/user-representations/user-representations.component';
 import { MembresiaComponent } from '../modules/client/membresia/membresia.component';
@@ -67,6 +77,11 @@ export const apiRoutes: Routes = [
 		path: 'users/:id/direct-sellings',
 		component: UserDirectSellingsComponent,
 		data: { title: 'Oportunalia | Ventas Directas de Usuario' }
+	},
+  {
+		path: 'users/:id/cesions',
+		component: UserCesionsComponent,
+		data: { title: 'Oportunalia | Cesiones de remate de Usuario' }
 	},
 	{
 		path: 'users/:id/representations',
@@ -149,6 +164,28 @@ export const apiRoutes: Routes = [
 		data: { title: 'Oportunalia | Venta Directa' }
 	},
 
+  	// Cesions
+
+	{
+		path:'cesions',
+		component: CesionsComponent,
+		data: { title: 'Oportunalia | Cesión de remate' }
+	},
+	{
+		path:'cesions/create',
+		component: CesionCreateComponent,
+		data: { title: 'Oportunalia | Cesión de remate' }
+	},
+	{
+		path:'cesions/:id/edit',
+		component: CesionEditComponent,
+		data: { title: 'Oportunalia | Cesión de remate' }
+	},
+	{
+		path:'cesions/:id/users',
+		component: CesionUsersComponent,
+		data: { title: 'Oportunalia | Cesión de remate' }
+	},
 	// Communications
 
 	{
