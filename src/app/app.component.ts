@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-	title = 'Asemar';
+	title = 'Oportunalia';
 
 	greenClass: any;
 	orageClass: boolean;

@@ -8,26 +8,35 @@
 		<div class="block-header">
 			<div class="row clearfix">
 				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
-					<i class="block-header-icon fa fa-envelope text-navy mr-2"></i>
+					<i class="block-header-icon fa fa-users text-navy mr-2"></i>
 					<div>
-						<h1>Listado de newsletters</h1>
-						<span>Gestion de newsletters</span>
+						<h1>Cesiones de remate</h1>
+						<span>Gestion de cesiones de remate</span>
 					</div>
 				</div>
 				<div class="col-xl-6 col-md-5 col-sm-12">
-					<button [routerLink]="['/newsletters/create']" class="btn btn-cyan btn-rounded float-right">
+					<button [routerLink]="['/cesions/create']" class="btn btn-cyan btn-rounded float-right">
 						<i class="fa fa-plus mr-2"></i>
-						<span>Enviar Newsletter</span>
+						<span>Nueva Cesión de remate</span>
 					</button>
 				</div>
 			</div>
+		</div>
+
+		<!-- Exports -->
+
+		<div class="block-exports">
+			<button (click)="download('xlsx')" class="btn btn-border-navy btn-rounded mr-3" title="Exporta en .xlsx">
+				<i class="fa fa-file-excel mr-2"></i>
+				<span>XLSX</span>
+			</button>
 		</div>
 
 		<!-- DataTable -->
 
 		<div class="block-content">
 			<div class="table-responsive">
-				<table id="newsletters" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+				<table id="cesiones-remate" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
 					<thead></thead>
 					<tbody></tbody>
 				</table>
@@ -36,11 +45,18 @@
 	</div>
 </div>
 
+<!-- Auction history modal -->
+
+<ng-template #historyModal>
+	<app-cesion-history [cesionId]="cesionId" (close)="modalRef.hide()">
+	</app-cesion-history>
+</ng-template>
+
 <!-- Delete confirmation modal -->
 
 <ng-template #confirmModal>
 	<div class="modal-header">
-		<h5 class="modal-title text-black">Eliminar Newsletter</h5>
+		<h5 class="modal-title text-black">Eliminar Cesión de remate</h5>
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
 				(click)="modalRef.hide()">
 		  <span aria-hidden="true">&times;</span>
@@ -48,13 +64,13 @@
 	</div>
 
 	<div class="modal-body text-darkgray">
-		<p>¿Está seguro de querer eliminar permanentemente esta newsletter?</p>
+		<p>¿Está seguro de querer eliminar permanentemente esta cesión de remate?</p>
 	</div>
 
 	<div class="modal-footer">
 		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
 			(click)="modalRef.hide()">Cancelar</button>
 		<button type="button" class="btn btn-rounded btn-red"
-			(click)="deleteNewsletter()">Eliminar</button>
+			(click)="deleteCesion()">Eliminar</button>
 	</div>
 </ng-template>

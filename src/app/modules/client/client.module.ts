@@ -110,6 +110,12 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { AgmCoreModule } from '@agm/core';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DataTablesModule } from 'angular-datatables';
+import { CesionsComponent } from './cesions/cesions.component';
+import { CesionCreateComponent } from './cesions/cesion-create/cesion-create.component';
+import { CesionEditComponent } from './cesions/cesion-edit/cesion-edit.component';
+import { CesionHistoryComponent } from './cesions/cesion-history/cesion-history.component';
+import { CesionUsersComponent } from './cesions/cesion-users/cesion-users.component';
+import { UserCesionsComponent } from './user/user-cesions/user-cesions.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // UI showcase
@@ -225,6 +231,18 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 		// Various
 
 		NotFoundComponent,
+		
+		CesionsComponent,
+		
+		CesionCreateComponent,
+		
+		CesionEditComponent,
+		
+		CesionHistoryComponent,
+		
+		CesionUsersComponent,
+		
+		UserCesionsComponent,
 
 		// Not used
 

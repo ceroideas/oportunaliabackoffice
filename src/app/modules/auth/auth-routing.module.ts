@@ -8,12 +8,12 @@ const routes: Routes = [
 	{
 		path: 'login',
 		component: LoginComponent,
-		data: { title: 'Asemar | Entrar' }
+		data: { title: 'Oportunalia | Entrar' }
 	},
 	{
 		path: 'forgot-password',
 		component: ForgotPasswordComponent,
-		data: { title: 'Asemar | Reestablecer Contraseña' }
+		data: { title: 'Oportunalia | Reestablecer Contraseña' }
 	}
 ];
 

@@ -84,6 +84,18 @@ export const endpoints = {
 	direct_selling_duplicate: '/admin/direct_sale/duplicate/:id',
 	offers_validate: '/admin/offer/:id/status',
 
+  // Cesions
+  cesions_dt: '/admin/cesion',
+	cesions_export: '/admin/cesion/export/:type',
+	cesions_create: '/admin/cesion',
+	cesions_get: '/admin/cesion/:id',
+	cesion_history_dt: '/admin/cesion/:id/history',
+	cesion_users_dt: '/admin/cesion/:id/offers',
+	cesion_featured: '/admin/cesion/:id/featured',
+	cesion_asignado: '/admin/cesion/:id/asignado',
+	cesion_duplicate: '/admin/cesion/duplicate/:id',
+
+
 	// Newsletters
 	newsletters_dt: '/admin/newsletter',
 	newsletters_export: '/admin/newsletter/export/:type',

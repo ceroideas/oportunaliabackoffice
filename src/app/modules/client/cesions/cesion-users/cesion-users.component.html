@@ -8,22 +8,27 @@
 		<div class="col-lg-6 d-flex flex-row justify-content-start">
 			<div>
 				<div>
-					<a [routerLink]="['/users']"><span>Usuarios</span></a>
+					<a [routerLink]="['/cesions']"><span>Cesiones de remate</span></a>
 					<span class="mx-2">/</span>
-					<span *ngIf="user">{{ user.firstname }}</span>
+					<span *ngIf="cesion">{{ cesion.title }}</span>
 				</div>
-				<h1 class="main-content-title"><span *ngIf="user">{{ user.firstname }} - </span>Depósitos</h1>
+				<h1 class="main-content-title"><span *ngIf="cesion">{{ cesion.title }} - </span>Datos</h1>
 			</div>
 		</div>
 		<div class="col-lg-6 d-flex flex-row justify-content-end">
-			<div *ngIf="user" style="font-size:.8rem">
+			<button class="btn-table btn-navy"
+				title="Refrescar estado de cesión de remate"
+				(click)="getAuction()">
+				<i class="fa fa-history"></i>
+			</button>
+			<div *ngIf="cesion" style="font-size:.8rem">
 				<div>
-					<span class="text-black mr-2">Fecha de registro:</span>
+					<span class="text-black mr-2">Fecha de creación:</span>
 					<span>{{ createdAt }}</span>
 				</div>
-				<div [ngClass]="userStatusColor">
+				<div [ngClass]="cesionStatusColor">
 					<i class="fa fa-circle small mr-2"></i>
-					<span>{{ userStatus }}</span>
+					<span>{{ cesionStatus }}</span>
 				</div>
 			</div>
 		</div>
@@ -32,12 +37,8 @@
 	<!-- Direct accesses -->
 
 	<div class="tab-box">
-		<a [routerLink]="['/users', userId, 'edit']" class="tab-button">Datos</a>
-		<a [routerLink]="['/users', userId, 'auctions']" class="tab-button">Subastas</a>
-		<a class="tab-button active">Depósitos</a>
-		<a [routerLink]="['/users', userId, 'direct-sellings']" class="tab-button">Venta Directa</a>
-    <a [routerLink]="['/users', userId, 'cesions']" class="tab-button">Cesiones de remate</a>
-		<a [routerLink]="['/users', userId, 'representations']" class="tab-button">Representaciones</a>
+		<a [routerLink]="['/cesions', cesionId, 'edit']" class="tab-button">Datos</a>
+		<a class="tab-button active">Usuarios</a>
 	</div>
 
 	<!-- DataTable -->
@@ -45,7 +46,7 @@
 	<div class="container-fluid">
 		<div class="block-content">
 			<div class="table-responsive">
-				<table id="usuario-depositos" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+				<table id="cesion-usuarios" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
 					<thead></thead>
 					<tbody></tbody>
 				</table>
@@ -54,11 +55,11 @@
 	</div>
 </div>
 
-<!-- Validation modal -->
+<!-- Offer validation modal -->
 
 <ng-template #confirmValidateModal>
 	<div class="modal-header">
-		<h5 class="modal-title text-black">Validar Depósito</h5>
+		<h5 class="modal-title text-black">Validar Oferta</h5>
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
 			(click)="modalRef.hide()">
 			<span aria-hidden="true">&times;</span>
@@ -66,15 +67,15 @@
 	</div>
 
 	<div class="modal-body text-darkgray">
-		<p>¿Qué desea hacer con este depósito?</p>
+		<p>¿Qué desea hacer con esta oferta?</p>
 	</div>
 
 	<div class="modal-footer">
 		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
 			(click)="modalRef.hide()">Cancelar</button>
 		<button type="button" class="btn btn-rounded btn-red"
-			(click)="validateDeposit(2)">No validar</button>
+			(click)="validateOffer(2)">Rechazar</button>
 		<button type="button" class="btn btn-rounded btn-green"
-			(click)="validateDeposit(1)">Validar</button>
+			(click)="validateOffer(1)">Aceptar</button>
 	</div>
 </ng-template>

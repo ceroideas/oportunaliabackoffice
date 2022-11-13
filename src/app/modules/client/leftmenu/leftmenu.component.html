@@ -7,7 +7,7 @@
 	</a> -->
 
 	<div class="navbar-brand">
-		<a href="/"><img src="assets/images/asemar-logo.png" alt="Asemar"
+		<a href="/"><img src="assets/images/oportunalia-logo.png" alt="Oportunalia"
 			class="img-fluid logo"></a>
 		<button type="button" (click)="cToggoleMenu()" class="btn-toggle-offcanvas btn btn-sm float-right"><i
 			class="fa fa-close"></i></button>
@@ -93,7 +93,7 @@
 					</a>
 				</li>
 
-				<li class="header">Subastas y ventas directas</li>
+				<li class="header">Gestión de ventas</li>
 
 				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
 					<a [routerLink]="['/auctions']" href="javascript:void(0)">
@@ -105,6 +105,12 @@
 					<a [routerLink]="['/direct-sellings']" href="javascript:void(0)">
 						<i class="fa fa-money-bill-wave-alt"></i>
 						<span>Venta directa</span>
+					</a>
+				</li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/cesions']" href="javascript:void(0)">
+						<i class="fa fa-share"></i>
+						<span>Cesiones de remate</span>
 					</a>
 				</li>
 
