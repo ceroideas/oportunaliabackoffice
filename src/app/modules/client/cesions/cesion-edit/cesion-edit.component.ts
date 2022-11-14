@@ -121,7 +121,7 @@ export class CesionEditComponent implements OnInit {
 
 		}, (data: ErrorResponse) => {
 			this.utils.showToast(data.error.messages, 'error');
-			this.router.navigate(['/cesion']);
+			this.router.navigate(['/cesions']);
 		});
 	}
 
@@ -319,7 +319,7 @@ export class CesionEditComponent implements OnInit {
 
 			this.auctionsService.editCesion(data, this.cesionId)
 			.subscribe(data => {
-				this.router.navigate(['/cesion']);
+				this.router.navigate(['/cesions']);
 				this.utils.showToast('Editado correctamente');
 			}, data => {
 				if (data.error.code == 401) {
