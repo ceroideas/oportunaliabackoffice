@@ -69,6 +69,7 @@ export const endpoints = {
 	auction_asignado: '/admin/auction/:id/asignado',
 	auction_final_report: '/admin/auction/:id/final_report',
 	direct_sale_final_report: '/admin/auction/:id/direct_sale_final_report',
+  cesion_final_report: '/admin/auction/:id/cesion_final_report',
 	auction_duplicate: '/admin/auction/duplicate/:id',
 	delete_document: '/admin/auction/:id/deletedocument',
 
