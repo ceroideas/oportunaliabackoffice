@@ -393,10 +393,25 @@ export class DirectSellingsComponent implements OnInit {
 
 		this.utils.showToast(`Se está exportando en formato ${type}`);
 
-		this.auctionsService.directSellingsExport(type)
-		.subscribe(data => {
-			this.utils.downloadFile(data, type, 'Ventas directas');
-		});
+    if(type=='offersdirect'){
+
+      this.auctionsService.directSellingsOffersExport(type)
+      .subscribe(data => {
+        this.utils.downloadFile(data, type, 'Ofertas Ventas directas');
+      });
+
+    }else{
+
+      this.auctionsService.directSellingsExport(type)
+      .subscribe(data => {
+        this.utils.downloadFile(data, type, 'Ventas directas');
+      });
+
+    }
+
+
+
+
 	}
 
 	finalReport(id: number) {
