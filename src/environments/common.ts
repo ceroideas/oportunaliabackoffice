@@ -76,7 +76,7 @@ export const endpoints = {
 	// Direct Sellings
 	direct_sellings_dt: '/admin/direct_sale',
 	direct_sellings_export: '/admin/direct_sale/export/:type',
-  direct_sellings_offers_export: '/admin/direct_sale/offersexport/:type',
+  //direct_sellings_offers_export: '/admin/direct_sale/offersexport/:type',
 	direct_sellings_create: '/admin/direct_sale',
 	direct_sellings_get: '/admin/direct_sale/:id',
 	direct_selling_history_dt: '/admin/direct_sale/:id/history',

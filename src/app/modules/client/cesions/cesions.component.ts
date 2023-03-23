@@ -400,25 +400,10 @@ export class CesionsComponent implements OnInit {
       var fichero = 'Ofertas cesiones';
     }
 
-    /*if(type=='offerscesions'){
-
-      this.auctionsService.cesionsOffersExport(type)
-        .subscribe(data => {
-        this.utils.downloadFile(data, type, 'Ofertas Cesiones de remate');
-      });
-
-    }else{*/
-
       this.auctionsService.cesionsExport(type)
 		    .subscribe(data => {
 			  this.utils.downloadFile(data, type, fichero);
 		  });
-
-    //}
-
-
-
-
 
 	}
 

@@ -125,11 +125,6 @@ export class AuctionsService {
 		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
 	}
 
-  directSellingsOffersExport(type: string) {
-		let url = endpoint('direct_sellings_offers_export', { type });
-		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
-	}
-
 	getDirectSelling(id: number) {
 		let url = endpoint('direct_sellings_get', { id });
 		return this.http.get(url, { headers: this.headers });
@@ -164,11 +159,6 @@ export class AuctionsService {
 
 	cesionsExport(type: string) {
 		let url = endpoint('cesions_export', { type });
-		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
-	}
-
-  cesionsOffersExport(type: string) {
-		let url = endpoint('cesions_offers_export', { type });
 		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
 	}
 
