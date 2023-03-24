@@ -88,7 +88,7 @@ export const endpoints = {
   // Cesions
   cesions_dt: '/admin/cesion',
 	cesions_export: '/admin/cesion/export/:type',
-	cesions_create: '/admin/cesion',
+  cesions_create: '/admin/cesion',
 	cesions_get: '/admin/cesion/:id',
 	cesion_history_dt: '/admin/cesion/:id/history',
 	cesion_users_dt: '/admin/cesion/:id/offers',
