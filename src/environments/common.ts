@@ -76,7 +76,6 @@ export const endpoints = {
 	// Direct Sellings
 	direct_sellings_dt: '/admin/direct_sale',
 	direct_sellings_export: '/admin/direct_sale/export/:type',
-  //direct_sellings_offers_export: '/admin/direct_sale/offersexport/:type',
 	direct_sellings_create: '/admin/direct_sale',
 	direct_sellings_get: '/admin/direct_sale/:id',
 	direct_selling_history_dt: '/admin/direct_sale/:id/history',
@@ -89,8 +88,7 @@ export const endpoints = {
   // Cesions
   cesions_dt: '/admin/cesion',
 	cesions_export: '/admin/cesion/export/:type',
-  //cesions_offers_export: '/admin/cesion/export/:type',
-	cesions_create: '/admin/cesion',
+  cesions_create: '/admin/cesion',
 	cesions_get: '/admin/cesion/:id',
 	cesion_history_dt: '/admin/cesion/:id/history',
 	cesion_users_dt: '/admin/cesion/:id/offers',
