@@ -98,7 +98,7 @@
               [ngClass]="{ 'invalid': errors('active_id') }"
               placeholder="Activo asociado">
               <option *ngFor="let asset of assets" value="{{ asset.id }}">
-                {{ asset.name }}
+                {{ asset.id }} - {{ asset.name }}
               </option>
             </select>
           </div>
