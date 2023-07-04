@@ -479,7 +479,7 @@
 					<div class="form-group c_form_group mb-0 col-lg-6">
 						<div class="d-flex flex-column mb-3">
 							<label>Documento 1</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -509,7 +509,7 @@
 
 						<div class="d-flex flex-column mb-3">
 							<label>Documento 2</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -565,7 +565,7 @@
 					<div class="form-group c_form_group mb-0 col-lg-6">
 						<div class="d-flex flex-column mb-3">
 							<label>Documento</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -595,7 +595,7 @@
 
 						<div class="d-flex flex-column mb-3">
 							<label>Documento 2</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -650,7 +650,7 @@
 					<div class="form-group c_form_group mb-0 col-lg-6">
 						<div class="d-flex flex-column mb-3">
 							<label>Documento</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -679,7 +679,7 @@
 
 						<div class="d-flex flex-column mb-3">
 							<label>Documento 2</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -735,7 +735,7 @@
 					<div class="form-group c_form_group mb-0 col-lg-6">
 						<div class="d-flex flex-column mb-3">
 							<label>Documento</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -764,7 +764,7 @@
 
 						<div class="d-flex flex-column mb-3">
 							<label>Documento</label>
-							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+							<small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
 						</div>
 						<div class="input-group">
 							<input type="file" class="form-control"
@@ -803,6 +803,11 @@
 				<i class="fa fa-file mr-2"></i>
 				<span>Cambiar a borrador</span>
 			</a>
+      <a *ngIf="auction?.auction_status_id == 7" class="text-gray pointer ml-3"
+        (click)="saveAuction('2')">
+        <i class="fa fa-file mr-2"></i>
+        <span>Cambiar a borrador</span>
+      </a>
 			<a *ngIf="auction?.auction_status_id == 2" class="text-gray pointer ml-3"
 				(click)="saveAuction('1')">
 				<i class="fa fa-file mr-2"></i>
