@@ -98,7 +98,7 @@
               [ngClass]="{ 'invalid': errors('active_id') }"
               placeholder="Activo asociado">
               <option *ngFor="let asset of assets" value="{{ asset.id }}">
-                {{ asset.name }}
+                {{ asset.id }} - {{ asset.name }}
               </option>
             </select>
           </div>
@@ -486,7 +486,7 @@
 
           <div class="d-flex flex-column mb-3">
             <label>Documento 2</label>
-            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
           </div>
           <div class="input-group">
             <input type="file" class="form-control"
@@ -573,7 +573,7 @@
 
           <div class="d-flex flex-column mb-3">
             <label>Documento 2</label>
-            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
           </div>
           <div class="input-group">
             <input type="file" class="form-control"
@@ -659,7 +659,7 @@
 
           <div class="d-flex flex-column mb-3">
             <label>Documento 2</label>
-            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
           </div>
           <div class="input-group">
             <input type="file" class="form-control"
@@ -701,7 +701,7 @@
         <div class="form-group c_form_group mb-0 col-lg-6">
           <div class="d-flex flex-column mb-3">
             <label>Documento</label>
-            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
           </div>
           <div class="input-group">
             <input type="file" class="form-control"
@@ -746,7 +746,7 @@
 
           <div class="d-flex flex-column mb-3">
             <label>Documento 2</label>
-            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 2MB</small>
+            <small class="text-gray">Formato admitido: PDF. Tamaño máx. 8MB</small>
           </div>
           <div class="input-group">
             <input type="file" class="form-control"
@@ -767,6 +767,11 @@
 <div class="row">
   <div class="col-lg-12 d-flex flex-row justify-content-end align-items-center">
     <a *ngIf="cesion?.auction_status_id == 1" class="text-gray pointer ml-3"
+      (click)="saveCesion('2')">
+      <i class="fa fa-file mr-2"></i>
+      <span>Cambiar a borrador</span>
+    </a>
+    <a *ngIf="cesion?.auction_status_id == 7" class="text-gray pointer ml-3"
       (click)="saveCesion('2')">
       <i class="fa fa-file mr-2"></i>
       <span>Cambiar a borrador</span>
