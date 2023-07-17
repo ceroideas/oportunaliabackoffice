@@ -608,10 +608,10 @@
 							<div *ngIf="errors('technical_document_two', 'required')">Requerido</div>
 						</div>
 						<a *ngIf="auction?.technical_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-							href="../documents/{{auction.technical_archive_two.path}}" target="_blank"
+							href="{{auction.technical_archive_two.path}}" target="_blank"
 							[title]="auction.technical_archive_two.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual (2)</span>
+							<span>Ver documento actual (2) {{auction.technical_archive_two.name}}</span>
 						</a>
 						<a *ngIf="auction?.technical_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
 							style="color:red;"
