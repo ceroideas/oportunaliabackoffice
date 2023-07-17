@@ -522,10 +522,10 @@
 							<div *ngIf="errors('description_document_two', 'required')">Requerido</div>
 						</div>
 						<a *ngIf="auction?.description_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-							href="../documents/{{auction.description_archive_two.path}}" target="_blank"
+							href="{{auction.description_archive_two.path}}" target="_blank"
 							[title]="auction.description_archive_two.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual (2)</span>
+							<span>Ver documento actual (2){{auction.description_archive_two.name}}</span>
 						</a>
 						<a *ngIf="auction?.description_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
 							style="color:red;"
@@ -662,13 +662,15 @@
 						<div class="form-errors mb-3">
 							<div *ngIf="errors('land_registry_document', 'required')">Requerido</div>
 						</div>
-						<a *ngIf="auction?.land_registry_archive?.path" class="form-control-upper-right text-cyan small pointer"
+
+            <a *ngIf="auction?.land_registry_archive?.path" class="form-control-upper-right text-cyan small pointer"
 							[href]="auction.land_registry_archive.path" target="_blank"
 							[title]="auction.land_registry_archive.name">
 							<i class="fa fa-id-card mr-2"></i>
 							<span>Ver documento actual</span>
 						</a>
-						<a *ngIf="auction?.land_registry_archive?.path" class="form-control-upper-left text-cyan small pointer"
+
+            <a *ngIf="auction?.land_registry_archive?.path" class="form-control-upper-left text-cyan small pointer"
 							style="color:red;"
 							(click)="deleteDocument('land_registry_one')"
 							[title]="auction.land_registry_archive.name">
@@ -691,12 +693,15 @@
 						<div class="form-errors mb-3">
 							<div *ngIf="errors('land_registry_document_two', 'required')">Requerido</div>
 						</div>
-						<a *ngIf="auction?.land_registry_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-							href="../documents/{{auction.land_registry_archive_two.path}}" target="_blank"
+
+            <a *ngIf="auction?.land_registry_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
+							href="{{auction.land_registry_archive_two.path}}" target="_blank"
 							[title]="auction.land_registry_archive_two.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual (2)</span>
+							<span>Ver documento actual (2) {{auction.land_registry_archive_two.name}}</span>
 						</a>
+
+
 						<a *ngIf="auction?.land_registry_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
 						style="color:red;"
 						(click)="deleteDocument('land_registry_two')"
@@ -777,10 +782,10 @@
 							<div *ngIf="errors('conditions_document_two', 'required')">Requerido</div>
 						</div>
 						<a *ngIf="auction?.conditions_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-							href="../documents/{{auction.conditions_archive_two.path}}" target="_blank"
+							href="{{auction.conditions_archive_two.path}}" target="_blank"
 							[title]="auction.conditions_archive_two.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual (2)</span>
+							<span>Ver documento actual (2) {{auction.conditions_archive_two.name}}</span>
 						</a>
 						<a *ngIf="auction?.conditions_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
 							style="color:red;"
