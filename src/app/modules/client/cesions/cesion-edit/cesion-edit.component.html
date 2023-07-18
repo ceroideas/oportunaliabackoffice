@@ -457,30 +457,30 @@
             [href]="cesion.description_archive.path" target="_blank"
             [title]="cesion.description_archive.name">
             <i class="fa fa-id-card mr-2"></i>
-            <span>Ver documento actual</span>
+            <span>Ver documento actual - {{cesion.description_archive.name}}</span>
           </a>
           <a *ngIf="cesion?.description_archive?.path" class="form-control-upper-left text-cyan small pointer"
             style="color:red;"
             (click)="deleteDocument('description_one')"
             [title]="auction.description_archive.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual</span>
+            <span>Borrar documento actual - {{auction.description_archive.name}}</span>
           </a>
 
 
 
           <a *ngIf="cesion?.description_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-            href="../documents/{{cesion.description_archive_two.path}}" target="_blank"
+            href="{{cesion.description_archive_two.path}}" target="_blank"
             [title]="cesion.description_archive_two.name">
             <i class="fa fa-id-card mr-2"></i>
-            <span>Ver documento actual (2)</span>
+            <span>Ver documento actual (2) - {{cesion.description_archive_two.name}}</span>
           </a>
           <a *ngIf="cesion?.description_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
             style="color:red;"
             (click)="deleteDocument('description_two')"
             [title]="auction.description_archive_two.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual (2)</span>
+            <span>Borrar documento actual (2) - {{auction.description_archive_two.name}}</span>
           </a>
 
 
@@ -544,29 +544,29 @@
             [href]="cesion.technical_archive.path" target="_blank"
             [title]="cesion.technical_archive.name">
             <i class="fa fa-id-card mr-2"></i>
-            <span>Ver documento actual</span>
+            <span>Ver documento actual - {{cesion.technical_archive.name}}</span>
           </a>
           <a *ngIf="cesion?.technical_archive?.path" class="form-control-upper-left text-cyan small pointer"
             style="color:red;"
             (click)="deleteDocument('technical_one')"
             [title]="auction.technical_archive.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual</span>
+            <span>Borrar documento actual - {{auction.technical_archive.name}}</span>
           </a>
 
 
           <a *ngIf="cesion?.technical_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-            href="../documents/{{cesion.technical_archive_two.path}}" target="_blank"
+            href="{{cesion.technical_archive_two.path}}" target="_blank"
             [title]="cesion.technical_archive_two.name">
             <i class="fa fa-id-card mr-2"></i>
-            <span>Ver documento actual (2)</span>
+            <span>Ver documento actual (2) - {{cesion.technical_archive_two.name}}</span>
           </a>
           <a *ngIf="cesion?.technical_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
             style="color:red;"
             (click)="deleteDocument('technical_two')"
             [title]="auction.technical_archive_two.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual (2)</span>
+            <span>Borrar documento actual (2) - {{auction.technical_archive_two.name}}</span>
           </a>
 
 
@@ -631,29 +631,29 @@
             [href]="cesion.land_registry_archive.path" target="_blank"
             [title]="cesion.land_registry_archive.name">
             <i class="fa fa-id-card mr-2"></i>
-            <span>Ver documento actual</span>
+            <span>Ver documento actual - {{cesion.land_registry_archive.name}}</span>
           </a>
           <a *ngIf="cesion?.land_registry_archive?.path" class="form-control-upper-left text-cyan small pointer"
             style="color:red;"
             (click)="deleteDocument('land_registry_one')"
             [title]="auction.land_registry_archive.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual</span>
+            <span>Borrar documento actual - {{auction.land_registry_archive.name}}</span>
           </a>
 
 
           <a *ngIf="cesion?.land_registry_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-          href="../documents/{{cesion.land_registry_archive_two.path}}" target="_blank"
+          href="{{cesion.land_registry_archive_two.path}}" target="_blank"
           [title]="cesion.land_registry_archive_two.name">
           <i class="fa fa-id-card mr-2"></i>
-          <span>Ver documento actual (2)</span>
+          <span>Ver documento actual (2) - {{cesion.land_registry_archive_two.name}}</span>
           </a>
           <a *ngIf="cesion?.land_registry_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
           style="color:red;"
           (click)="deleteDocument('land_registry_two')"
             [title]="auction.land_registry_archive_two.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual (2)</span>
+            <span>Borrar documento actual (2) - {{auction.land_registry_archive_two.name}}</span>
           </a>
 
 
@@ -717,29 +717,29 @@
             [href]="cesion.conditions_archive.path" target="_blank"
             [title]="cesion.conditions_archive.name">
             <i class="fa fa-id-card mr-2"></i>
-            <span>Ver documento actual</span>
+            <span>Ver documento actual - {{cesion.conditions_archive.name}}</span>
           </a>
           <a *ngIf="cesion?.conditions_archive?.path" class="form-control-upper-left text-cyan small pointer"
             style="color:red;"
             (click)="deleteDocument('conditions_one')"
             [title]="auction.conditions_archive.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual</span>
+            <span>Borrar documento actual - {{auction.conditions_archive.name}}</span>
           </a>
 
 
           <a *ngIf="cesion?.conditions_archive_two?.path" class="form-control-upper-right second text-cyan small pointer"
-            href="../documents/{{cesion.conditions_archive_two.path}}" target="_blank"
+            href="{{cesion.conditions_archive_two.path}}" target="_blank"
             [title]="cesion.conditions_archive_two.name">
             <i class="fa fa-id-card mr-2"></i>
-            <span>Ver documento actual (2)</span>
+            <span>Ver documento actual (2) - {{cesion.conditions_archive_two.name}}</span>
           </a>
           <a *ngIf="cesion?.conditions_archive_two?.path" class="form-control-upper-left second text-cyan small pointer"
             style="color:red;"
             (click)="deleteDocument('conditions_two')"
             [title]="auction.conditions_archive_two.name">
             <i class="fa fa-trash mr-2"></i>
-            <span>Borrar documento actual (2)</span>
+            <span>Borrar documento actual (2) - {{auction.conditions_archive_two.name}}</span>
           </a>
 
 
