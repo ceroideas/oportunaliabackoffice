@@ -495,7 +495,7 @@
 							[href]="auction.description_archive.path" target="_blank"
 							[title]="auction.description_archive.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual</span>
+							<span>Ver documento actual - {{auction.description_archive.name}}</span>
 						</a>
 						<a *ngIf="auction?.description_archive?.path" class="form-control-upper-left text-cyan small pointer"
 							style="color:red;"
@@ -581,7 +581,7 @@
 							[href]="auction.technical_archive.path" target="_blank"
 							[title]="auction.technical_archive.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual</span>
+							<span>Ver documento actual - {{auction.technical_archive.name}}</span>
 						</a>
 						<a *ngIf="auction?.technical_archive?.path" class="form-control-upper-left text-cyan small pointer"
 							style="color:red;"
@@ -667,7 +667,7 @@
 							[href]="auction.land_registry_archive.path" target="_blank"
 							[title]="auction.land_registry_archive.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual</span>
+							<span>Ver documento actual - {{auction.land_registry_archive.name}}</span>
 						</a>
 
             <a *ngIf="auction?.land_registry_archive?.path" class="form-control-upper-left text-cyan small pointer"
@@ -756,7 +756,7 @@
 							[href]="auction.conditions_archive.path" target="_blank"
 							[title]="auction.conditions_archive.name">
 							<i class="fa fa-id-card mr-2"></i>
-							<span>Ver documento actual</span>
+							<span>Ver documento actual - {{auction.conditions_archive.name}}</span>
 						</a>
 						<a *ngIf="auction?.conditions_archive?.path" class="form-control-upper-left text-cyan small pointer"
 							style="color:red;"
