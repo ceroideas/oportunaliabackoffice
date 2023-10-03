@@ -33,6 +33,16 @@ export class DataService {
 		return response;
 	}
 
+	async getAuctionMaxId() {
+		let url = endpoint('max_id');
+		const response = await this.http.get(url, { headers: this.headers })
+			.toPromise();
+      /*console.log("Data Service getAuctionMaxId response: ");
+      console.log(typeof(response));
+      console.log(response);*/
+		return response;
+	}
+
 	async getConditions() {
 		let url = endpoint('conditions_list');
 		const response = this.http.get(url, { headers: this.headers })

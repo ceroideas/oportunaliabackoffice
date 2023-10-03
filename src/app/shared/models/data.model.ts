@@ -15,3 +15,7 @@ export interface Province {
 	id: number,
 	name: string,
 }
+
+export interface Maximo {
+	last: number
+}

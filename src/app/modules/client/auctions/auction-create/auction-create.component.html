@@ -12,7 +12,8 @@
 			<span class="mx-2">/</span>
 			<span>Nuevo</span>
 		</div>
-		<h1 class="main-content-title">Nueva Subasta</h1>
+		<h1 class="main-content-title">Nueva Subasta </h1><h3>N&uacute;mero probable: {{maximoId}}</h3>
+
 	</div>
 
 	<!-- Form -->
@@ -42,7 +43,7 @@
 								[ngClass]="{ 'invalid': errors('active_id') }"
 								placeholder="Activo asociado a la subasta">
 								<option *ngFor="let asset of assets" value="{{ asset.id }}">
-									{{ asset.name }} - {{ asset.name }}
+									{{ asset.id }} - {{ asset.name }}
 								</option>
 							</select>
 						</div>
