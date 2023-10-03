@@ -15,6 +15,7 @@ export const endpoints = {
 	provinces_list: '/province/:country',
 	representation_types_list: '/representation_type',
 	roles_list: '/admin/role',
+  max_id: '/admin/max_id',
 
 	// Users
 	users_dt: '/admin/user',

@@ -13,6 +13,7 @@ import { Asset } from 'src/app/shared/models/asset.model';
 import { Auction } from 'src/app/shared/models/auction.model';
 
 import { formErrors, lte, dateCoherence } from 'src/app/shared/validators';
+import { Maximo } from 'src/app/shared/models/data.model';
 
 @Component({
   selector: 'app-cesion-create',
@@ -40,6 +41,7 @@ export class CesionCreateComponent implements OnInit {
 	// Selectors
 
 	public assets: Asset[] = [];
+  public maximoId: any;
 
 	// Modals
 
@@ -63,7 +65,7 @@ export class CesionCreateComponent implements OnInit {
     this.ckOptions = this.utils.ckOptions;
 
 		this.getAssets();
-
+    this.getMaxId();
 		this.setFormFields();
   }
 
@@ -267,6 +269,12 @@ export class CesionCreateComponent implements OnInit {
 	}
 	editAsHtml4(){
 		this.editHtml4 = !this.editHtml4;
+	}
+
+  getMaxId(){
+    this.dataService.getAuctionMaxId().then((response: Maximo)=>{
+        this.maximoId = response;
+    });
 	}
 
 }
