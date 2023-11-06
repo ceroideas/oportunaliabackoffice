@@ -74,10 +74,13 @@ export class AuctionsComponent implements OnInit {
 			},
 			columns: [
 				{
-					title: 'Título', data: 'title',
+					title: 'id', data: 'id',
 				},
 				{
-					title: 'Referencia', data: 'id',
+					title: 'Referencia', data: 'auto',
+				},
+        {
+					title: 'Título', data: 'title',
 				},
 				{
 					title: 'Fecha de inicio',
@@ -363,7 +366,7 @@ export class AuctionsComponent implements OnInit {
 			this.utils.showToast('Cambiado el valor de asignado');
 		});
 	}
-	
+
 
 	duplicateAuction(id: number){
 
