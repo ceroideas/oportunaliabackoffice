@@ -119,10 +119,13 @@ export class UserDirectSellingsComponent implements OnInit {
 			},
 			columns: [
 				{
-					title: 'Título', data: 'title',
+					title: 'id', data: 'id',
 				},
-				{
-					title: 'Referencia', data: 'reference'
+        {
+					title: 'Referencia', data: 'auto',
+				},
+        {
+					title: 'Título', data: 'title',
 				},
 				{
 					title: 'Fecha de inicio',
