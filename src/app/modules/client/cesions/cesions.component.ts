@@ -75,10 +75,13 @@ export class CesionsComponent implements OnInit {
 			},
 			columns: [
 				{
-					title: 'Título', data: 'title',
+					title: 'id', data: 'id',
 				},
-				{
-					title: 'Referencia', data: 'id',
+        {
+					title: 'Referencia', data: 'auto',
+				},
+        {
+					title: 'Título', data: 'title',
 				},
 				{
 					title: 'Fecha de inicio',
