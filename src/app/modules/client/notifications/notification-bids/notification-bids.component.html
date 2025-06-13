@@ -74,6 +74,14 @@
 	<button *ngIf="sideMenu"
 		class="btn btn-rounded btn-cyan w-100 mr-4" (click)="close.emit()"
 		[routerLink]="['/notifications-center']">Centro de notificaciones</button>
-	<button class="btn btn-rounded btn-border-cyan w-100" (click)="close.emit()"
+
+
+	<button *ngIf="auction.auction_type_id == 1" class="btn btn-rounded btn-border-cyan w-100" (click)="close.emit()"
 		[routerLink]="['/auctions', auctionId, 'users']">Ver subasta</button>
+
+	<button *ngIf="auction.auction_type_id == 2" class="btn btn-rounded btn-border-cyan w-100" (click)="close.emit()"
+		[routerLink]="['/direct-sellings', auctionId, 'users']">Ver venta directa</button>
+
+	<button *ngIf="auction.auction_type_id == 3" class="btn btn-rounded btn-border-cyan w-100" (click)="close.emit()"
+		[routerLink]="['/cesions', auctionId, 'users']">Ver cesión de remate</button>
 </div>

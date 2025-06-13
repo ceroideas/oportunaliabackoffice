@@ -9,6 +9,8 @@ import { endpoint } from 'src/environments/environment';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { AuctionsService } from 'src/app/core/services/auctions.service';
 
+import { AssetsService } from 'src/app/core/services/assets.service';
+
 import { BaseResponse, ErrorResponse } from 'src/app/shared/models/base-response.model';
 import { AuctionStatus } from 'src/app/shared/models/auction.model';
 
@@ -30,16 +32,21 @@ export class CesionsComponent implements OnInit {
 	// Modals
 	@ViewChild('historyModal') historyModal: TemplateRef<any>;
 	@ViewChild('confirmModal') confirmModal: TemplateRef<any>;
+	@ViewChild('importModal') importModal: TemplateRef<any>;
+	@ViewChild('errorImportModal') errorImportModal: TemplateRef<any>;
 	public modalRef: BsModalRef;
 	private cesionId: number;
 	private deleteId: number;
+
+	file;
 
 
   constructor(
     private router: Router,
 		private modalService: BsModalService,
 		public utils: UtilsService,
-		public auctionsService: AuctionsService
+		public auctionsService: AuctionsService,
+		public assetsService: AssetsService
   ) {
 
   }
@@ -47,6 +54,33 @@ export class CesionsComponent implements OnInit {
   ngOnInit(): void {
     this.initTable();
   }
+
+  onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files.length > 0) {
+            this.file = input.files[0];
+            this.onSubmit(); // Enviar el formulario automáticamente
+        }
+    }
+
+    onSubmit(): void {
+        if (this.file) {
+            const formData = new FormData();
+            formData.append('file', this.file);
+
+            this.assetsService.auctionsImport(formData).subscribe(
+                response => {
+                    console.log('File uploaded successfully', response);
+                    this.modalRef = this.modalService.show(this.importModal, { class: 'modal-sm' });
+                    this.reloadTable();
+                },
+                error => {
+                    console.error('Error uploading file', error);
+                    this.modalRef = this.modalService.show(this.errorImportModal, { class: 'modal-sm' });
+                }
+            );
+        }
+    }
 
   ngOnDestroy(): void {
 		this.dtTrigger.unsubscribe();
@@ -239,6 +273,7 @@ export class CesionsComponent implements OnInit {
 				let filters = [
 					{ name: 'Todos', value: 'all' },
 					{ name: 'Borradores', value: 'draft' },
+					{ name: 'Próximamente', value: 'soon' },
 					{ name: 'En curso', value: 'ongoing' },
 					{ name: 'Vendidas', value: 'sold' },
 					{ name: 'No vendidas', value: 'unsold' },
@@ -318,6 +353,9 @@ export class CesionsComponent implements OnInit {
 		switch (this.filter_tab) {
 			case 'draft':
 				params.status_id = AuctionStatus.DRAFT;
+				break;
+			case 'soon':
+				params.status_id = AuctionStatus.SOON;
 				break;
 			case 'ongoing':
 				params.status_id = AuctionStatus.ONGOING;

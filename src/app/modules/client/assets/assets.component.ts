@@ -21,6 +21,8 @@ export class AssetsComponent implements OnInit {
 
 	public assetId: number;
 
+	file;
+
 	// DataTables
 
 	@ViewChild(DataTableDirective) dtElement: DataTableDirective;
@@ -36,6 +38,8 @@ export class AssetsComponent implements OnInit {
 
 	@ViewChild('assetModal') assetModal: TemplateRef<any>;
 	@ViewChild('confirmModal') confirmModal: TemplateRef<any>;
+	@ViewChild('importModal') importModal: TemplateRef<any>;
+	@ViewChild('errorImportModal') errorImportModal: TemplateRef<any>;
 	public modalRef: BsModalRef;
 	private deleteId: number;
 
@@ -57,6 +61,33 @@ export class AssetsComponent implements OnInit {
 
 		this.initTable();
 	}
+
+	onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files.length > 0) {
+            this.file = input.files[0];
+            this.onSubmit(); // Enviar el formulario automáticamente
+        }
+    }
+
+    onSubmit(): void {
+        if (this.file) {
+            const formData = new FormData();
+            formData.append('file', this.file);
+
+            this.assetsService.activesImport(formData).subscribe(
+                response => {
+                    console.log('File uploaded successfully', response);
+                    this.modalRef = this.modalService.show(this.importModal, { class: 'modal-sm' });
+                    this.reloadTable();
+                },
+                error => {
+                    console.error('Error uploading file', error);
+                    this.modalRef = this.modalService.show(this.errorImportModal, { class: 'modal-sm' });
+                }
+            );
+        }
+    }
 
 	ngOnDestroy(): void {
 		this.dtTrigger.unsubscribe();

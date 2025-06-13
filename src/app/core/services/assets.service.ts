@@ -85,4 +85,13 @@ export class AssetsService {
 		let url = endpoint('asset_categories_get', { id });
 		return this.http.delete(url, { headers: this.headers });
 	}
+
+	activesImport(data: any) {
+		let url = endpoint('actives_import');
+		return this.http.post(url, data, { headers: this.headers });
+	}
+	auctionsImport(data: any) {
+		let url = endpoint('auctions_import');
+		return this.http.post(url, data, { headers: this.headers });
+	}
 }

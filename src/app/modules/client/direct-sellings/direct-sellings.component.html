@@ -30,10 +30,18 @@
 				<i class="fa fa-file-excel mr-2"></i>
 				<span>XLSX</span>
 			</button>
-      <button (click)="download('offersdirect')" class="btn btn-border-navy btn-rounded mr-3" title="Exportar ofertas en .xlsx">
+      		<button (click)="download('offersdirect')" class="btn btn-border-navy btn-rounded mr-3" title="Exportar ofertas en .xlsx">
 				<i class="fa fa-file-excel mr-2"></i>
 				<span>Ofertas XLSX</span>
 			</button>
+
+			<div>
+				<form id="fileUploadForm" (ngSubmit)="onSubmit()" #fileUploadForm="ngForm">
+				    <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+				    <label for="fileInput" class="btn btn-border-navy btn-rounded mr-3" style="margin: 0;">Importar ventas directas</label>
+				    <!-- <button type="submit" hidden>Upload</button> -->
+				</form>
+			</div>
 		</div>
 
     <!--<div class="block-exports">

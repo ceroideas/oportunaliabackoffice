@@ -31,7 +31,16 @@
 				<i class="fa fa-file-excel mr-2"></i>
 				<span>XLSX</span>
 			</button>
+
+			<div>
+				<form id="fileUploadForm" (ngSubmit)="onSubmit()" #fileUploadForm="ngForm">
+				    <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+				    <label for="fileInput" class="btn btn-border-navy btn-rounded mr-3" style="margin: 0;">Importar activos</label>
+				    <!-- <button type="submit" hidden>Upload</button> -->
+				</form>
+			</div>
 		</div>
+
 
 		<!-- DataTable -->
 
@@ -74,5 +83,44 @@
 			(click)="modalRef.hide()">Cancelar</button>
 		<button type="button" class="btn btn-rounded btn-red"
 			(click)="deleteAsset()">Eliminar</button>
+	</div>
+</ng-template>
+
+<ng-template #importModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Importación de activos</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+				(click)="modalRef.hide()">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body">
+		<p>El documento se ha cargado correctamente y se han importado los activos correctamente.</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Aceptar</button>
+	</div>
+</ng-template>
+
+
+<ng-template #errorImportModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Importación de activos</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+				(click)="modalRef.hide()">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-danger">
+		<p>Ha ocurrido un error al importar los activos, vuelva a intentarlo.</p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Aceptar</button>
 	</div>
 </ng-template>

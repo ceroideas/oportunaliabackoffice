@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
 
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { DataService } from 'src/app/core/services/data.service';
@@ -12,6 +13,8 @@ import { AuctionStatus } from 'src/app/shared/models/auction.model';
 import { Asset, AssetCategory, Condition } from 'src/app/shared/models/asset.model';
 
 import { formErrors, minLengthArray } from 'src/app/shared/validators';
+
+declare var google:any;
 
 @Component({
 	selector: 'app-asset-edit',
@@ -51,6 +54,7 @@ export class AssetEditComponent implements OnInit, OnChanges {
 	private MAX_FILE_SIZE: number = 8000000;
 
 	constructor(
+		private _http: HttpClient,
 		public fb: FormBuilder,
 		public utils: UtilsService,
 		public dataService: DataService,
@@ -98,10 +102,19 @@ export class AssetEditComponent implements OnInit, OnChanges {
 					if (this.asset.auction_id != null &&
 						![AuctionStatus.DRAFT, AuctionStatus.SOON, AuctionStatus.ONGOING].includes(this.asset.auction_status_id)
 					) {
-						this.disabled = true;
+						// this.disabled = true;
 					}
 
 					this.form.patchValue(this.asset);
+
+					let lat = parseFloat(this.form.get('lat').value);
+					let lng = parseFloat(this.form.get('lng').value);
+
+					this.form.patchValue({'lat':lat});
+			        this.form.patchValue({'lng':lng});
+
+			        this.map.setCenter({lat:lat,lng:lng});
+			        this.marker.setPosition({lat:lat,lng:lng});
 
 					this.imagesArray.clear();
 
@@ -135,6 +148,7 @@ export class AssetEditComponent implements OnInit, OnChanges {
 	}
 
 	ngAfterViewInit(): void {
+		this.initMap();
 	}
 
 	setFormFields() {
@@ -148,6 +162,8 @@ export class AssetEditComponent implements OnInit, OnChanges {
 			address: ['', [Validators.required]],
 			city: ['', [Validators.required]],
 			province_id: ['', [Validators.required]],
+			lat: ['', [Validators.required]],
+			lng: ['', [Validators.required]],
 			refund: [''],
 			active_condition_id: ['', [Validators.required]],
 			area: ['', [Validators.required]],
@@ -213,6 +229,8 @@ export class AssetEditComponent implements OnInit, OnChanges {
 			data.append('city', this.form.get('city').value);
 			data.append('province_id', this.form.get('province_id').value);
 			data.append('refund', this.form.get('refund').value ? '1' : '0');
+			data.append('lat', this.form.get('lat').value);
+			data.append('lng', this.form.get('lng').value);
 			data.append('active_condition_id', this.form.get('active_condition_id').value);
 			data.append('area', this.form.get('area').value);
 
@@ -287,6 +305,70 @@ export class AssetEditComponent implements OnInit, OnChanges {
 			});
 		}
 
-		this.assetsService.openMaps(query);
+		// this.assetsService.openMaps(query);
+		this.geocodeAddress(query);
+	}
+
+	map:any;
+	marker:any;
+
+	initMap() {
+	  var initialPosition = { 
+	  	lat: 41.0546247,
+	  	lng: -4.806823
+	  };
+
+	  console.log(initialPosition);
+
+	  // Crea el mapa
+	  this.map = new google.maps.Map(document.getElementById("map"), {
+	    zoom: 8,
+	    center: initialPosition,
+	  });
+
+	  // Crea el marcador
+	  this.marker = new google.maps.Marker({
+	    position: initialPosition,
+	    map: this.map,
+	    draggable: true, // Permitir arrastrar el marcador
+	  });
+
+	  // Escucha cambios en la posición del marcador
+	  google.maps.event.addListener(this.marker, "dragend", (event) => {
+		this.form.patchValue({'lat':event.latLng.lat()});
+		this.form.patchValue({'lng':event.latLng.lng()});
+	  });
+
+	  // Permitir mover el marcador con un clic en el mapa
+	  google.maps.event.addListener(this.map, "click", (event) => {
+	    const clickedPosition = event.latLng;
+	    this.marker.setPosition(clickedPosition);
+	    console.log("Clic en el mapa:", clickedPosition.lat(), clickedPosition.lng());
+	  });
+	}
+
+	private apiKey = 'AIzaSyDsj-gbtqTAsxtWNbcqrRmE8ExatChS_Ko';
+	private apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
+
+	geocodeAddress(address: string): void {
+	    this.getCoordinates(address).subscribe(response => {
+	      if (response.status === 'OK') {
+	        const location = response.results[0].geometry.location;
+
+	        this.form.patchValue({'lat':location.lat});
+	        this.form.patchValue({'lng':location.lng});
+
+	        this.map.setCenter({lat:location.lat,lng:location.lng});
+	        this.marker.setPosition({lat:location.lat,lng:location.lng});
+
+	      } else {
+	        console.error('Geocoding error:', response.status);
+	      }
+	    });
+	}
+
+	getCoordinates(address: string): any {
+	    const url = `${this.apiUrl}?address=${encodeURIComponent(address)}&key=${this.apiKey}`;
+	    return this._http.get(url);
 	}
 }

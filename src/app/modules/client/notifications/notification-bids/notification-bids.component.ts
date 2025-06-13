@@ -46,10 +46,6 @@ export class NotificationBidsComponent implements OnInit, OnChanges {
 
 	ngOnInit(): void {
 
-		this.countdown();
-
-		this.countdownInterval = setInterval(() => this.countdown(), 1000);
-
 		if (this.communicationsService.notificationsOn) {
 			this.notificationsInterval = setInterval(
 				() => this.getActivity(),
@@ -66,6 +62,8 @@ export class NotificationBidsComponent implements OnInit, OnChanges {
 	}
 
 	ngOnDestroy(): void {
+		this.time_left = null;
+		clearInterval(this.countdownInterval);
 		clearInterval(this.notificationsInterval);
 	}
 
@@ -85,6 +83,13 @@ export class NotificationBidsComponent implements OnInit, OnChanges {
 					this.auction = data.response;
 
 					this.images = this.auction.images;
+
+					this.time_left = null;
+					clearInterval(this.countdownInterval);
+
+					this.countdown();
+
+					this.countdownInterval = setInterval(() => this.countdown(), 1000);
 				}
 
 			}, (data: ErrorResponse) => {

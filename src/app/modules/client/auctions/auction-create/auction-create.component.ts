@@ -177,7 +177,11 @@ export class AuctionCreateComponent implements OnInit {
 			let endDate = this.form.get('end_date').value;
 			let endTime = this.form.get('end_time').value + ':00';
 
-			data.append('auction_status_id', draft ? '2' : '1');
+			if (new Date(startDate+' '+startTime) > new Date()) {
+				data.append('auction_status_id', draft ? '2' : '7');
+			}else{
+				data.append('auction_status_id', draft ? '2' : '1');
+			}
 			data.append('title', this.form.get('title').value);
 			data.append('active_id', this.form.get('active_id').value);
 			data.append('start_date', `${startDate} ${startTime}`);

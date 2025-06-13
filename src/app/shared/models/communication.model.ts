@@ -82,6 +82,7 @@ export interface Notification {
 	type: number,
 	new_bids: number,
 	max_bid: number,
+	__max_bid: number,
 	is_best_bid: boolean,
 	end_date: string,
 	created_at: string,

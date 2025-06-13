@@ -111,7 +111,7 @@ export class NotificationsComponent implements OnInit {
 
 			if (timeLeft) {
 				icon = 'pill-red fa-gavel';
-			} else if (atn.max_bid > 0) {
+			} else if (atn.__max_bid > 0) {
 				icon = 'pill-green fa-trophy';
 			} else {
 				icon = 'pill-gray fa-exclamation-circle';

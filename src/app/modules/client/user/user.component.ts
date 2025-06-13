@@ -234,7 +234,7 @@ export class UserComponent implements OnInit {
 
 				$('button.documento2', row).unbind('click');
 				$('button.documento2', row).bind('click', () => {
-					window.open("https://oportunalia.com/documents/"+data['document_two']['path'], '_blank').focus();
+					window.open(data['document_two']['path'], '_blank').focus();
 				});
 
 				$('button.editar', row).unbind('click');
@@ -426,6 +426,16 @@ export class UserComponent implements OnInit {
 	}
 
 	download(type: string) {
+
+		if (type == 'interests') {
+			this.utils.showToast(`Se están exportando los usuarios con los intereses`);
+
+			this.userService.usersExport(type)
+			.subscribe(data => {
+				this.utils.downloadFile(data, type, 'Usuarios');
+			});
+			return;
+		}
 
 		this.utils.showToast(`Se está exportando en formato ${type}`);
 

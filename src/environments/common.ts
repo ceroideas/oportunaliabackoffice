@@ -26,7 +26,8 @@ export const endpoints = {
 	users_validate: '/admin/user/:id/validate',
 	user_auctions_dt: '/admin/user/:id/bids',
 	user_deposits_dt: '/admin/user/:id/deposits',
-	user_direct_sellings_dt: '/admin/user/:id/offers',
+	user_direct_sellings_dt: '/admin/user/:id/offers', // estos serian solo venta directa
+	user_cesions_dt: '/admin/user/:id/offers', // aqui para el futuro, habria que identificar que estos bids son de cesiones de remate
 	user_representations_dt: '/admin/user/:id/representation',
 	users_del_doc1: '/admin/user/:id/documentone',
 	users_del_doc2: '/admin/user/:id/documenttwo',
@@ -127,6 +128,9 @@ export const endpoints = {
 	notifications: '/admin/notification',
 	notifications_status_all: '/admin/notification/all/:key',
 	notifications_status: '/admin/notification/:id',
+
+	actives_import: '/activesImport',
+	auctions_import: '/auctionsImport',
 };
 
 export const external = {

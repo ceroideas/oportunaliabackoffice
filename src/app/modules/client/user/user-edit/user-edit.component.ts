@@ -251,6 +251,17 @@ console.log("funcion editUser");
 			});
 
 		} else {
+			const camposInvalidos: string[] = [];
+  
+			Object.keys(this.form.controls).forEach((campo) => {
+			const control = this.form.get(campo);
+				if (control?.invalid) {
+				  camposInvalidos.push(campo);
+				}
+			});
+
+			console.log(camposInvalidos);
+
 			this.utils.showToast('2 Formulario incorrecto', 'error');
 		}
 	}

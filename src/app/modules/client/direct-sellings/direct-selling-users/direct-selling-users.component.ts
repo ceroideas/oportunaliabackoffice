@@ -207,7 +207,7 @@ export class DirectSellingUsersComponent implements OnInit {
 
 				$('button.editar', row).unbind('click');
 				$('button.editar', row).bind('click', () => {
-					that.router.navigate(['/users', data['id'], 'edit']);
+					that.router.navigate(['/users', data['user_id'], 'edit']);
 				});
 
 				return row;
