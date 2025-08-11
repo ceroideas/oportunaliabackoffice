@@ -98,6 +98,21 @@ export const endpoints = {
 	cesion_asignado: '/admin/cesion/:id/asignado',
 	cesion_duplicate: '/admin/cesion/duplicate/:id',
 
+  // Cesions Credito
+  cesions_credito_dt: '/admin/credit-assignment',
+	cesions_credito_export: '/admin/credit-assignment/export/:type',
+  cesions_credito_create: '/admin/credit-assignment',
+	cesions_credito_get: '/admin/credit-assignment/:id',
+	cesion_credito_history_dt: '/admin/credit-assignment/:id/history',
+	cesion_credito_users_dt: '/admin/credit-assignment/:id/offers',
+	cesion_credito_featured: '/admin/credit-assignment/:id/featured',
+	cesion_credito_asignado: '/admin/credit-assignment/:id/asignado',
+	cesion_credito_duplicate: '/admin/credit-assignment/duplicate/:id',
+	cesion_credito_final_report: '/admin/credit-assignment/:id/final_report',
+	cesion_credito_deposits_dt: '/admin/credit-assignment/:id/deposits',
+	offer_cesion_credito_validate: '/admin/offer_credit_assignment/:id/status',
+	cesion_credito_public: '/credit-assignment/:id',
+
 
 	// Newsletters
 	newsletters_dt: '/admin/newsletter',

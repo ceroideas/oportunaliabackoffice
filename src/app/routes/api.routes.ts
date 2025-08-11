@@ -25,6 +25,12 @@ import { CesionsComponent } from '../modules/client/cesions/cesions.component';
 import { CesionEditComponent } from '../modules/client/cesions/cesion-edit/cesion-edit.component';
 import { CesionUsersComponent } from '../modules/client/cesions/cesion-users/cesion-users.component';
 
+import { CesionCreditoCreateComponent } from '../modules/client/cesions-credito/cesion-credito-create/cesion-credito-create.component';
+import { CesionsCreditoComponent } from '../modules/client/cesions-credito/cesions-credito.component';
+import { CesionCreditoEditComponent } from '../modules/client/cesions-credito/cesion-credito-edit/cesion-credito-edit.component';
+import { CesionCreditoUsersComponent } from '../modules/client/cesions-credito/cesion-credito-users/cesion-credito-users.component';
+import { CesionCreditoDepositsComponent } from '../modules/client/cesions-credito/cesion-credito-deposits/cesion-credito-deposits.component';
+
 import { NewsletterEditComponent } from '../modules/client/newsletters/newsletter-edit/newsletter-edit.component';
 import { NewslettersComponent } from '../modules/client/newsletters/newsletters.component';
 import { NewsletterTemplatesComponent } from '../modules/client/newsletter-templates/newsletter-templates.component';
@@ -185,6 +191,34 @@ export const apiRoutes: Routes = [
 		path:'cesions/:id/users',
 		component: CesionUsersComponent,
 		data: { title: 'Oportunalia | Cesión de remate' }
+	},
+
+  	// Cesions Credito
+
+	{
+		path:'cesions-credito',
+		component: CesionsCreditoComponent,
+		data: { title: 'Oportunalia | Cesión de crédito' }
+	},
+	{
+		path:'cesions-credito/create',
+		component: CesionCreditoCreateComponent,
+		data: { title: 'Oportunalia | Cesión de crédito' }
+	},
+	{
+		path:'cesions-credito/:id/edit',
+		component: CesionCreditoEditComponent,
+		data: { title: 'Oportunalia | Cesión de crédito' }
+	},
+	{
+		path:'cesions-credito/:id/users',
+		component: CesionCreditoUsersComponent,
+		data: { title: 'Oportunalia | Cesión de crédito' }
+	},
+	{
+		path:'cesions-credito/:id/deposits',
+		component: CesionCreditoDepositsComponent,
+		data: { title: 'Oportunalia | Cesión de crédito' }
 	},
 	// Communications
 

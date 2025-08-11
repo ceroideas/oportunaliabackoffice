@@ -95,7 +95,6 @@
 	</div>
 </ng-template>
 
-
 <ng-template #importModal>
 	<div class="modal-header">
 		<h5 class="modal-title text-black">Importación de activos</h5>
@@ -105,16 +104,17 @@
 		</button>
 	</div>
 
-	<div class="modal-body">
+	<div class="modal-body text-darkgray">
 		<p>El documento se ha cargado correctamente y se han importado las Cesiones de remate correctamente.</p>
 	</div>
 
 	<div class="modal-footer">
 		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
 			(click)="modalRef.hide()">Aceptar</button>
+		<!-- <button type="button" class="btn btn-rounded btn-cyan"
+			(click)="importCesions()">Importar</button> -->
 	</div>
 </ng-template>
-
 
 <ng-template #errorImportModal>
 	<div class="modal-header">

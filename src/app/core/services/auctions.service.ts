@@ -192,11 +192,68 @@ export class AuctionsService {
 		return this.http.delete(url, { headers: this.headers });
 	}
 
+	// Cesions Credito
+
+	cesionsCreditoExport(type: string) {
+		let url = endpoint('cesions_credito_export', { type });
+		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
+	}
+
+	getCesionCredito(id: number) {
+		let url = endpoint('cesions_credito_get', { id });
+		return this.http.get(url, { headers: this.headers });
+	}
+
+	createCesionCredito(data: any) {
+		let url = endpoint('cesions_credito_create');
+		return this.http.post(url, data, { headers: this.headers });
+	}
+
+	saveCesionCredito(data: any) {
+		let url = endpoint('cesions_credito_create');
+		return this.http.post(url, data, { headers: this.headers });
+	}
+
+	updateCesionCredito(id: number, data: any) {
+		let url = endpoint('cesions_credito_get', { id });
+		return this.http.post(url, data, { headers: this.headers });
+	}
+
+	featureCesionCredito(id: number) {
+		let url = endpoint('cesion_credito_featured', { id });
+		return this.http.put(url, null, { headers: this.headers });
+	}
+
+	asignarCesionCredito(id: number) {
+		let url = endpoint('cesion_credito_asignado', { id });
+		return this.http.put(url, null, { headers: this.headers });
+	}
+
+	duplicateCesionCredito(id: number) {
+		let url = endpoint('cesion_credito_duplicate', { id });
+		return this.http.get(url, { headers: this.headers });
+	}
+
+	deleteCesionCredito(id: number) {
+		let url = endpoint('cesions_credito_get', { id });
+		return this.http.delete(url, { headers: this.headers });
+	}
+
+	cesionCreditoFinalReport(id: number) {
+		let url = endpoint('cesion_credito_final_report', { id });
+		return this.http.get(url, { headers: this.headers, responseType: 'blob' });
+	}
+
 
 	// Direct Selling Offers
 
 	validateOffer(id: number, status: number) {
 		let url = endpoint('offers_validate', { id });
+		return this.http.put(url, { status }, { headers: this.headers });
+	}
+
+	validateOfferCredito(id: number, status: number) {
+		let url = endpoint('offer_cesion_credito_validate', { id });
 		return this.http.put(url, { status }, { headers: this.headers });
 	}
 

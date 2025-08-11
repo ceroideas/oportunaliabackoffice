@@ -1,0 +1,21 @@
+// Estilos específicos para historial de cesiones de crédito
+
+.auction-no-image {
+	width: 7rem;
+	min-width: 7rem;
+	height: 6rem;
+	background-color: var(--color-asemar-formgray);
+	padding: 2.3rem;
+	border-radius: 8px;
+	object-position: center;
+	object-fit: contain;
+}
+
+.auction-image {
+	width: 7rem;
+	min-width: 7rem;
+	height: 6rem;
+	border-radius: 8px;
+	object-position: center;
+	object-fit: cover;
+}

@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<div id="main-content">
+
+	<!-- Header  -->
+
+	<div class="main-content-header row">
+		<div class="col-lg-6 d-flex flex-row justify-content-start">
+			<div>
+				<div>
+					<a [routerLink]="['/cesions-credito']"><span>Cesiones de crédito</span></a>
+					<span class="mx-2">/</span>
+					<span *ngIf="auction">{{ auction.title }}</span>
+				</div>
+				<h1 class="main-content-title"><span *ngIf="auction">{{ auction.title }} - </span>Depósitos</h1>
+			</div>
+		</div>
+		<div class="col-lg-6 d-flex flex-row justify-content-end">
+			<div *ngIf="auction" style="font-size:.8rem">
+				<div>
+					<span class="text-black mr-2">Fecha de inicio:</span>
+					<span>{{ auction.start_date | date:'dd/MM/yyyy HH:mm' }}</span>
+				</div>
+				<div>
+					<span class="text-black mr-2">Fecha de fin:</span>
+					<span>{{ auction.end_date | date:'dd/MM/yyyy HH:mm' }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Direct accesses -->
+
+	<div class="tab-box">
+		<a [routerLink]="['/cesions-credito', auctionId, 'edit']" class="tab-button">Datos</a>
+		<a [routerLink]="['/cesions-credito', auctionId, 'users']" class="tab-button">Ofertas</a>
+		<a class="tab-button active">Depósitos</a>
+	</div>
+
+	<!-- DataTable -->
+
+	<div class="container-fluid">
+		<div class="block-content">
+			<div class="table-responsive">
+				<table id="cesion-credito-depositos" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Validation modal -->
+
+<ng-template #confirmValidateModal>
+	<div class="modal-header">
+		<h4 class="modal-title pull-left">Validar depósito</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modalRef.hide()">
+		</button>
+	</div>
+	<div class="modal-body">
+		<p>¿Está seguro de que desea validar este depósito?</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-success" (click)="validateDeposit(1)">Validar</button>
+		<button type="button" class="btn btn-danger" (click)="validateDeposit(2)">No validar</button>
+	</div>
+</ng-template>
+

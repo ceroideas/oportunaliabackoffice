@@ -67,6 +67,7 @@ export class DirectSellingsComponent implements OnInit {
         if (this.file) {
             const formData = new FormData();
             formData.append('file', this.file);
+            formData.append('type', "venta directa");
 
             this.assetsService.auctionsImport(formData).subscribe(
                 response => {

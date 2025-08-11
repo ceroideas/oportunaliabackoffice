@@ -190,6 +190,10 @@ export class UtilsService {
 		}
 	};
 
+	normalizeText(text: string): string {
+	    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	}
+
 	/**
 	 * Add filters header row to DataTables.
 	 */

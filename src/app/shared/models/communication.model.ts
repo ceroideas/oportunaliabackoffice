@@ -89,6 +89,7 @@ export interface Notification {
 	updated_at: string,
 	reference: number,
 	status: number,
+	notification_status: number,
 	seen: boolean,
 	document: any,
 }

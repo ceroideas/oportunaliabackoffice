@@ -116,6 +116,13 @@ import { CesionEditComponent } from './cesions/cesion-edit/cesion-edit.component
 import { CesionHistoryComponent } from './cesions/cesion-history/cesion-history.component';
 import { CesionUsersComponent } from './cesions/cesion-users/cesion-users.component';
 import { UserCesionsComponent } from './user/user-cesions/user-cesions.component';
+
+import { CesionsCreditoComponent } from './cesions-credito/cesions-credito.component';
+import { CesionCreditoCreateComponent } from './cesions-credito/cesion-credito-create/cesion-credito-create.component';
+import { CesionCreditoEditComponent } from './cesions-credito/cesion-credito-edit/cesion-credito-edit.component';
+import { CesionCreditoHistoryComponent } from './cesions-credito/cesion-credito-history/cesion-credito-history.component';
+import { CesionCreditoUsersComponent } from './cesions-credito/cesion-credito-users/cesion-credito-users.component';
+import { CesionCreditoDepositsComponent } from './cesions-credito/cesion-credito-deposits/cesion-credito-deposits.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // UI showcase
@@ -243,6 +250,14 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 		CesionUsersComponent,
 		
 		UserCesionsComponent,
+
+		// Cesions Credito
+		CesionsCreditoComponent,
+		CesionCreditoCreateComponent,
+		CesionCreditoEditComponent,
+		CesionCreditoHistoryComponent,
+		CesionCreditoUsersComponent,
+		CesionCreditoDepositsComponent,
 
 		// Not used
 

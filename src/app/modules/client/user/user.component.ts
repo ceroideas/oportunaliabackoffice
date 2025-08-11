@@ -71,6 +71,10 @@ export class UserComponent implements OnInit {
 		this.dtTrigger.next();
 	}
 
+	normalizeText(text: string): string {
+	    return text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : "";
+	}
+
 	initTable(): void {
 
 		let that = this;
@@ -90,16 +94,16 @@ export class UserComponent implements OnInit {
 			},
 			columns: [
 				{
-					title: 'Usuario', data: 'username',
+					title: 'Usuario', data: function(row){return '<span style="display:none">'+that.normalizeText(row.username)+'</span>'+row.username},
 				},
 				{
 					title: 'Rol', data: 'role',
 				},
 				{
-					title: 'Nombre', data: 'firstname',
+					title: 'Nombre', data: function(row){return '<span style="display:none">'+that.normalizeText(row.firstname)+'</span>'+row.firstname},
 				},
 				{
-					title: 'Apellidos', data: 'lastname'
+					title: 'Apellidos', data: function(row){return '<span style="display:none">'+that.normalizeText(row.lastname)+'</span>'+row.lastname},
 				},
 				{
 					title: 'NIF/CIF', data: 'document_number'
@@ -134,7 +138,8 @@ export class UserComponent implements OnInit {
 							(row.city ? ', ' :
 							 	(row.address ? ' ' : '')
 						 	) + row.province : '';
-						return `${address}${city}${province}`;
+
+						 	return '<span style="display:none">'+that.normalizeText(`${address}${city}${province}`)+'</span>'+`${address}${city}${province}`;
 					}
 				},
 				{

@@ -109,7 +109,7 @@
 			<div class="notifications-grid">
 				<div *ngFor="let atn of auctions; index as i"
 					class="notifications-grid-item">
-					<div class="d-flex flex-row mb-3">
+					<div class="d-flex flex-row mb-3" *ngIf="!atn.notification_status">
 						<img *ngIf="atn.images.length" class="notifications-grid-image mr-3" [src]="atn.images[0].path">
 						<img *ngIf="!atn.images.length" class="notifications-grid-no-image mr-3"
 							src="/assets/images/image-gray.png">
@@ -130,7 +130,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="notifications-grid-activity d-flex flex-row justify-content-between mb-2">
+					<div class="notifications-grid-activity d-flex flex-row justify-content-between mb-2" *ngIf="!atn.notification_status">
 						<div class="d-flex flew-row">
 							<span class="text-uppercase mr-1">Actividad</span>
 							<div *ngIf="atn.new_bids > 0"
@@ -142,7 +142,7 @@
 							<i class="fa fa-chevron-right"></i>
 						</a>
 					</div>
-					<div class="notifications-grid-lastbid d-flex flex-row justify-content-between">
+					<div class="notifications-grid-lastbid d-flex flex-row justify-content-between" *ngIf="!atn.notification_status">
 						<div class="d-flex flex-row align-items-center">
 							<i class="seen-indicator fa fa-circle mr-2"
 								[ngClass]="{ 'active': atn.status == 0 }"></i>

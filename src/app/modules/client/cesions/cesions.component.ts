@@ -67,6 +67,7 @@ export class CesionsComponent implements OnInit {
         if (this.file) {
             const formData = new FormData();
             formData.append('file', this.file);
+            formData.append('type', "cesion");
 
             this.assetsService.auctionsImport(formData).subscribe(
                 response => {
@@ -458,5 +459,9 @@ export class CesionsComponent implements OnInit {
 		});
 	}
 
-
+	importCesions() {
+		this.modalRef.hide();
+		this.reloadTable();
+		this.utils.showToast('Cesiones de remate importadas correctamente');
+	}
 }
