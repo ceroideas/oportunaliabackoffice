@@ -437,9 +437,9 @@ export class CesionsComponent implements OnInit {
 		this.utils.showToast(`Se está exportando en formato ${type}`);
 
     if(type=='offerscesions'){
-      var fichero = 'Cesiones remate';
+		var fichero = 'Ofertas cesiones';
     }else{
-      var fichero = 'Ofertas cesiones';
+		var fichero = 'Cesiones remate';
     }
 
       this.auctionsService.cesionsExport(type)

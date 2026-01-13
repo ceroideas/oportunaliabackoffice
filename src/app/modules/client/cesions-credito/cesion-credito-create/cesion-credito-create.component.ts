@@ -28,6 +28,29 @@ export class CesionCreditoCreateComponent implements OnInit {
 	editHtml4 = false;
 
 	urlUsed = false;
+	
+	// Calculated fields for debt discounts
+	get discountAppraisalPercentage(): number {
+		const appraisalValue = this.form?.get('appraisal_value')?.value;
+		const debtAmount = this.form?.get('debt_amount')?.value;
+		
+		if (!appraisalValue || !debtAmount || appraisalValue == 0) {
+			return null;
+		}
+		
+		return Math.round(((appraisalValue - debtAmount) / appraisalValue) * 100 * 100) / 100;
+	}
+	
+	get discountDebtPercentage(): number {
+		const debtAmount = this.form?.get('debt_amount')?.value;
+		const minimumBid = this.form?.get('minimum_bid')?.value;
+		
+		if (!debtAmount || !minimumBid || debtAmount == 0) {
+			return null;
+		}
+		
+		return Math.round(((debtAmount - minimumBid) / debtAmount) * 100 * 100) / 100;
+	}
   // Form
 
   public cesion: Auction = {} as any;
@@ -95,11 +118,10 @@ export class CesionCreditoCreateComponent implements OnInit {
 			active_id: ['', [Validators.required]],
 			start_date: ['', [Validators.required]],
 			start_time: ['', [Validators.required]],
-			end_date: ['', [Validators.required]],
-			end_time: ['', [Validators.required]],
 			start_price: ['', [Validators.required]],
 			minimum_bid: [''],
 			appraisal_value: ['', [Validators.required]],
+			debt_amount: ['', [Validators.required]],
 			commission: ['', [Validators.required, lte(100)]],
 			deposit: [''],
 			featured: [''],
@@ -129,8 +151,6 @@ export class CesionCreditoCreateComponent implements OnInit {
 			meta_title: [''],
 			meta_keywords: [''],
 		});
-
-		this.form.setValidators(dateCoherence());
 
 		this.route.queryParams
 			.subscribe(params => {
@@ -172,18 +192,18 @@ export class CesionCreditoCreateComponent implements OnInit {
 			let startDate = this.form.get('start_date').value;
 			let startTime = this.form.get('start_time').value + ':00';
 
-			let endDate = this.form.get('end_date').value;
-			let endTime = this.form.get('end_time').value + ':00';
-
 			data.append('auction_status_id', draft ? '2' : '1');
 			data.append('title', this.form.get('title').value);
 			data.append('active_id', this.form.get('active_id').value);
 			data.append('start_date', `${startDate} ${startTime}`);
-			data.append('end_date', `${endDate} ${endTime}`);
+			data.append('end_date', '2099-12-31 23:59:59'); // Fecha muy lejana para cesiones de crédito
 			data.append('start_price', this.form.get('start_price').value);
 			data.append('deposit', this.form.get('deposit').value ?? '0');
 			data.append('minimum_bid', this.form.get('minimum_bid').value ?? '0');
 			data.append('appraisal_value', this.form.get('appraisal_value').value);
+			data.append('debt_amount', this.form.get('debt_amount').value || '0');
+			data.append('discount_appraisal_percentage', this.discountAppraisalPercentage?.toString() ?? '');
+			data.append('discount_debt_percentage', this.discountDebtPercentage?.toString() ?? '');
 			data.append('commission', this.form.get('commission').value);
 			data.append('featured', this.form.get('featured').value ? '1' : '0');
 			data.append('dontshowtimer', this.form.get('dontshowtimer').value ? '1' : '0');

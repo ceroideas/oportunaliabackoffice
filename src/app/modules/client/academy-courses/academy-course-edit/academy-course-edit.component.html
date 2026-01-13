@@ -1,0 +1,295 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-book text-navy mr-2"></i>
+					<div>
+						<h1>{{ isEdit ? 'Editar Curso' : 'Nuevo Curso' }}</h1>
+						<span>{{ isEdit ? 'Modificar información del curso' : 'Crear nuevo curso para la academia' }}</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button (click)="goBack()" class="btn btn-border-navy btn-rounded float-right">
+						<i class="fa fa-arrow-left mr-2"></i>
+						<span>Volver</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form -->
+		<div class="block-content">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<form [formGroup]="courseForm" (ngSubmit)="save()">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label for="title">Título *</label>
+											<input type="text" 
+												class="form-control" 
+												id="title" 
+												formControlName="title"
+												[class.is-invalid]="courseForm.get('title').invalid && courseForm.get('title').touched">
+											<div class="invalid-feedback" *ngIf="courseForm.get('title').invalid && courseForm.get('title').touched">
+												Título requerido
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="order">Orden</label>
+											<input type="number" 
+												class="form-control" 
+												id="order" 
+												formControlName="order"
+												min="0">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="description">Descripción</label>
+									<ckeditor [editor]="editor" 
+										formControlName="description"
+										[config]="ckOptions">
+									</ckeditor>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Miniatura</label>
+											<div class="custom-file">
+												<input type="file" 
+													class="custom-file-input" 
+													id="thumbnail" 
+													accept="image/*"
+													(change)="onThumbnailSelected($event)">
+												<label class="custom-file-label" for="thumbnail">
+													{{ thumbnailFile ? thumbnailFile.name : 'Seleccionar imagen...' }}
+												</label>
+											</div>
+											<small class="form-text text-muted">Tamaño máximo: 2MB</small>
+											<div class="mt-2" *ngIf="thumbnailPreview">
+												<img [src]="thumbnailPreview" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 4px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Video</label>
+											<div class="custom-file">
+												<input type="file" 
+													class="custom-file-input" 
+													id="video" 
+													accept="video/*"
+													(change)="onVideoSelected($event)">
+												<label class="custom-file-label" for="video">
+													{{ videoFile ? videoFile.name : 'Seleccionar video...' }}
+												</label>
+											</div>
+											<small class="form-text text-muted">Tamaño máximo: 50MB</small>
+											<div class="mt-2" *ngIf="videoPreview && !videoFile">
+												<small class="text-muted">Video actual: {{ videoPreview }}</small>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="video_url">URL de Video (alternativa)</label>
+									<input type="url" 
+										class="form-control" 
+										id="video_url" 
+										formControlName="video_url"
+										placeholder="https://...">
+									<small class="form-text text-muted">Si se proporciona una URL, se usará en lugar del archivo subido</small>
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<div class="custom-control custom-checkbox mt-4">
+												<input type="checkbox" 
+													class="custom-control-input" 
+													id="is_free" 
+													formControlName="is_free"
+													(change)="courseForm.patchValue({price: courseForm.get('is_free').value ? null : courseForm.get('price').value})">
+												<label class="custom-control-label" for="is_free">
+													Curso gratuito
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4" *ngIf="!courseForm.get('is_free').value">
+										<div class="form-group">
+											<label for="price">Precio (€)</label>
+											<input type="number" 
+												class="form-control" 
+												id="price" 
+												formControlName="price"
+												step="0.01"
+												min="0">
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<div class="custom-control custom-checkbox mt-4">
+												<input type="checkbox" 
+													class="custom-control-input" 
+													id="is_active" 
+													formControlName="is_active">
+												<label class="custom-control-label" for="is_active">
+													Curso activo
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label>Tags</label>
+									<div formArrayName="tags">
+										<div *ngFor="let tag of tagsFormArray.controls; let i = index" class="row mb-2">
+											<div class="col-md-10">
+												<input type="text" 
+													class="form-control" 
+													[formControlName]="i"
+													[placeholder]="'Tag ' + (i + 1)">
+											</div>
+											<div class="col-md-2">
+												<button type="button" 
+													class="btn btn-border-red btn-rounded btn-block"
+													(click)="removeTag(i)">
+													<i class="fa fa-trash"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+									<button type="button" 
+										class="btn btn-border-navy btn-rounded"
+										(click)="addTag()">
+										<i class="fa fa-plus mr-2"></i>
+										Añadir Tag
+									</button>
+								</div>
+
+								<!-- Materiales de Apoyo -->
+								<div class="form-group">
+									<label>Materiales de Apoyo</label>
+									<div class="border rounded p-3 mb-3" style="background-color: #f8f9fa;">
+										<!-- Lista de materiales existentes (solo en edición) -->
+										<div *ngIf="isEdit && materials && materials.length > 0" class="mb-3">
+											<div *ngFor="let material of materials; let i = index" class="card mb-2">
+												<div class="card-body p-3">
+													<div class="row align-items-center">
+														<div class="col-md-1 text-center">
+															<i class="fa fa-file fa-2x text-navy"></i>
+														</div>
+														<div class="col-md-7">
+															<h6 class="mb-1">{{ material.display_name || material.file_name }}</h6>
+															<small class="text-muted">
+																{{ material.file_name }} 
+																<span *ngIf="material.formatted_file_size">({{ material.formatted_file_size }})</span>
+															</small>
+															<p *ngIf="material.description" class="mb-0 mt-1 small text-muted">{{ material.description }}</p>
+														</div>
+														<div class="col-md-4 text-right">
+															<a [href]="getMaterialUrl(material)" 
+																target="_blank" 
+																class="btn btn-sm btn-border-navy btn-rounded mr-2">
+																<i class="fa fa-download mr-1"></i>
+																Descargar
+															</a>
+															<button type="button" 
+																class="btn btn-sm btn-border-red btn-rounded"
+																(click)="deleteMaterial(material)">
+																<i class="fa fa-trash"></i>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Lista de materiales pendientes (solo en creación) -->
+										<div *ngIf="!isEdit && pendingMaterials && pendingMaterials.length > 0" class="mb-3">
+											<div *ngFor="let material of pendingMaterials; let i = index" class="card mb-2">
+												<div class="card-body p-3">
+													<div class="row align-items-center">
+														<div class="col-md-1 text-center">
+															<i class="fa fa-file fa-2x text-navy"></i>
+														</div>
+														<div class="col-md-9">
+															<h6 class="mb-1">{{ material.name }}</h6>
+															<small class="text-muted">
+																{{ formatFileSize(material.size) }}
+																<span class="badge badge-warning ml-2">Pendiente de subir</span>
+															</small>
+														</div>
+														<div class="col-md-2 text-right">
+															<button type="button" 
+																class="btn btn-sm btn-border-red btn-rounded"
+																(click)="removePendingMaterial(i)">
+																<i class="fa fa-trash"></i>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Mensaje cuando no hay materiales -->
+										<div *ngIf="(isEdit && (!materials || materials.length === 0)) || (!isEdit && (!pendingMaterials || pendingMaterials.length === 0))" class="text-center text-muted mb-3">
+											<i class="fa fa-file fa-3x mb-2"></i>
+											<p>No hay materiales de apoyo agregados</p>
+										</div>
+										<!-- Botón para agregar nuevo material -->
+										<div>
+											<input type="file" 
+												#fileInput
+												class="d-none" 
+												(change)="onMaterialSelected($event)"
+												accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif,.xls,.xlsx,.ppt,.pptx">
+											<button type="button" 
+												class="btn btn-border-navy btn-rounded"
+												(click)="fileInput.click()">
+												<i class="fa fa-plus mr-2"></i>
+												Añadir Material de Apoyo
+											</button>
+											<small class="form-text text-muted ml-2 d-inline-block">Tamaño máximo: 50MB</small>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-actions mt-4">
+									<button type="button" (click)="goBack()" class="btn btn-border-gray btn-rounded mr-2">
+										Cancelar
+									</button>
+									<button type="submit" [disabled]="courseForm.invalid || loading" class="btn btn-cyan btn-rounded">
+										<span *ngIf="loading">
+											<span class="spinner-border spinner-border-sm mr-2"></span>
+											Guardando...
+										</span>
+										<span *ngIf="!loading">
+											<i class="fa fa-save mr-2"></i>
+											{{ isEdit ? 'Actualizar' : 'Crear' }}
+										</span>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

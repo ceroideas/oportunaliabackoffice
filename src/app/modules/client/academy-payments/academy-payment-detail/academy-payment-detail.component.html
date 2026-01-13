@@ -1,0 +1,92 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-credit-card text-navy mr-2"></i>
+					<div>
+						<h1>Detalle de Pago</h1>
+						<span *ngIf="payment">ID: {{ payment.stripe_payment_intent_id }}</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button (click)="goBack()" class="btn btn-border-navy btn-rounded float-right">
+						<i class="fa fa-arrow-left mr-2"></i>
+						<span>Volver</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Content -->
+		<div class="block-content" *ngIf="!loading && payment">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title mb-4">Información del Pago</h4>
+							<div class="row mb-3">
+								<div class="col-md-4"><strong>ID de Pago Stripe:</strong></div>
+								<div class="col-md-8">{{ payment.stripe_payment_intent_id }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-4"><strong>Cantidad:</strong></div>
+								<div class="col-md-8">{{ payment.amount }} €</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-4"><strong>Estado:</strong></div>
+								<div class="col-md-8">
+									<span class="badge" [ngClass]="getStatusBadgeClass(payment.status)">
+										{{ getStatusText(payment.status) }}
+									</span>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-4"><strong>Fecha de pago:</strong></div>
+								<div class="col-md-8">{{ formatDate(payment.payment_date) }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-4"><strong>Fecha de registro:</strong></div>
+								<div class="col-md-8">{{ formatDate(payment.created_at) }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title mb-4">Información del Estudiante</h4>
+							<div class="row mb-3" *ngIf="payment.student">
+								<div class="col-md-4"><strong>Nombre:</strong></div>
+								<div class="col-md-8">{{ payment.student.firstname }} {{ payment.student.lastname }}</div>
+							</div>
+							<div class="row mb-3" *ngIf="payment.student">
+								<div class="col-md-4"><strong>Email:</strong></div>
+								<div class="col-md-8">{{ payment.student.email }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-4"><strong>Curso:</strong></div>
+								<div class="col-md-8">
+									<span *ngIf="payment.course">{{ payment.course.title }}</span>
+									<span *ngIf="!payment.course">-</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Loading -->
+		<div class="block-content text-center" *ngIf="loading">
+			<div class="spinner-border text-navy" role="status">
+				<span class="sr-only">Cargando...</span>
+			</div>
+		</div>
+	</div>
+</div>
+

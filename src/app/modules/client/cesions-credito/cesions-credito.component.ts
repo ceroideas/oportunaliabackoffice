@@ -125,21 +125,33 @@ export class CesionsCreditoComponent implements OnInit {
 					}
 				},
 				{
-					title: 'Fecha de fin',
+					title: 'Deuda',
 					data: function (row) {
-						return formatDate(row.end_date, 'dd/MM/yyyy HH:mm', 'es');
-					}
-				},
-				{
-					title: 'Precio de venta',
-					data: function (row) {
-						return row.start_price + " €";
+						return row.debt_amount ? row.debt_amount + " €" : '-';
 					}
 				},
 				{
 					title: 'Valor de tasación',
 					data: function (row) {
 						return row.appraisal_value + " €";
+					}
+				},
+				{
+					title: '% Desc. Tasación',
+					data: function (row) {
+						return row.discount_appraisal_percentage ? row.discount_appraisal_percentage + "%" : '-';
+					}
+				},
+				{
+					title: '% Desc. Deuda',
+					data: function (row) {
+						return row.discount_debt_percentage ? row.discount_debt_percentage + "%" : '-';
+					}
+				},
+				{
+					title: 'Precio de venta',
+					data: function (row) {
+						return row.start_price + " €";
 					}
 				},
 				{
@@ -436,10 +448,10 @@ export class CesionsCreditoComponent implements OnInit {
 
 		this.utils.showToast(`Se está exportando en formato ${type}`);
 
-    if(type=='offerscesions'){
-      var fichero = 'Cesiones crédito';
-    }else{
-      var fichero = 'Ofertas cesiones';
+    if(type=='offerscreditassignments'){
+		var fichero = 'Ofertas cesiones';
+	}else{
+		var fichero = 'Cesiones crédito';
     }
 
       this.auctionsService.cesionsCreditoExport(type)

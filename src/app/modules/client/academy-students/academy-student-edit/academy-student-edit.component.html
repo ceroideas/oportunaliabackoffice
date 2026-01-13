@@ -1,0 +1,112 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-graduation-cap text-navy mr-2"></i>
+					<div>
+						<h1>{{ isEdit ? 'Editar Estudiante' : 'Nuevo Estudiante' }}</h1>
+						<span>{{ isEdit ? 'Modificar información del estudiante' : 'Registrar nuevo estudiante en la academia' }}</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button (click)="goBack()" class="btn btn-border-navy btn-rounded float-right">
+						<i class="fa fa-arrow-left mr-2"></i>
+						<span>Volver</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form -->
+		<div class="block-content">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<form [formGroup]="studentForm" (ngSubmit)="save()">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="email">Email *</label>
+											<input type="email" 
+												class="form-control" 
+												id="email" 
+												formControlName="email"
+												[class.is-invalid]="studentForm.get('email').invalid && studentForm.get('email').touched">
+											<div class="invalid-feedback" *ngIf="studentForm.get('email').invalid && studentForm.get('email').touched">
+												Email requerido y debe ser válido
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="password">Contraseña {{ isEdit ? '(dejar vacío para no cambiar)' : '*' }}</label>
+											<input type="password" 
+												class="form-control" 
+												id="password" 
+												formControlName="password"
+												[class.is-invalid]="studentForm.get('password').invalid && studentForm.get('password').touched && (!isEdit || studentForm.get('password').value)">
+											<div class="invalid-feedback" *ngIf="studentForm.get('password').invalid && studentForm.get('password').touched && (!isEdit || studentForm.get('password').value)">
+												Contraseña debe tener al menos 6 caracteres
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="firstname">Nombre *</label>
+											<input type="text" 
+												class="form-control" 
+												id="firstname" 
+												formControlName="firstname"
+												[class.is-invalid]="studentForm.get('firstname').invalid && studentForm.get('firstname').touched">
+											<div class="invalid-feedback" *ngIf="studentForm.get('firstname').invalid && studentForm.get('firstname').touched">
+												Nombre requerido
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="lastname">Apellidos *</label>
+											<input type="text" 
+												class="form-control" 
+												id="lastname" 
+												formControlName="lastname"
+												[class.is-invalid]="studentForm.get('lastname').invalid && studentForm.get('lastname').touched">
+											<div class="invalid-feedback" *ngIf="studentForm.get('lastname').invalid && studentForm.get('lastname').touched">
+												Apellidos requeridos
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-actions mt-4">
+									<button type="button" (click)="goBack()" class="btn btn-border-gray btn-rounded mr-2">
+										Cancelar
+									</button>
+									<button type="submit" [disabled]="studentForm.invalid || loading" class="btn btn-cyan btn-rounded">
+										<span *ngIf="loading">
+											<span class="spinner-border spinner-border-sm mr-2"></span>
+											Guardando...
+										</span>
+										<span *ngIf="!loading">
+											<i class="fa fa-save mr-2"></i>
+											{{ isEdit ? 'Actualizar' : 'Crear' }}
+										</span>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

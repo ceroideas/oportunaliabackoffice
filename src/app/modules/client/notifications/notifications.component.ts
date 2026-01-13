@@ -164,7 +164,7 @@ export class NotificationsComponent implements OnInit {
 
 	openBids(notif: Notification) {
 
-		notif.notification_status = 1;
+		// notif.notification_status = 1;
 
 		this.auctionId = notif.reference;
 

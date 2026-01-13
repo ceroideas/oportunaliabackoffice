@@ -50,6 +50,9 @@ import { MembresiaComponent } from '../modules/client/membresia/membresia.compon
 import { MembresiaCreateComponent } from '../modules/client/membresia-create/membresia-create.component';
 import { NotFoundComponent } from '../modules/client/not-found/not-found.component';
 
+// Academy Module - Para desactivar, comenta esta importación y las rutas de academyRoutes abajo
+import { academyRoutes } from './academy.routes';
+
 export const apiRoutes: Routes = [
 
 	// Users
@@ -272,6 +275,13 @@ export const apiRoutes: Routes = [
 		component: NotificationsCenterComponent,
 		data: { title: 'Oportunalia | Centro de Notificaciones' }
 	},
+
+	// ============================================
+	// ACADEMY MODULE
+	// Para desactivar el módulo de Academia, comenta las siguientes líneas
+	// ============================================
+	...academyRoutes,
+	// ============================================
 
 	// Various
 

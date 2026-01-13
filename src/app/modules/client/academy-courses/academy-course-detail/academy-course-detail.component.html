@@ -1,0 +1,161 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-book text-navy mr-2"></i>
+					<div>
+						<h1>Detalle de Curso</h1>
+						<span *ngIf="course">{{ course.title }}</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button (click)="goBack()" class="btn btn-border-navy btn-rounded float-right mr-2">
+						<i class="fa fa-arrow-left mr-2"></i>
+						<span>Volver</span>
+					</button>
+					<button *ngIf="course" (click)="goToEdit()" class="btn btn-cyan btn-rounded float-right">
+						<i class="fa fa-pencil-alt mr-2"></i>
+						<span>Editar</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Content -->
+		<div class="block-content" *ngIf="!loading && course">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="card">
+						<div class="card-body">
+							<div class="row mb-3">
+								<div class="col-md-3"><strong>Título:</strong></div>
+								<div class="col-md-9">{{ course.title }}</div>
+							</div>
+							<div class="row mb-3" *ngIf="course.description">
+								<div class="col-md-3"><strong>Descripción:</strong></div>
+								<div class="col-md-9" [innerHTML]="course.description"></div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-3"><strong>Precio:</strong></div>
+								<div class="col-md-9">
+									<span *ngIf="course.is_free" class="badge badge-success">Gratis</span>
+									<span *ngIf="!course.is_free">{{ course.price }} €</span>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-3"><strong>Estado:</strong></div>
+								<div class="col-md-9">
+									<span *ngIf="course.is_active" class="badge badge-success">Activo</span>
+									<span *ngIf="!course.is_active" class="badge badge-secondary">Inactivo</span>
+								</div>
+							</div>
+							<div class="row mb-3" *ngIf="course.tags && course.tags.length > 0">
+								<div class="col-md-3"><strong>Tags:</strong></div>
+								<div class="col-md-9">
+									<span *ngFor="let tag of course.tags" class="badge badge-navy mr-2">
+										{{ tag.tag_name }}
+									</span>
+								</div>
+							</div>
+							<div class="row mb-3" *ngIf="course.thumbnail_path">
+								<div class="col-md-3"><strong>Miniatura:</strong></div>
+								<div class="col-md-9">
+									<img [src]="getFileUrl(course.thumbnail_path)" alt="Thumbnail" style="max-width: 200px; border-radius: 4px;">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-3"><strong>Video:</strong></div>
+								<div class="col-md-9">
+									<span *ngIf="course.video_url">{{ course.video_url }}</span>
+									<a *ngIf="course.video_path && !course.video_url" [href]="getFileUrl(course.video_path)" target="_blank">{{ getFileUrl(course.video_path) }}</a>
+									<span *ngIf="!course.video_url && !course.video_path">-</span>
+								</div>
+							</div>
+							<div class="row mb-3" *ngIf="course.materials && course.materials.length > 0">
+								<div class="col-md-3"><strong>Materiales de Apoyo:</strong></div>
+								<div class="col-md-9">
+									<div class="border rounded p-3" style="background-color: #f8f9fa;">
+										<div *ngFor="let material of course.materials" class="card mb-2">
+											<div class="card-body p-3">
+												<div class="row align-items-center">
+													<div class="col-md-1 text-center">
+														<i class="fa fa-file fa-2x text-navy"></i>
+													</div>
+													<div class="col-md-9">
+														<h6 class="mb-1">{{ material.display_name || material.file_name }}</h6>
+														<small class="text-muted">
+															{{ material.file_name }} 
+															<span *ngIf="material.formatted_file_size">({{ material.formatted_file_size }})</span>
+														</small>
+														<p *ngIf="material.description" class="mb-0 mt-1 small text-muted">{{ material.description }}</p>
+													</div>
+													<div class="col-md-2 text-right">
+														<a [href]="getMaterialUrl(material)" 
+															target="_blank" 
+															class="btn btn-sm btn-border-navy btn-rounded">
+															<i class="fa fa-download mr-1"></i>
+															Descargar
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title mb-4">Estadísticas</h4>
+							<div class="row mb-3">
+								<div class="col-md-6"><strong>Total de estudiantes:</strong></div>
+								<div class="col-md-6">{{ course.stats?.total_students || 0 }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-6"><strong>Visualizaciones:</strong></div>
+								<div class="col-md-6">{{ course.stats?.total_views || 0 }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-6"><strong>Fecha de creación:</strong></div>
+								<div class="col-md-6">{{ formatDate(course.created_at) }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Views Table -->
+			<div class="row mt-4">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title mb-4">Visualizaciones</h4>
+							<div class="table-responsive">
+								<table id="course-views" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+									<thead></thead>
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Loading -->
+		<div class="block-content text-center" *ngIf="loading">
+			<div class="spinner-border text-navy" role="status">
+				<span class="sr-only">Cargando...</span>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -114,68 +114,45 @@
         </div>
       </div>
 
-      <h6 class="form-title text-uppercase">Inicio y Fin</h6>
+      <h6 class="form-title text-uppercase">Fecha de Publicación</h6>
 
       <div class="row mb-3">
-        <div class="form-group c_form_group mb-3 col-lg-3">
-          <label>Fecha de Inicio *</label>
+        <div class="form-group c_form_group mb-3 col-lg-6">
+          <label>Fecha de Publicación *</label>
           <div class="input-group">
             <input type="date" class="form-control"
               formControlName="start_date"
               [ngClass]="{ 'invalid': errors('start_date') }"
-              placeholder="Fecha de Inicio">
+              placeholder="Fecha de Publicación">
           </div>
           <div class="form-errors">
             <div *ngIf="errors('start_date', 'required')">Requerido</div>
           </div>
         </div>
 
-        <div class="form-group c_form_group mb-3 col-lg-3">
-          <label>Hora de Inicio *</label>
+        <div class="form-group c_form_group mb-3 col-lg-6">
+          <label>Hora de Publicación *</label>
           <div class="input-group">
             <input type="time" class="form-control"
               formControlName="start_time"
               [ngClass]="{ 'invalid': errors('start_time') }"
-              placeholder="Hora de Inicio">
+              placeholder="Hora de Publicación">
           </div>
           <div class="form-errors">
             <div *ngIf="errors('start_time', 'required')">Requerido</div>
           </div>
 							</div>
-
-        <div class="form-group c_form_group mb-3 col-lg-3">
-          <label>Fecha de Fin *</label>
-          <div class="input-group">
-            <input type="date" class="form-control"
-              formControlName="end_date"
-              [ngClass]="{ 'invalid': errors('end_date') }"
-              placeholder="Fecha de Fin">
-          </div>
-          <div class="form-errors">
-            <div *ngIf="errors('end_date', 'required')">Requerido</div>
-            <div *ngIf="errors('end_date', 'after')">La fecha y hora de fin deben ser posteriores a las actuales</div>
-            <div *ngIf="errors('end_date', 'coherence')">La fecha y hora de fin deben ser posteriores a la de inicio</div>
-          </div>
-        </div>
-
-        <div class="form-group c_form_group mb-3 col-lg-3">
-          <label>Hora de Fin *</label>
-          <div class="input-group">
-            <input type="time" class="form-control"
-              formControlName="end_time"
-              [ngClass]="{ 'invalid': errors('end_time') }"
-              placeholder="Hora de Fin">
-          </div>
-          <div class="form-errors">
-            <div *ngIf="errors('end_time', 'required')">Requerido</div>
-											</div>
-										</div>
 									</div>
+
+      <div class="alert alert-info">
+        <i class="fa fa-info-circle mr-2"></i>
+        <strong>Nota:</strong> Las cesiones de crédito no tienen fecha límite. Se mantienen activas hasta que se venda o se eliminen manualmente.
+      </div>
 
       <h6 class="form-title text-uppercase">Condiciones cesión de crédito</h6>
 
       <div class="row">
-        <div class="form-group c_form_group mb-3 col-lg-4">
+        <div class="form-group c_form_group mb-3 col-lg-3">
           <label>Valor de tasación *</label>
           <div class="input-group">
             <input type="number" min="1" step="0.01" class="form-control"
@@ -189,7 +166,21 @@
 										</div>
 									</div>
 
-        <div class="form-group c_form_group mb-3 col-lg-4">
+        <div class="form-group c_form_group mb-3 col-lg-3">
+          <label>Deuda *</label>
+          <div class="input-group">
+            <input type="number" min="1" step="0.01" class="form-control"
+              formControlName="debt_amount"
+              [ngClass]="{ 'invalid': errors('debt_amount') }"
+              placeholder="Monto de la deuda">
+            <span class="form-unit">€</span>
+											</div>
+          <div class="form-errors">
+            <div *ngIf="errors('debt_amount', 'required')">Requerido</div>
+										</div>
+									</div>
+
+        <div class="form-group c_form_group mb-3 col-lg-3">
           <label>Precio de venta *</label>
           <div class="input-group">
             <input type="number" min="1" step="0.01" class="form-control"
@@ -203,7 +194,7 @@
 										</div>
 									</div>
 
-        <div class="form-group c_form_group mb-3 col-lg-4">
+        <div class="form-group c_form_group mb-3 col-lg-3">
           <label>Porcentaje de comisión *</label>
           <div class="input-group">
             <input type="number" min="1" step="0.01" max="100" class="form-control"
@@ -218,6 +209,32 @@
 											</div>
 										</div>
 									</div>
+
+      <h6 class="form-title text-uppercase">Descuentos calculados automáticamente</h6>
+
+      <div class="row">
+        <div class="form-group c_form_group mb-3 col-lg-6">
+          <label>% Descuento sobre Tasación</label>
+          <div class="input-group">
+            <input type="number" step="0.01" class="form-control" readonly
+              [value]="discountAppraisalPercentage"
+              placeholder="Se calcula automáticamente">
+            <span class="form-unit">%</span>
+										</div>
+          <small class="text-gray">Calculado como: ((Tasación - Deuda) / Tasación) × 100</small>
+									</div>
+
+        <div class="form-group c_form_group mb-3 col-lg-6">
+          <label>% Descuento sobre Deuda</label>
+          <div class="input-group">
+            <input type="number" step="0.01" class="form-control" readonly
+              [value]="discountDebtPercentage"
+              placeholder="Se calcula automáticamente">
+            <span class="form-unit">%</span>
+										</div>
+          <small class="text-gray">Calculado como: ((Deuda - Precio mínimo) / Deuda) × 100</small>
+									</div>
+								</div>
 
       <div class="row">
         <div class="form-group c_form_group mb-3 col-lg-4">

@@ -146,6 +146,32 @@ export const endpoints = {
 
 	actives_import: '/activesImport',
 	auctions_import: '/auctionsImport',
+
+	// ============================================
+	// ACADEMY MODULE ENDPOINTS
+	// Para desactivar el módulo de Academia, comenta las siguientes líneas
+	// ============================================
+	// Academy Students
+	academy_students_dt: '/admin/academy/students',
+	academy_students_create: '/admin/academy/students',
+	academy_students_get: '/admin/academy/students/:id',
+	academy_students_edit: '/admin/academy/students/:id',
+	academy_students_delete: '/admin/academy/students/:id',
+
+	// Academy Courses
+	academy_courses_dt: '/admin/academy/courses',
+	academy_courses_create: '/admin/academy/courses',
+	academy_courses_get: '/admin/academy/courses/:id',
+	academy_courses_edit: '/admin/academy/courses/:id',
+	academy_courses_delete: '/admin/academy/courses/:id',
+	academy_courses_materials_upload: '/admin/academy/courses/:id/materials',
+	academy_courses_materials_update: '/admin/academy/courses/:courseId/materials/:materialId',
+	academy_courses_materials_delete: '/admin/academy/courses/:courseId/materials/:materialId',
+
+	// Academy Payments
+	academy_payments_dt: '/admin/academy/payments',
+	academy_payments_get: '/admin/academy/payments/:id',
+	// ============================================
 };
 
 export const external = {

@@ -1,0 +1,59 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-book text-navy mr-2"></i>
+					<div>
+						<h1>Cursos de Academia</h1>
+						<span>Gestión de cursos y formaciones</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button [routerLink]="['/academy/courses/create']" class="btn btn-cyan btn-rounded float-right">
+						<i class="fa fa-plus mr-2"></i>
+						<span>Nuevo Curso</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- DataTable -->
+		<div class="block-content">
+			<div class="table-responsive">
+				<table id="academy-courses" class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Confirmation modal -->
+<ng-template #confirmModal>
+	<div class="modal-header">
+		<h5 class="modal-title text-black">Eliminar Curso</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+			(click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="modal-body text-darkgray">
+		<p>¿Está seguro de que quiere eliminar este curso?</p>
+		<p class="text-red"><small>Esta acción eliminará también el video y la miniatura asociados.</small></p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-rounded btn-border-gray" data-dismiss="modal"
+			(click)="modalRef.hide()">Cancelar</button>
+		<button type="button" class="btn btn-rounded btn-red"
+			(click)="deleteCourse()">Eliminar</button>
+	</div>
+</ng-template>
+

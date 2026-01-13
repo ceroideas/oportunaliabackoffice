@@ -1,0 +1,106 @@
+<app-header></app-header>
+
+<div id="main-content">
+	<div class="container-fluid">
+
+		<!-- Header  -->
+		<div class="block-header">
+			<div class="row clearfix">
+				<div class="col-xl-6 col-md-5 col-sm-12 d-flex flex-row">
+					<i class="block-header-icon fa fa-graduation-cap text-navy mr-2"></i>
+					<div>
+						<h1>Detalle de Estudiante</h1>
+						<span *ngIf="student">{{ student.firstname }} {{ student.lastname }}</span>
+					</div>
+				</div>
+				<div class="col-xl-6 col-md-5 col-sm-12">
+					<button (click)="goBack()" class="btn btn-border-navy btn-rounded float-right mr-2">
+						<i class="fa fa-arrow-left mr-2"></i>
+						<span>Volver</span>
+					</button>
+					<button *ngIf="student" (click)="goToEdit()" class="btn btn-cyan btn-rounded float-right">
+						<i class="fa fa-pencil-alt mr-2"></i>
+						<span>Editar</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Content -->
+		<div class="block-content" *ngIf="!loading && student">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title mb-4">Información Personal</h4>
+							<div class="row mb-3">
+								<div class="col-md-3"><strong>Email:</strong></div>
+								<div class="col-md-9">{{ student.email }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-3"><strong>Nombre:</strong></div>
+								<div class="col-md-9">{{ student.firstname }} {{ student.lastname }}</div>
+							</div>
+							<div class="row mb-3" *ngIf="student.user">
+								<div class="col-md-3"><strong>Usuario vinculado:</strong></div>
+								<div class="col-md-9">
+									{{ student.user.firstname }} {{ student.user.lastname }} ({{ student.user.email }})
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-3"><strong>Fecha de registro:</strong></div>
+								<div class="col-md-9">{{ formatDate(student.academy_registered_at || student.created_at) }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Stats -->
+			<div class="row mt-4">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title mb-4">Estadísticas</h4>
+							<div class="row mb-3">
+								<div class="col-md-6"><strong>Total de cursos:</strong></div>
+								<div class="col-md-6">{{ student.courses?.length || 0 }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-6"><strong>Visualizaciones:</strong></div>
+								<div class="col-md-6">{{ student.views?.length || 0 }}</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-6"><strong>Pagos realizados:</strong></div>
+								<div class="col-md-6">{{ student.payments?.length || 0 }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title mb-4">Acciones Rápidas</h4>
+							<button (click)="goToCourses()" class="btn btn-border-navy btn-rounded btn-block mb-2">
+								<i class="fa fa-book mr-2"></i>
+								<span>Ver Cursos del Estudiante</span>
+							</button>
+							<button (click)="goToViews()" class="btn btn-border-navy btn-rounded btn-block">
+								<i class="fa fa-eye mr-2"></i>
+								<span>Ver Visualizaciones</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Loading -->
+		<div class="block-content text-center" *ngIf="loading">
+			<div class="spinner-border text-navy" role="status">
+				<span class="sr-only">Cargando...</span>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -157,6 +157,31 @@
 					</a>
 				</li>
 
+				<!-- ============================================ -->
+				<!-- ACADEMY MODULE - Para desactivar, comenta esta sección -->
+				<!-- ============================================ -->
+				<li class="header">Academia</li>
+
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/academy/students']" href="javascript:void(0)">
+						<i class="fa fa-graduation-cap"></i>
+						<span>Estudiantes</span>
+					</a>
+				</li>
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/academy/courses']" href="javascript:void(0)">
+						<i class="fa fa-book"></i>
+						<span>Cursos</span>
+					</a>
+				</li>
+				<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
+					<a [routerLink]="['/academy/payments']" href="javascript:void(0)">
+						<i class="fa fa-credit-card"></i>
+						<span>Pagos</span>
+					</a>
+				</li>
+				<!-- ============================================ -->
+
 			</ul>
 		</nav>
 	</div>

@@ -436,9 +436,9 @@ export class DirectSellingsComponent implements OnInit {
 		this.utils.showToast(`Se está exportando en formato ${type}`);
 
     if(type=='offersdirect'){
-      var fichero = 'Ventas directas';
+		var fichero = 'Ofertas ventas';
     }else{
-      var fichero = 'Ofertas ventas';
+		var fichero = 'Ventas directas';
     }
       this.auctionsService.directSellingsExport(type)
       .subscribe(data => {
