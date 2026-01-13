@@ -41,6 +41,7 @@ export class AuctionCreateComponent implements OnInit {
 
 	// Selectors
 	public assets: Asset[] = [];
+	public academyCourses: any[] = [];
   public maximoId: any;
 
 	// Modals
@@ -65,6 +66,7 @@ export class AuctionCreateComponent implements OnInit {
 		this.ckOptions = this.utils.ckOptions;
 
 		this.getAssets();
+		this.getAcademyCourses();
     this.getMaxId();
 		this.setFormFields();
 	}
@@ -84,6 +86,23 @@ export class AuctionCreateComponent implements OnInit {
 			// the selector strangely autoselects itself without updating the form
 			this.assets.unshift({ id: null, name: '' } as Asset);
 		});
+	}
+
+	getAcademyCourses() {
+		this.dataService.http.get(endpoint('academy_courses_dt'), { headers: this.dataService.headers })
+			.toPromise()
+			.then((response: any) => {
+				if (response.code === 200) {
+					// Filtrar solo cursos pagados (no gratuitos)
+					const courses = response.response?.data || response.response || [];
+					this.academyCourses = courses.filter(course => !course.is_free && course.is_active);
+					// Agregar opción vacía
+					this.academyCourses.unshift({ id: null, title: 'Ninguno (acceso público)' });
+				}
+			})
+			.catch((error: any) => {
+				console.error('Error al cargar cursos:', error);
+			});
 	}
 
 	setFormFields() {
@@ -130,6 +149,7 @@ export class AuctionCreateComponent implements OnInit {
 			meta_description: [''],
 			meta_title: [''],
 			meta_keywords: [''],
+			requires_academy_course_id: [null],
 		});
 
 		this.form.setValidators(dateCoherence());
@@ -235,6 +255,7 @@ export class AuctionCreateComponent implements OnInit {
 			}
 			data.append('conditions_document', this.form.get('conditions_document').value);
 			data.append('conditions_document_two', this.form.get('conditions_document_two').value);
+			data.append('requires_academy_course_id', this.form.get('requires_academy_course_id').value || '');
 
 			this.auctionsService.saveAuction(data)
 			.subscribe(data => {

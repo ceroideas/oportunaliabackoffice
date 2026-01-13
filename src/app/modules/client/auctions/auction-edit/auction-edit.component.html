@@ -295,6 +295,21 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="form-group c_form_group mb-3 col-lg-6">
+						<label>Curso requerido para acceso</label>
+						<div class="input-group">
+							<select class="form-control"
+								formControlName="requires_academy_course_id">
+								<option *ngFor="let course of academyCourses" [value]="course.id">
+									{{ course.title }}
+								</option>
+							</select>
+						</div>
+						<small class="form-text text-muted">Solo usuarios que hayan comprado este curso podrán ver esta subasta</small>
+					</div>
+				</div>
 			</div>
 		</div>
 
