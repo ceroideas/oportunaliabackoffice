@@ -165,6 +165,7 @@ export class AssetEditComponent implements OnInit, OnChanges {
 			lat: ['', [Validators.required]],
 			lng: ['', [Validators.required]],
 			refund: [''],
+			requires_academy_access: [false],
 			active_condition_id: ['', [Validators.required]],
 			area: ['', [Validators.required]],
 			images: this.fb.array([]),
@@ -229,6 +230,7 @@ export class AssetEditComponent implements OnInit, OnChanges {
 			data.append('city', this.form.get('city').value);
 			data.append('province_id', this.form.get('province_id').value);
 			data.append('refund', this.form.get('refund').value ? '1' : '0');
+			data.append('requires_academy_access', this.form.get('requires_academy_access').value ? '1' : '0');
 			data.append('lat', this.form.get('lat').value);
 			data.append('lng', this.form.get('lng').value);
 			data.append('active_condition_id', this.form.get('active_condition_id').value);
